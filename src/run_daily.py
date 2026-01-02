@@ -74,7 +74,7 @@ def pick_top(items, topics, max_items=5):
         for t in topics:
             if not t.get("enabled", True):
                 continue
-            s = score_item(it, t.get("keywords", []))
+            s = score_item(it, t.get("keywords") or [])
             if s >= t.get("min_score", 0):
                 if best is None or s > best["score"]:
                     best = {"topic": t["name"], "score": s}
