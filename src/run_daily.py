@@ -233,7 +233,12 @@ def pick_fallback_item(items: List[dict], topic: dict, used_links: set) -> dict 
     elif tid == "ai_major":
         hints = ["科技", "ai", "人工智慧", "晶片", "半導體"]
     elif tid == "watsons_tw":
-        hints = ["零售", "通路", "藥局", "門市", "消費"]
+    hints = [
+        "零售", "通路", "藥局", "門市", "消費",
+        "連鎖", "品牌", "展店", "關店", "營收",
+        "百貨", "商場"
+    ]
+
     else:
         return None
 
