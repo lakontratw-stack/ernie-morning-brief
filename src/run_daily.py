@@ -1,3 +1,4 @@
+import re
 import os
 import textwrap
 import time
@@ -77,6 +78,13 @@ def pick_top(items, topics, max_items=5):
     return picked
 
 
+def strip_html(s: str) -> str:
+    if not s:
+        return ""
+    s = re.sub(r"<[^>]+>", " ", s)          # remove tags
+    s = re.sub(r"\s+", " ", s).strip()      # normalize spaces
+    return s
+
 def format_digest(picked):
     today = datetime.now(TAIPEI_TZ)
     header = f"☀️ Ernie 早安AI日報 ☀️\n📅 {today.year}年{today.month}月{today.day}日\n\n今天有 {len(picked)} 則最近值得關注的 AI 自動化收集的最新資訊分享給你 👇\n"
@@ -86,7 +94,7 @@ def format_digest(picked):
         title = it["title"]
         link = it["link"]
         # make 2 short bullets from title/summary (rule-based)
-        s = it.get("summary", "")
+        s = strip_html(it.get("summary", ""))
         s = " ".join(s.split())
         short = textwrap.shorten(s, width=120, placeholder="…") if s else ""
         b1 = f"💡 主題：{topic}"
