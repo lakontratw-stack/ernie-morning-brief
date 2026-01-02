@@ -15,16 +15,44 @@ if not CONFIG_PATH.exists():
 with open(CONFIG_PATH, "r", encoding="utf-8") as f:
     config = yaml.safe_load(f)
 
-st.subheader("📌 主題設定（暫時只顯示）")
-
 topics = config.get("topics", [])
 
-for t in topics:
-    with st.expander(t.get("name", t.get("id"))):
-        st.write("ID:", t.get("id"))
-        st.write("Enabled:", t.get("enabled"))
-        st.write("Min score:", t.get("min_score"))
-        st.write("Keywords:")
-        st.code("\n".join(t.get("keywords", [])))
+st.subheader("📌 主題設定")
 
-st.success("Dashboard 啟動成功 🎉（下一步會加上勾選與 Save）")
+edited_topics = []
+
+for idx, t in enumerate(topics):
+    with st.expander(t.get("name", t.get("id")), expanded=False):
+        enabled = st.checkbox(
+            "啟用此主題",
+            value=t.get("enabled", True),
+            key=f"enabled_{idx}",
+        )
+
+        min_score = st.number_input(
+            "最低分數門檻（min_score）",
+            min_value=0,
+            max_value=10,
+            value=t.get("min_score", 1),
+            step=1,
+            key=f"min_score_{idx}",
+        )
+
+        query = st.text_area(
+            "搜尋 Query（以空白分隔，會取代 keywords）",
+            value=" ".join(t.get("keywords", [])),
+            height=120,
+            key=f"query_{idx}",
+        )
+
+        edited_topics.append(
+            {
+                **t,
+                "enabled": enabled,
+                "min_score": int(min_score),
+                "keywords": [q for q in query.split() if q.strip()],
+            }
+        )
+
+st.divider()
+st.info("⬆️ 上方設定尚未儲存（下一步會加入 Save）")
