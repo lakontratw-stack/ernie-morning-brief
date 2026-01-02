@@ -1,6 +1,7 @@
 import streamlit as st
 import yaml
 from pathlib import Path
+from datetime import datetime
 
 st.set_page_config(page_title="Ernie Morning Brief Dashboard", layout="wide")
 
@@ -55,4 +56,13 @@ for idx, t in enumerate(topics):
         )
 
 st.divider()
-st.info("⬆️ 上方設定尚未儲存（下一步會加入 Save）")
+
+# ===== Save 區 =====
+if st.button("💾 Save 設定（寫回 GitHub）"):
+    config["topics"] = edited_topics
+    config["last_updated"] = datetime.utcnow().isoformat()
+
+    with open(CONFIG_PATH, "w", encoding="utf-8") as f:
+        yaml.dump(config, f, allow_unicode=True, sort_keys=False)
+
+    st.success("設定已更新到檔案（下一步會 commit 回 GitHub）")
