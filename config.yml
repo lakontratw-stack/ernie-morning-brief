@@ -3,17 +3,9 @@ schedule:
   time: "06:00"
 
 digest:
-  # 總推播上限（仍保留）
-  max_items: 5
-  lookback_hours: 36
+  max_items: 8
+  lookback_hours: 48
   language: zh-TW
-  radar:
-  threads:
-    enabled: true
-    max_terms_per_topic: 3
-
-
-  # v1.1: 每個主題至少 1 則（找不到就顯示「無符合條件」）
   min_per_topic: 1
 
 topics:
@@ -51,34 +43,6 @@ topics:
       - 通路競爭
       - 李澤鉅
       - 李嘉誠
-    guard:
-      # 硬性條件：至少命中任一個（避免跑出完全無關的零售/生活新聞）
-      must_include_any:
-        - 屈臣氏
-        - Watsons
-        - 康是美
-        - 寶雅
-        - 松本清
-        - Tomod's
-        - 日藥本舖
-        - 藥妝
-        - 藥局
-        - drugstore
-        - 連鎖藥局
-        - 通路
-        - 展店
-        - 門市
-      # 明確排除：與主題高度無關、常見誤入類型
-      must_not_include_any:
-        - 天氣
-        - 低溫
-        - 冷氣團
-        - 鋒面
-        - 地震
-        - 颱風
-        - 軍武
-        - 普廷
-        - 烏克蘭
 
   - id: accounting
     name: 國內外會計相關訊息
@@ -100,7 +64,6 @@ topics:
       - 季報
       - 合併報表
       - 審計
-      - 查核
       - 內控
       - 稽核
       - 舞弊
@@ -113,49 +76,45 @@ topics:
       - Gary
       - Gensler
       - 永續環保
-      guard:
-    # 必須至少命中其中一組的「會計/財務語境」詞
-    must_include_any:
-      - IFRS
-      - IASB
-      - FASB
-      - 會計
-      - 會計準則
-      - 準則
-      - 財報
-      - 財務報告
-      - 年報
-      - 季報
-      - 合併報表
-      - 審計
-      - 內控
-      - 稽核
-      - 舞弊
-      - 永續揭露
-      - 永續報告
-      - 碳揭露
-      - 金管會
-      - SEC
-      - 證交所
-      - 櫃買中心
-
-    # 再額外擋掉「國防/軍演/政治」語境，避免查核新聞進來
-    must_not_include_any:
-      - 無人機
-      - 軍演
-      - 共軍
-      - 導彈
-      - 烏克蘭
-      - 普廷
-      - 台海
-      - 國防
-      - 戰爭
-      - 俯瞰
-      - 101
-      - 查核
-      - 查證
-      - 事實查核
-
+    guard:
+      must_include_any:
+        - IFRS
+        - IASB
+        - FASB
+        - 會計
+        - 會計準則
+        - 準則
+        - 財報
+        - 財務報告
+        - 年報
+        - 季報
+        - 合併報表
+        - 審計
+        - 內控
+        - 稽核
+        - 舞弊
+        - 永續揭露
+        - 永續報告
+        - 碳揭露
+        - 金管會
+        - SEC
+        - 證交所
+        - 櫃買中心
+      must_not_include_any:
+        - 無人機
+        - 軍演
+        - 共軍
+        - 導彈
+        - 烏克蘭
+        - 普廷
+        - 台海
+        - 國防
+        - 戰爭
+        - 俯瞰
+        - "101"
+        - 查核
+        - 查證
+        - 事實查核
 
   - id: ai_major
     name: AI 應用與重大訊息
@@ -198,43 +157,14 @@ topics:
       - Nadella
       - Mark
       - Zuckerberg
-    guard:
-      # 硬性條件：至少命中任一個 AI/模型/工具關鍵詞，避免天氣與政治軍事靠「重大」誤入
-      must_include_any:
-        - AI
-        - 人工智慧
-        - 生成式
-        - 大模型
-        - 語言模型
-        - 模型
-        - Copilot
-        - OpenAI
-        - Gemini
-        - Claude
-        - Anthropic
-        - NVIDIA
-        - 晶片
-        - 半導體
-        - 資料中心
-        - 自動化
-        - 代理人
-        - agent
-      must_not_include_any:
-        # 你這次實際誤入的類型，直接擋
-        - 天氣
-        - 低溫
-        - 冷氣團
-        - 鋒面
-        - 氣象
-        - 地震
-        - 普廷
-        - 烏克蘭
-        - 軍武
-        - 導彈
-        - 砲擊
+
+radar:
+  threads:
+    enabled: false
+    max_terms_per_topic: 3
 
 sources:
   rss:
-    - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+    - "https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
 
 last_updated: "2026-01-02T08:03:25.060314"
