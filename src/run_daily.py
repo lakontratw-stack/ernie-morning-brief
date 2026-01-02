@@ -417,14 +417,90 @@ def line_push(message: str):
     r = requests.post(url, headers=headers, json=payload, timeout=30)
     r.raise_for_status()
 
-
-def main():
-    cfg = load_config("config.yml")
+def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = False) -> str:
+    """
+    Generate digest text only (no LINE push).
+    for_new_user=True will generate a shorter digest (1 per topic) to avoid flooding.
+    """
+    cfg = load_config(cfg_path)
     rss_urls = cfg.get("sources", {}).get("rss", [])
     lookback = int(cfg.get("digest", {}).get("lookback_hours", 36))
     max_items = int(cfg.get("digest", {}).get("max_items", 5))
     min_per_topic = int(cfg.get("digest", {}).get("min_per_topic", 1))
     topics = cfg.get("topics", []) or []
+
+    # New user: keep it short (1 per topic), and cap total items
+    if for_new_user:
+        min_per_topic = 1
+        max_items = min(3, max_items)
+
+    items = fetch_rss(rss_urls, lookback_hours=lookback)
+
+    # Threads radar (if your current run_daily.py has it)
+    threads_terms = []
+    topic_threads_terms = {}
+    radar_cfg = cfg.get("radar", {}).get("threads", {})
+    radar_enabled = bool(radar_cfg.get("enabled", False))
+
+    if radar_enabled:
+        # If you already implemented TW/Global split, keep your existing variables here.
+        # Otherwise we reuse your current fetch_threads_trending() if present.
+        if "fetch_threads_trending" in globals():
+            threads_terms = fetch_threads_trending()
+            topic_threads_terms = map_threads_terms_to_topics(
+                threads_terms,
+                topics,
+                max_per_topic=int(radar_cfg.get("max_terms_per_topic", 3)),
+            )
+        else:
+            # If you have TW/Global, your format function should handle it separately.
+            # Leave empty if not available.
+            threads_terms = []
+            topic_threads_terms = {}
+
+    # If your code uses pick_by_topic(), keep it.
+    # If not, keep your pick_top() and later we adjust.
+    if "pick_by_topic" in globals():
+        topic_radar_terms = topic_threads_terms if radar_enabled else {t.get("id"): [] for t in topics}
+        picks = pick_by_topic(
+            items,
+            topics,
+            max_items=max_items,
+            min_per_topic=min_per_topic,
+            topic_radar_terms=topic_radar_terms,
+        )
+
+        # Prefer your existing formatter if present
+        if "format_digest" in globals():
+            try:
+                return format_digest(picks, threads_terms=threads_terms, topic_threads_terms=topic_threads_terms)
+            except TypeError:
+                # fallback for older signature
+                return format_digest(picks)
+        return format_digest(picks)
+
+    # Fallback to older v1 logic
+    picked = pick_top(items, topics, max_items=max_items)
+    return format_digest(picked)
+
+
+def push_digest_to_user(user_id: str, message: str):
+    """
+    Push digest to a specific LINE user_id.
+    """
+    token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+    url = "https://api.line.me/v2/bot/message/push"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    payload = {"to": user_id, "messages": [{"type": "text", "text": message[:4900]}]}
+    r = requests.post(url, headers=headers, json=payload, timeout=30)
+    r.raise_for_status()
+
+
+def main():
+    msg = generate_today_digest("config.yml", for_new_user=False)
+    line_push(msg)
+    print("Pushed to LINE.")
+
 
     items = fetch_rss(rss_urls, lookback_hours=lookback)
 
