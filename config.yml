@@ -1,0 +1,31 @@
+schedule:
+  timezone: Asia/Taipei
+  time: "06:00"
+
+digest:
+  max_items: 5
+  lookback_hours: 36
+  language: "zh-TW"
+
+topics:
+  - id: watsons_tw
+    name: "台灣屈臣氏與競爭對手"
+    enabled: true
+    min_score: 1
+    keywords: ["台灣屈臣氏","Watsons Taiwan","康是美","寶雅","松本清","Tomod's","屈臣氏"]
+
+  - id: accounting
+    name: "國內外會計相關訊息"
+    enabled: true
+    min_score: 1
+    keywords: ["IFRS","IASB","FASB","審計","財報","會計準則","內控"]
+
+  - id: ai_major
+    name: "AI 應用與重大訊息"
+    enabled: true
+    min_score: 1
+    keywords: ["AI","OpenAI","Gemini","Claude","NVIDIA","大模型","AI 法規","AI agent"]
+
+sources:
+  rss:
+    - "https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
