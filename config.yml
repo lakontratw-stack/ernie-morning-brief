@@ -1,120 +1,222 @@
 schedule:
   timezone: Asia/Taipei
-  time: 06:00
+  time: "06:00"
+
 digest:
+  # 總推播上限（仍保留）
   max_items: 5
   lookback_hours: 36
   language: zh-TW
+
+  # v1.1: 每個主題至少 1 則（找不到就顯示「無符合條件」）
+  min_per_topic: 1
+
 topics:
-- id: watsons_tw
-  name: 台灣屈臣氏與競爭對手
-  enabled: true
-  min_score: 2
-  keywords:
-  - 屈臣氏
-  - Watsons
-  - A.S.
-  - Watson
-  - 長江和記
-  - 長和集團
-  - 康是美
-  - 寶雅
-  - 松本清
-  - Tomod's
-  - 日藥本舖
-  - 藥妝通路
-  - 連鎖藥局
-  - 展店
-  - 關店
-  - 開幕
-  - 門市
-  - 據點
-  - 商圈
-  - 通路布局
-  - 實體零售
-  - 營收
-  - 營運
-  - 成長
-  - 毛利
-  - 市場佔有率
-  - 通路競爭
-  - 李澤鉅
-  - 李嘉誠
-- id: accounting
-  name: 國內外會計相關訊息
-  enabled: true
-  min_score: 2
-  keywords:
-  - IFRS
-  - IASB
-  - FASB
-  - 會計準則
-  - 國際會計準則
-  - 金管會
-  - 證交所
-  - 櫃買中心
-  - SEC
-  - 財報
-  - 財務報告
-  - 年報
-  - 季報
-  - 合併報表
-  - 審計
-  - 查核
-  - 內控
-  - 稽核
-  - 舞弊
-  - ESG
-  - 永續揭露
-  - 永續報告
-  - 碳揭露
-  - Andreas
-  - Barckow
-  - Gary
-  - Gensler
-  - 永續環保
-- id: ai_major
-  name: AI 應用與重大訊息
-  enabled: true
-  min_score: 2
-  keywords:
-  - OpenAI
-  - Google
-  - Gemini
-  - Anthropic
-  - Claude
-  - NVIDIA
-  - Microsoft
-  - Meta
-  - 生成式
-  - 大模型
-  - 語言模型
-  - 模型
-  - 推理
-  - 算力
-  - 資料中心
-  - 自動化
-  - AI助理
-  - 智慧客服
-  - Copilot
-  - 代理人
-  - 企業導入
-  - AI法
-  - 人工智慧法
-  - 監管
-  - 晶片
-  - 半導體
-  - Sam
-  - Altman
-  - Jensen
-  - Huang
-  - Sundar
-  - Pichai
-  - Satya
-  - Nadella
-  - Mark
-  - Zuckerberg
+  - id: watsons_tw
+    name: 台灣屈臣氏與競爭對手
+    enabled: true
+    min_score: 2
+    keywords:
+      - 屈臣氏
+      - Watsons
+      - A.S.
+      - Watson
+      - 長江和記
+      - 長和集團
+      - 康是美
+      - 寶雅
+      - 松本清
+      - Tomod's
+      - 日藥本舖
+      - 藥妝通路
+      - 連鎖藥局
+      - 展店
+      - 關店
+      - 開幕
+      - 門市
+      - 據點
+      - 商圈
+      - 通路布局
+      - 實體零售
+      - 營收
+      - 營運
+      - 成長
+      - 毛利
+      - 市場佔有率
+      - 通路競爭
+      - 李澤鉅
+      - 李嘉誠
+    guard:
+      # 硬性條件：至少命中任一個（避免跑出完全無關的零售/生活新聞）
+      must_include_any:
+        - 屈臣氏
+        - Watsons
+        - 康是美
+        - 寶雅
+        - 松本清
+        - Tomod's
+        - 日藥本舖
+        - 藥妝
+        - 藥局
+        - drugstore
+        - 連鎖藥局
+        - 通路
+        - 展店
+        - 門市
+      # 明確排除：與主題高度無關、常見誤入類型
+      must_not_include_any:
+        - 天氣
+        - 低溫
+        - 冷氣團
+        - 鋒面
+        - 地震
+        - 颱風
+        - 軍武
+        - 普廷
+        - 烏克蘭
+
+  - id: accounting
+    name: 國內外會計相關訊息
+    enabled: true
+    min_score: 2
+    keywords:
+      - IFRS
+      - IASB
+      - FASB
+      - 會計準則
+      - 國際會計準則
+      - 金管會
+      - 證交所
+      - 櫃買中心
+      - SEC
+      - 財報
+      - 財務報告
+      - 年報
+      - 季報
+      - 合併報表
+      - 審計
+      - 查核
+      - 內控
+      - 稽核
+      - 舞弊
+      - ESG
+      - 永續揭露
+      - 永續報告
+      - 碳揭露
+      - Andreas
+      - Barckow
+      - Gary
+      - Gensler
+      - 永續環保
+    guard:
+      must_include_any:
+        - IFRS
+        - IASB
+        - FASB
+        - 會計
+        - 審計
+        - 查核
+        - 內控
+        - 稽核
+        - 財報
+        - 財務報告
+        - 年報
+        - 季報
+        - 合併報表
+        - 稅
+        - 金管會
+        - SEC
+        - 準則
+      must_not_include_any:
+        # 排除偏理財、偏投資教學、偏行銷文案的常見雜訊
+        - 折扣碼
+        - 開箱
+        - 抽獎
+        - 飆股
+        - 長抱
+        - 報酬放大
+        - 立即致富
+        - 當沖
+        - K線
+
+  - id: ai_major
+    name: AI 應用與重大訊息
+    enabled: true
+    min_score: 2
+    keywords:
+      - OpenAI
+      - Google
+      - Gemini
+      - Anthropic
+      - Claude
+      - NVIDIA
+      - Microsoft
+      - Meta
+      - 生成式
+      - 大模型
+      - 語言模型
+      - 模型
+      - 推理
+      - 算力
+      - 資料中心
+      - 自動化
+      - AI助理
+      - 智慧客服
+      - Copilot
+      - 代理人
+      - 企業導入
+      - AI法
+      - 人工智慧法
+      - 監管
+      - 晶片
+      - 半導體
+      - Sam
+      - Altman
+      - Jensen
+      - Huang
+      - Sundar
+      - Pichai
+      - Satya
+      - Nadella
+      - Mark
+      - Zuckerberg
+    guard:
+      # 硬性條件：至少命中任一個 AI/模型/工具關鍵詞，避免天氣與政治軍事靠「重大」誤入
+      must_include_any:
+        - AI
+        - 人工智慧
+        - 生成式
+        - 大模型
+        - 語言模型
+        - 模型
+        - Copilot
+        - OpenAI
+        - Gemini
+        - Claude
+        - Anthropic
+        - NVIDIA
+        - 晶片
+        - 半導體
+        - 資料中心
+        - 自動化
+        - 代理人
+        - agent
+      must_not_include_any:
+        # 你這次實際誤入的類型，直接擋
+        - 天氣
+        - 低溫
+        - 冷氣團
+        - 鋒面
+        - 氣象
+        - 地震
+        - 普廷
+        - 烏克蘭
+        - 軍武
+        - 導彈
+        - 砲擊
+
 sources:
   rss:
-  - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
-last_updated: '2026-01-02T08:03:25.060314'
+    - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+
+last_updated: "2026-01-02T08:03:25.060314"
