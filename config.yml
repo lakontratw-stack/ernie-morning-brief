@@ -1,144 +1,120 @@
 schedule:
   timezone: Asia/Taipei
-  time: "06:00"
-
+  time: 06:00
 digest:
   max_items: 5
   lookback_hours: 36
-  language: "zh-TW"
-
+  language: zh-TW
 topics:
-  - id: watsons_tw
-    name: "台灣屈臣氏與競爭對手"
-    enabled: true
-    min_score: 2
-    keywords:
-      # 品牌 / 集團
-      - "屈臣氏"
-      - "Watsons"
-      - "A.S. Watson"
-      - "長江和記"
-      - "長和集團"
-
-      # 競爭通路
-      - "康是美"
-      - "寶雅"
-      - "松本清"
-      - "Tomod's"
-      - "日藥本舖"
-      - "藥妝通路"
-      - "連鎖藥局"
-
-      # 通路與營運行為
-      - "展店"
-      - "關店"
-      - "開幕"
-      - "門市"
-      - "據點"
-      - "商圈"
-      - "通路布局"
-      - "實體零售"
-
-      # 經營與財務語言
-      - "營收"
-      - "營運"
-      - "成長"
-      - "毛利"
-      - "市場佔有率"
-      - "通路競爭"
-
-      # 人物（新聞會點名）
-      - "李澤鉅"
-      - "李嘉誠"
-
-  - id: accounting
-    name: "國內外會計相關訊息"
-    enabled: true
-    min_score: 2
-    keywords:
-      # 準則 / 機構
-      - "IFRS"
-      - "IASB"
-      - "FASB"
-      - "會計準則"
-      - "國際會計準則"
-
-      # 監理機關
-      - "金管會"
-      - "證交所"
-      - "櫃買中心"
-      - "SEC"
-
-      # 財報語言
-      - "財報"
-      - "財務報告"
-      - "年報"
-      - "季報"
-      - "合併報表"
-
-      # 審計與內控
-      - "審計"
-      - "查核"
-      - "內控"
-      - "稽核"
-      - "舞弊"
-
-      # 永續與會計交集
-      - "ESG"
-      - "永續揭露"
-      - "永續報告"
-      - "碳揭露"
-
-      # 人物（國際）
-      - "Andreas Barckow"
-      - "Gary Gensler"
-
-  - id: ai_major
-    name: "AI 應用與重大訊息"
-    enabled: true
-    min_score: 2
-    keywords:
-      # 公司 / 平台
-      - "OpenAI"
-      - "Google"
-      - "Gemini"
-      - "Anthropic"
-      - "Claude"
-      - "NVIDIA"
-      - "Microsoft"
-      - "Meta"
-
-      # 技術用語（新聞常用）
-      - "生成式"
-      - "大模型"
-      - "語言模型"
-      - "模型"
-      - "推理"
-      - "算力"
-      - "資料中心"
-
-      # 應用場景
-      - "自動化"
-      - "AI助理"
-      - "智慧客服"
-      - "Copilot"
-      - "代理人"
-      - "企業導入"
-
-      # 法規與產業
-      - "AI法"
-      - "人工智慧法"
-      - "監管"
-      - "晶片"
-      - "半導體"
-
-      # 人物（高曝光）
-      - "Sam Altman"
-      - "Jensen Huang"
-      - "Sundar Pichai"
-      - "Satya Nadella"
-      - "Mark Zuckerberg"
-
+- id: watsons_tw
+  name: 台灣屈臣氏與競爭對手
+  enabled: true
+  min_score: 2
+  keywords:
+  - 屈臣氏
+  - Watsons
+  - A.S.
+  - Watson
+  - 長江和記
+  - 長和集團
+  - 康是美
+  - 寶雅
+  - 松本清
+  - Tomod's
+  - 日藥本舖
+  - 藥妝通路
+  - 連鎖藥局
+  - 展店
+  - 關店
+  - 開幕
+  - 門市
+  - 據點
+  - 商圈
+  - 通路布局
+  - 實體零售
+  - 營收
+  - 營運
+  - 成長
+  - 毛利
+  - 市場佔有率
+  - 通路競爭
+  - 李澤鉅
+  - 李嘉誠
+- id: accounting
+  name: 國內外會計相關訊息
+  enabled: true
+  min_score: 2
+  keywords:
+  - IFRS
+  - IASB
+  - FASB
+  - 會計準則
+  - 國際會計準則
+  - 金管會
+  - 證交所
+  - 櫃買中心
+  - SEC
+  - 財報
+  - 財務報告
+  - 年報
+  - 季報
+  - 合併報表
+  - 審計
+  - 查核
+  - 內控
+  - 稽核
+  - 舞弊
+  - ESG
+  - 永續揭露
+  - 永續報告
+  - 碳揭露
+  - Andreas
+  - Barckow
+  - Gary
+  - Gensler
+  - 永續環保
+- id: ai_major
+  name: AI 應用與重大訊息
+  enabled: true
+  min_score: 2
+  keywords:
+  - OpenAI
+  - Google
+  - Gemini
+  - Anthropic
+  - Claude
+  - NVIDIA
+  - Microsoft
+  - Meta
+  - 生成式
+  - 大模型
+  - 語言模型
+  - 模型
+  - 推理
+  - 算力
+  - 資料中心
+  - 自動化
+  - AI助理
+  - 智慧客服
+  - Copilot
+  - 代理人
+  - 企業導入
+  - AI法
+  - 人工智慧法
+  - 監管
+  - 晶片
+  - 半導體
+  - Sam
+  - Altman
+  - Jensen
+  - Huang
+  - Sundar
+  - Pichai
+  - Satya
+  - Nadella
+  - Mark
+  - Zuckerberg
 sources:
   rss:
-    - "https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+  - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+last_updated: '2026-01-02T08:03:25.060314'
