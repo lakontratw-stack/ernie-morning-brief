@@ -46,7 +46,6 @@ async def webhook(req: Request):
                 "• AI 應用與重大訊息\n\n"
                 "你也可以隨時在 Dashboard 調整主題。"
             )
-
             push_message(user_id, welcome_text)
 
     return {"ok": True}
