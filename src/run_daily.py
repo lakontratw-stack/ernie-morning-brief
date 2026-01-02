@@ -233,10 +233,13 @@ def pick_fallback_item(items: List[dict], topic: dict, used_links: set) -> dict 
     elif tid == "ai_major":
         hints = ["科技", "ai", "人工智慧", "晶片", "半導體"]
     elif tid == "watsons_tw":
+    # 允許競品新聞當保底：康是美/寶雅/松本清/日系藥妝/連鎖藥局等
     hints = [
-        "零售", "通路", "藥局", "門市", "消費",
-        "連鎖", "品牌", "展店", "關店", "營收",
-        "百貨", "商場"
+        "屈臣氏", "watsons",
+        "康是美", "寶雅", "松本清", "tomod's", "日藥本舖",
+        "藥妝", "藥妝通路", "連鎖藥局",
+        "零售", "通路", "門市", "展店", "關店", "營收",
+        "品牌", "商圈", "據點"
     ]
 
     else:
@@ -394,11 +397,29 @@ def format_digest(picks: List[dict], threads_terms: List[str], topic_threads_ter
     today = datetime.now(TAIPEI_TZ)
     real_count = len([p for p in picks if p.get("item") is not None])
 
-    header = (
-        f"☀️ Ernie 早安AI日報 ☀️\n"
-        f"📅 {today.year}年{today.month}月{today.day}日\n\n"
-        f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
-    )
+    strict_cnt = 0
+fallback_cnt = 0
+empty_topics = 0
+
+for p in picks:
+    it = p.get("item")
+    s = float(p.get("score", 0.0) or 0.0)
+    if it is None:
+        empty_topics += 1
+    elif s <= 0.5:
+        fallback_cnt += 1
+    else:
+        strict_cnt += 1
+
+status_line = f"📌 今日狀態摘要：嚴格命中 {strict_cnt} 則｜保底 {fallback_cnt} 則｜空白 {empty_topics} 主題\n"
+
+header = (
+    f"☀️ Ernie 早安AI日報 ☀️\n"
+    f"📅 {today.year}年{today.month}月{today.day}日\n"
+    f"{status_line}\n"
+    f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
+)
+
 
     body_lines: List[str] = []
     sources: List[str] = []
