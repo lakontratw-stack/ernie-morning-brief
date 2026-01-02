@@ -7,6 +7,11 @@ digest:
   max_items: 5
   lookback_hours: 36
   language: zh-TW
+  radar:
+  threads:
+    enabled: true
+    max_terms_per_topic: 3
+
 
   # v1.1: 每個主題至少 1 則（找不到就顯示「無符合條件」）
   min_per_topic: 1
