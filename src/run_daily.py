@@ -217,33 +217,39 @@ def score_item(
 # -----------------------------
 # Fallback (Guarantee 1 per topic)
 # -----------------------------
-def pick_fallback_item(items: List[dict], topic: dict, used_links: set) -> dict | None:
+def pick_fallback_item(items: List[dict], topic: dict) -> dict | None:
     """
     Pick ONE low-risk fallback item for a topic when strict rules find nothing.
-    This does NOT use keywords scoring; only broad, conservative hints.
-
-    - still respects topic guard's must_not_include_any if provided
-    - avoids duplicates via used_links
+    This does NOT use keywords scoring, only broad semantic hints.
     """
     tid = topic.get("id", "")
-    guard = topic.get("guard") or {}
+    text_items = [(it, _text_blob(it)) for it in items]
 
     if tid == "accounting":
         hints = ["財經", "公司", "財務", "金融", "監管"]
+
     elif tid == "ai_major":
-        hints = ["科技", "ai", "人工智慧", "晶片", "半導體"]
+        hints = ["ai", "人工智慧", "模型", "晶片", "半導體", "資料中心"]
+
     elif tid == "watsons_tw":
-    # 允許競品新聞當保底：康是美/寶雅/松本清/日系藥妝/連鎖藥局等
-    hints = [
-        "屈臣氏", "watsons",
-        "康是美", "寶雅", "松本清", "tomod's", "日藥本舖",
-        "藥妝", "藥妝通路", "連鎖藥局",
-        "零售", "通路", "門市", "展店", "關店", "營收",
-        "品牌", "商圈", "據點"
-    ]
+        # 允許競品新聞作為保底
+        hints = [
+            "屈臣氏", "watsons",
+            "康是美", "寶雅", "松本清", "tomod's", "日藥本舖",
+            "藥妝", "藥妝通路", "連鎖藥局",
+            "零售", "通路", "門市", "展店", "關店", "營收",
+            "品牌", "商圈", "據點",
+        ]
 
     else:
         return None
+
+    for it, blob in text_items:
+        if any(h in blob for h in hints):
+            return it
+
+    return None
+
 
     for it in items:
         link = it.get("link", "")
