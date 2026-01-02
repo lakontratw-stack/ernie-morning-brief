@@ -1,9 +1,16 @@
 import os
+import sys
 import requests
 from fastapi import FastAPI, Request
 
-app = FastAPI()
+# allow importing from repo root
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
+from src.run_daily import generate_today_digest, push_digest_to_user  # noqa
+
+app = FastAPI()
 LINE_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "").strip()
 
 
@@ -44,8 +51,12 @@ async def webhook(req: Request):
                 "• 台灣屈臣氏與競爭對手\n"
                 "• 國內外會計與監管\n"
                 "• AI 應用與重大訊息\n\n"
-                "你也可以隨時在 Dashboard 調整主題。"
+                "下面先送你今日最新一期（精簡版）。"
             )
             push_message(user_id, welcome_text)
+
+            # push today's digest (short)
+            digest = generate_today_digest(os.path.join(ROOT, "config.yml"), for_new_user=True)
+            push_digest_to_user(user_id, digest)
 
     return {"ok": True}
