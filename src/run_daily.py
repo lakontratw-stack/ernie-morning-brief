@@ -6,12 +6,15 @@ import yaml
 import feedparser
 import requests
 from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 
 TAIPEI_TZ = timezone(timedelta(hours=8))
 
 
-def load_config(path: str = "config.yml"):
+# -----------------------------
+# Config / IO
+# -----------------------------
+def load_config(path: str = "config.yml") -> dict:
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
@@ -51,14 +54,18 @@ def fetch_rss(urls: List[str], lookback_hours: int = 36) -> List[dict]:
     seen = set()
     deduped = []
     for it in items:
-        if it["link"] in seen:
+        link = it.get("link")
+        if not link or link in seen:
             continue
-        seen.add(it["link"])
+        seen.add(link)
         deduped.append(it)
 
     return deduped
 
 
+# -----------------------------
+# Text utils
+# -----------------------------
 def strip_html(s: str) -> str:
     if not s:
         return ""
@@ -73,6 +80,9 @@ def _text_blob(item: dict) -> str:
     return f"{title} {summary}".lower()
 
 
+# -----------------------------
+# Guard (hard constraints)
+# -----------------------------
 def guard_pass(item: dict, guard: dict) -> Tuple[bool, Dict[str, List[str]]]:
     """
     Hard constraint filter for a topic.
@@ -85,8 +95,8 @@ def guard_pass(item: dict, guard: dict) -> Tuple[bool, Dict[str, List[str]]]:
 
     blob = _text_blob(item)
 
-    must = [s.lower() for s in (guard.get("must_include_any", []) or []) if s]
-    blocked = [s.lower() for s in (guard.get("must_not_include_any", []) or []) if s]
+    must = [str(s).lower() for s in (guard.get("must_include_any", []) or []) if s]
+    blocked = [str(s).lower() for s in (guard.get("must_not_include_any", []) or []) if s]
 
     must_hit = [s for s in must if s in blob]
     blocked_hit = [s for s in blocked if s in blob]
@@ -101,35 +111,26 @@ def guard_pass(item: dict, guard: dict) -> Tuple[bool, Dict[str, List[str]]]:
 
 
 # -----------------------------
-# Threads Radar (v0: conservative stub)
+# Threads Radar (v0 stub)
 # -----------------------------
-def fetch_threads_trending() -> List[str]:
-    """
-    Return a list of trending terms from Threads.
+def fetch_threads_trending_tw() -> List[str]:
+    # TODO: replace with real collector later
+    return []
 
-    v0 implementation is a conservative stub to validate product behavior:
-    - No post content
-    - No author info
-    - Just short terms (names/brands/topics)
-    """
-    return [
-        "OpenAI",
-        "Sam Altman",
-        "AI 法",
-        "資料中心",
-        "NVIDIA",
-        "屈臣氏",
-        "康是美",
-        "IFRS",
-    ]
+
+def fetch_threads_trending_global() -> List[str]:
+    # TODO: replace with real collector later
+    return []
 
 
 def map_threads_terms_to_topics(
-    terms: List[str], topics: List[dict], max_per_topic: int = 3
+    terms: List[str],
+    topics: List[dict],
+    max_per_topic: int = 3
 ) -> Dict[str, List[str]]:
     """
-    Map Threads terms to topic ids by simple overlap with topic keywords/guard.must_include_any.
-    Rule-based to avoid hallucination.
+    Map radar terms to topic ids by overlap with topic keywords + guard.must_include_any.
+    Rule-based (no LLM) to avoid hallucination.
     """
     topic_terms: Dict[str, List[str]] = {}
     enabled_topics = [t for t in topics if t.get("enabled", True)]
@@ -138,13 +139,14 @@ def map_threads_terms_to_topics(
         topic_terms[tid] = []
 
     for term in terms:
-        term_l = term.lower().strip()
+        term_l = str(term).lower().strip()
         if not term_l:
             continue
 
         for t in enabled_topics:
             tid = t.get("id", t.get("name", "topic"))
             keys = (t.get("keywords") or []) + (t.get("guard", {}).get("must_include_any") or [])
+
             related = False
             for k in keys:
                 kl = str(k).lower().strip()
@@ -164,10 +166,12 @@ def map_threads_terms_to_topics(
 # Scoring
 # -----------------------------
 def score_item(
-    item: dict, base_keywords: List[str], radar_terms: List[str] = None
+    item: dict,
+    base_keywords: List[str],
+    radar_terms: Optional[List[str]] = None
 ) -> Tuple[float, List[str], List[str]]:
     """
-    Keyword scoring with optional Threads radar terms.
+    Keyword scoring with optional radar terms.
 
     - base keyword title hit: +2
     - base keyword text hit: +1
@@ -185,7 +189,7 @@ def score_item(
     radar_hits: List[str] = []
     score = 0.0
 
-    def _add_hit(hit_list: List[str], term: str):
+    def add_hit(hit_list: List[str], term: str):
         if term not in hit_list:
             hit_list.append(term)
 
@@ -195,10 +199,10 @@ def score_item(
             continue
         if kl in title:
             score += 2.0
-            _add_hit(base_hits, k)
+            add_hit(base_hits, str(k))
         elif kl in text:
             score += 1.0
-            _add_hit(base_hits, k)
+            add_hit(base_hits, str(k))
 
     for rt in radar_terms:
         rl = str(rt).lower().strip()
@@ -206,68 +210,68 @@ def score_item(
             continue
         if rl in title:
             score += 0.8
-            _add_hit(radar_hits, rt)
+            add_hit(radar_hits, str(rt))
         elif rl in text:
             score += 0.4
-            _add_hit(radar_hits, rt)
+            add_hit(radar_hits, str(rt))
 
     return score, base_hits, radar_hits
 
 
 # -----------------------------
-# Fallback (Guarantee 1 per topic)
+# Fallback (guarantee 1 per topic)
 # -----------------------------
-def pick_fallback_item(items: List[dict], topic: dict) -> dict | None:
+def pick_fallback_item(items: List[dict], topic: dict, used_links: set) -> Optional[dict]:
     """
     Pick ONE low-risk fallback item for a topic when strict rules find nothing.
-    This does NOT use keywords scoring, only broad semantic hints.
+    Does NOT rely on keyword scoring; uses conservative hints.
+
+    Still applies topic's must_not_include_any (to avoid obvious wrong-domain).
     """
     tid = topic.get("id", "")
-    text_items = [(it, _text_blob(it)) for it in items]
+    guard = topic.get("guard") or {}
+    must_not = guard.get("must_not_include_any", []) or []
 
     if tid == "accounting":
-        hints = ["財經", "公司", "財務", "金融", "監管"]
+        hints = ["財經", "公司", "財務", "金融", "監管", "證交所", "櫃買", "金管會", "SEC", "IFRS", "會計"]
 
     elif tid == "ai_major":
-        hints = ["ai", "人工智慧", "模型", "晶片", "半導體", "資料中心"]
+        hints = ["ai", "人工智慧", "模型", "大模型", "晶片", "半導體", "資料中心", "算力", "nvidia", "openai", "google", "microsoft"]
 
     elif tid == "watsons_tw":
-        # 允許競品新聞作為保底
+        # 允許競品／藥妝通路新聞作為保底
         hints = [
             "屈臣氏", "watsons",
             "康是美", "寶雅", "松本清", "tomod's", "日藥本舖",
             "藥妝", "藥妝通路", "連鎖藥局",
             "零售", "通路", "門市", "展店", "關店", "營收",
-            "品牌", "商圈", "據點",
+            "品牌", "商圈", "據點"
         ]
-
     else:
         return None
-
-    for it, blob in text_items:
-        if any(h in blob for h in hints):
-            return it
-
-    return None
-
 
     for it in items:
         link = it.get("link", "")
         if not link or link in used_links:
             continue
 
-        # still block obvious negatives (must_not)
-        ok, _ = guard_pass(it, {"must_include_any": [], "must_not_include_any": guard.get("must_not_include_any", [])})
+        # apply must_not filter only (do not require must_include in fallback)
+        ok, _ = guard_pass(it, {"must_include_any": [], "must_not_include_any": must_not})
         if not ok:
             continue
 
         blob = _text_blob(it)
-        if any(h.lower() in blob for h in hints):
-            return it
+        # NOTE: blob is lower-case; make hints lower for matching
+        for h in hints:
+            if str(h).lower() in blob:
+                return it
 
     return None
 
 
+# -----------------------------
+# Picking logic
+# -----------------------------
 def pick_by_topic(
     items: List[dict],
     topics: List[dict],
@@ -276,21 +280,29 @@ def pick_by_topic(
     topic_radar_terms: Dict[str, List[str]],
 ) -> List[dict]:
     """
-    Select items per topic (topic-by-topic).
-    Ensures each enabled topic has at least min_per_topic items if possible.
-    If strict rules find none, try fallback (1 item).
-    If still none, use placeholder.
+    Select items per topic.
+    - Strict pass: guard + keyword scoring >= min_score
+    - If strict yields none for a topic: fallback (1 item) if possible
+    - Else: placeholder for the topic
 
-    Returns list of picked entries dict.
+    Returns list of picked entries:
+      {
+        "topic_id": ...,
+        "topic_name": ...,
+        "score": float,
+        "item": dict or None,
+        "base_hits": [...],
+        "radar_hits": [...],
+        "used_radar_terms": [...]
+      }
     """
     picked_entries: List[dict] = []
-
     enabled_topics = [t for t in topics if t.get("enabled", True)]
     if not enabled_topics:
         return picked_entries
 
+    # Build strict candidates per topic
     per_topic_ranked: Dict[str, List[dict]] = {}
-
     for t in enabled_topics:
         tid = t.get("id", t.get("name", "topic"))
         tname = t.get("name", tid)
@@ -298,9 +310,9 @@ def pick_by_topic(
         tkeywords = t.get("keywords") or []
         tguard = t.get("guard") or {}
 
-        radar_terms = topic_radar_terms.get(tid, [])
+        radar_terms = topic_radar_terms.get(tid, []) or []
 
-        ranked = []
+        ranked: List[dict] = []
         for it in items:
             ok, _ = guard_pass(it, tguard)
             if not ok:
@@ -314,7 +326,7 @@ def pick_by_topic(
                 {
                     "topic_id": tid,
                     "topic_name": tname,
-                    "score": s,
+                    "score": float(s),
                     "item": it,
                     "base_hits": base_hits,
                     "radar_hits": radar_hits,
@@ -327,7 +339,7 @@ def pick_by_topic(
 
     used_links = set()
 
-    # First pass: guarantee min_per_topic per topic (strict -> fallback -> placeholder)
+    # Pass 1: ensure min_per_topic per topic (strict -> fallback -> placeholder)
     for t in enabled_topics:
         tid = t.get("id", t.get("name", "topic"))
         tname = t.get("name", tid)
@@ -345,20 +357,20 @@ def pick_by_topic(
                 break
 
         if count < min_per_topic:
-            fallback = pick_fallback_item(items, t, used_links)
-            if fallback:
+            fb = pick_fallback_item(items, t, used_links)
+            if fb:
                 picked_entries.append(
                     {
                         "topic_id": tid,
                         "topic_name": tname,
                         "score": 0.5,  # fallback marker
-                        "item": fallback,
+                        "item": fb,
                         "base_hits": [],
                         "radar_hits": [],
-                        "used_radar_terms": topic_radar_terms.get(tid, []),
+                        "used_radar_terms": topic_radar_terms.get(tid, []) or [],
                     }
                 )
-                used_links.add(fallback["link"])
+                used_links.add(fb["link"])
             else:
                 picked_entries.append(
                     {
@@ -368,16 +380,16 @@ def pick_by_topic(
                         "item": None,
                         "base_hits": [],
                         "radar_hits": [],
-                        "used_radar_terms": topic_radar_terms.get(tid, []),
+                        "used_radar_terms": topic_radar_terms.get(tid, []) or [],
                     }
                 )
 
-    # Second pass: fill remaining slots up to max_items with best remaining across topics
-    def _real_count():
+    # Pass 2: fill remaining slots up to max_items with best strict remaining (no more fallback)
+    def real_count() -> int:
         return len([p for p in picked_entries if p.get("item") is not None])
 
-    if _real_count() < max_items:
-        remaining = []
+    if real_count() < max_items:
+        remaining: List[dict] = []
         for ranked in per_topic_ranked.values():
             for cand in ranked:
                 link = cand["item"]["link"]
@@ -388,7 +400,7 @@ def pick_by_topic(
         remaining.sort(key=lambda x: x["score"], reverse=True)
 
         for cand in remaining:
-            if _real_count() >= max_items:
+            if real_count() >= max_items:
                 break
             link = cand["item"]["link"]
             if link in used_links:
@@ -399,44 +411,52 @@ def pick_by_topic(
     return picked_entries
 
 
-def format_digest(picks: List[dict], threads_terms: List[str], topic_threads_terms: Dict[str, List[str]]) -> str:
+# -----------------------------
+# Formatting
+# -----------------------------
+def format_digest(
+    picks: List[dict],
+    threads_tw: List[str],
+    threads_global: List[str],
+    topic_threads_terms: Dict[str, List[str]],
+) -> str:
     today = datetime.now(TAIPEI_TZ)
     real_count = len([p for p in picks if p.get("item") is not None])
 
     strict_cnt = 0
-fallback_cnt = 0
-empty_topics = 0
+    fallback_cnt = 0
+    empty_topics = 0
 
-for p in picks:
-    it = p.get("item")
-    s = float(p.get("score", 0.0) or 0.0)
-    if it is None:
-        empty_topics += 1
-    elif s <= 0.5:
-        fallback_cnt += 1
-    else:
-        strict_cnt += 1
+    for p in picks:
+        it = p.get("item")
+        s = float(p.get("score", 0.0) or 0.0)
+        if it is None:
+            empty_topics += 1
+        elif s <= 0.5:
+            fallback_cnt += 1
+        else:
+            strict_cnt += 1
 
-status_line = f"📌 今日狀態摘要：嚴格命中 {strict_cnt} 則｜保底 {fallback_cnt} 則｜空白 {empty_topics} 主題\n"
+    status_line = f"📌 今日狀態摘要：嚴格命中 {strict_cnt} 則｜保底 {fallback_cnt} 則｜空白 {empty_topics} 主題"
 
-header = (
-    f"☀️ Ernie 早安AI日報 ☀️\n"
-    f"📅 {today.year}年{today.month}月{today.day}日\n"
-    f"{status_line}\n"
-    f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
-)
-
+    header = (
+        f"☀️ Ernie 早安AI日報 ☀️\n"
+        f"📅 {today.year}年{today.month}月{today.day}日\n"
+        f"{status_line}\n\n"
+        f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
+    )
 
     body_lines: List[str] = []
     sources: List[str] = []
 
     idx = 0
     for p in picks:
-        topic = p["topic_name"]
-        it = p.get("item")
+        topic = p.get("topic_name", "topic")
+        topic_id = p.get("topic_id", "")
 
+        it = p.get("item")
         if it is None:
-            mapped = topic_threads_terms.get(p.get("topic_id", ""), [])[:5]
+            mapped = (topic_threads_terms.get(topic_id, []) or [])[:5]
             mapped_str = "、".join(mapped) if mapped else "（無）"
             body_lines.append(
                 f"— {topic}\n"
@@ -446,25 +466,24 @@ header = (
             continue
 
         idx += 1
-        title = it["title"]
-        link = it["link"]
+        title = it.get("title", "")
+        link = it.get("link", "")
         summary = strip_html(it.get("summary", ""))
         summary = " ".join(summary.split())
         short = textwrap.shorten(summary, width=120, placeholder="…") if summary else ""
 
-        b1 = f"💡 主題：{topic}"
-        b2 = f"💡 {short}" if short else "💡（無摘要，建議直接點開來源）"
-
-        base_hits = p.get("base_hits", [])[:6]
-        radar_hits = p.get("radar_hits", [])[:4]
+        base_hits = (p.get("base_hits") or [])[:6]
+        radar_hits = (p.get("radar_hits") or [])[:4]
         base_hits_str = "、".join(base_hits) if base_hits else "—"
         radar_hits_str = "、".join(radar_hits) if radar_hits else "—"
-        score = float(p.get("score", 0.0))
+        score = float(p.get("score", 0.0) or 0.0)
 
         fallback_note = ""
         if score <= 0.5:
             fallback_note = "🟡 保底新聞（語義接近，未命中嚴格關鍵字）\n"
 
+        b1 = f"💡 主題：{topic}"
+        b2 = f"💡 {short}" if short else "💡（無摘要，建議直接點開來源）"
         b3 = f"🔎 命中：{base_hits_str}｜score={score:.1f}"
         b4 = f"⚡ Threads 觸發：{radar_hits_str}"
 
@@ -476,21 +495,16 @@ header = (
             f"{b3}\n"
             f"{b4}\n"
         )
-        sources.append(f"[{idx}] {link}")
 
-    if threads_terms:
-        threads_block = (
-            "\n━━━━━━━━━━━━━━\n"
-            "🔥 Threads 目前熱詞（雷達用，不直接當新聞）\n"
-            + "、".join(threads_terms[:12])
-            + "\n"
-        )
-    else:
-        threads_block = (
-            "\n━━━━━━━━━━━━━━\n"
-            "🔥 Threads 目前熱詞（雷達用，不直接當新聞）\n"
-            "（本次未取得）\n"
-        )
+        if link:
+            sources.append(f"[{idx}] {link}")
+
+    threads_block = (
+        "\n━━━━━━━━━━━━━━\n"
+        "🔥 Threads 熱詞（雷達用，不直接當新聞）\n"
+        f"台灣：{('、'.join(threads_tw[:12]) if threads_tw else '（本次未取得）')}\n"
+        f"全球：{('、'.join(threads_global[:12]) if threads_global else '（本次未取得）')}\n"
+    )
 
     footer = "━━━━━━━━━━━━━━\n📰 新聞來源：\n" + (
         "\n".join(sources) if sources else "（本次無可推播之來源連結）"
@@ -499,9 +513,13 @@ header = (
     return header + "\n".join(body_lines) + threads_block + footer
 
 
+# -----------------------------
+# LINE push
+# -----------------------------
 def line_push(message: str):
     token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
     user_id = os.environ["LINE_USER_ID"]
+
     url = "https://api.line.me/v2/bot/message/push"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     payload = {"to": user_id, "messages": [{"type": "text", "text": message[:4900]}]}
@@ -511,6 +529,7 @@ def line_push(message: str):
 
 def push_digest_to_user(user_id: str, message: str):
     token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+
     url = "https://api.line.me/v2/bot/message/push"
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     payload = {"to": user_id, "messages": [{"type": "text", "text": message[:4900]}]}
@@ -518,6 +537,9 @@ def push_digest_to_user(user_id: str, message: str):
     r.raise_for_status()
 
 
+# -----------------------------
+# Public API: generate digest text only
+# -----------------------------
 def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = False) -> str:
     cfg = load_config(cfg_path)
 
@@ -533,33 +555,45 @@ def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = Fal
 
     items = fetch_rss(rss_urls, lookback_hours=lookback)
 
-    threads_terms: List[str] = []
+    # Threads Radar (TW / Global)
+    radar_cfg = (cfg.get("radar", {}) or {}).get("threads", {}) or {}
+    radar_enabled = bool(radar_cfg.get("enabled", False))
+    max_terms_per_topic = int(radar_cfg.get("max_terms_per_topic", 3))
+
+    threads_tw: List[str] = []
+    threads_global: List[str] = []
     topic_threads_terms: Dict[str, List[str]] = {}
 
-    radar_cfg = cfg.get("radar", {}).get("threads", {}) or {}
-    radar_enabled = bool(radar_cfg.get("enabled", False))
-
     if radar_enabled:
-        threads_terms = fetch_threads_trending()
+        threads_tw = fetch_threads_trending_tw()
+        threads_global = fetch_threads_trending_global()
+
+        merged_terms = (threads_tw or []) + (threads_global or [])
         topic_threads_terms = map_threads_terms_to_topics(
-            threads_terms,
-            topics,
-            max_per_topic=int(radar_cfg.get("max_terms_per_topic", 3)),
+            merged_terms, topics, max_per_topic=max_terms_per_topic
         )
 
     topic_radar_terms = topic_threads_terms if radar_enabled else {t.get("id"): [] for t in topics}
 
     picks = pick_by_topic(
-        items,
-        topics,
+        items=items,
+        topics=topics,
         max_items=max_items,
         min_per_topic=min_per_topic,
         topic_radar_terms=topic_radar_terms,
     )
 
-    return format_digest(picks, threads_terms=threads_terms, topic_threads_terms=topic_threads_terms)
+    return format_digest(
+        picks=picks,
+        threads_tw=threads_tw,
+        threads_global=threads_global,
+        topic_threads_terms=topic_threads_terms,
+    )
 
 
+# -----------------------------
+# Entrypoint
+# -----------------------------
 def main():
     msg = generate_today_digest("config.yml", for_new_user=False)
     line_push(msg)
