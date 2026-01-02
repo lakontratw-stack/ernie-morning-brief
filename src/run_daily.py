@@ -518,6 +518,30 @@ def main():
     radar_enabled = bool(cfg.get("radar", {}).get("threads", {}).get("enabled", False))
     topic_radar_terms = topic_threads_terms if radar_enabled else {t.get("id"): [] for t in topics}
 
+def pick_fallback_item(items: List[dict], topic: dict) -> dict | None:
+    """
+    Pick ONE low-risk fallback item for a topic when strict rules find nothing.
+    This does NOT use keywords scoring, only broad semantic guards.
+    """
+    tid = topic.get("id", "")
+    text_items = [(it, _text_blob(it)) for it in items]
+
+    if tid == "accounting":
+        hints = ["財經", "公司", "財務", "金融", "監管"]
+    elif tid == "ai_major":
+        hints = ["科技", "ai", "人工智慧", "晶片", "半導體"]
+    elif tid == "watsons_tw":
+        hints = ["零售", "通路", "藥局", "門市", "消費"]
+    else:
+        return None
+
+    for it, blob in text_items:
+        if any(h in blob for h in hints):
+            return it
+
+    return None
+
+    
     picks = pick_by_topic(
         items,
         topics,
