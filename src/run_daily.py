@@ -53,10 +53,18 @@ def fetch_rss(urls, lookback_hours=36):
 
 
 def score_item(item, topic_keywords):
+    title = (item["title"] or "").lower()
     text = (item["title"] + " " + item.get("summary", "")).lower()
-    hits = sum(1 for k in topic_keywords if k.lower() in text)
-    # very simple scoring for free MVP
+
+    hits = 0
+    for k in topic_keywords:
+        kl = k.lower()
+        if kl in title:
+            hits += 2   # title hit is stronger
+        elif kl in text:
+            hits += 1
     return hits
+
 
 
 def pick_top(items, topics, max_items=5):
