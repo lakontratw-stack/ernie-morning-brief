@@ -3,7 +3,7 @@ schedule:
   time: "06:00"
 
 digest:
-  max_items: 8
+  max_items: 5
   lookback_hours: 36
   language: "zh-TW"
 
@@ -12,20 +12,47 @@ topics:
     name: "台灣屈臣氏與競爭對手"
     enabled: true
     min_score: 2
-    keywords: ["台灣屈臣氏","Watsons Taiwan","康是美","寶雅","松本清","Tomod's","屈臣氏"]
+    keywords:
+      - "台灣屈臣氏"
+      - "Watsons Taiwan"
+      - "屈臣氏"
+      - "康是美"
+      - "寶雅"
+      - "松本清"
+      - "Tomod's"
+      - "藥妝"
+      - "連鎖藥局"
 
   - id: accounting
     name: "國內外會計相關訊息"
     enabled: true
     min_score: 2
-    keywords: ["IFRS","IASB","FASB","審計","財報","會計準則","內控","財務"]
+    keywords:
+      - "IFRS"
+      - "IASB"
+      - "FASB"
+      - "會計準則"
+      - "財報"
+      - "審計"
+      - "內控"
+      - "稅務"
+      - "ESG報告"
 
-  -   - id: ai_major
+  - id: ai_major
     name: "AI 應用與重大訊息"
     enabled: true
     min_score: 2
-    keywords: ["OpenAI","Gemini","Claude","NVIDIA","大模型","生成式AI","AI agent","人工智慧法","AI法規","模型","推理"]
-
+    keywords:
+      - "OpenAI"
+      - "Gemini"
+      - "Claude"
+      - "NVIDIA"
+      - "生成式AI"
+      - "大模型"
+      - "AI agent"
+      - "人工智慧法"
+      - "AI法規"
+      - "模型"
 
 sources:
   rss:
