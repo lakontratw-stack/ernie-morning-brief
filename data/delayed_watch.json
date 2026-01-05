@@ -1,0 +1,47 @@
+{
+  "watching": [
+    {
+      "topic_id": "ai_major",
+      "topic_name": "AI 應用與重大訊息",
+      "title": "Building AI Agents with Google Gemini 3 and Open Source Frameworks",
+      "link": "https://developers.googleblog.com/building-ai-agents-with-google-gemini-3-and-open-source-frameworks/",
+      "published": "2026-01-05T15:46:45.900425+08:00",
+      "saved_at": "2026-01-05T15:46:49.605026+08:00",
+      "due_at": "2026-01-07T15:46:49.605026+08:00",
+      "score": 4.0,
+      "base_hits": [
+        "Google",
+        "Gemini"
+      ]
+    },
+    {
+      "topic_id": "ai_major",
+      "topic_name": "AI 應用與重大訊息",
+      "title": "New Gemini API updates for Gemini 3",
+      "link": "https://developers.googleblog.com/new-gemini-api-updates-for-gemini-3/",
+      "published": "2026-01-05T15:46:45.900410+08:00",
+      "saved_at": "2026-01-05T15:46:49.605026+08:00",
+      "due_at": "2026-01-07T15:46:49.605026+08:00",
+      "score": 3.0,
+      "base_hits": [
+        "Google",
+        "Gemini"
+      ]
+    },
+    {
+      "topic_id": "ai_major",
+      "topic_name": "AI 應用與重大訊息",
+      "title": "5 things to try with Gemini 3 Pro in Gemini CLI",
+      "link": "https://developers.googleblog.com/5-things-to-try-with-gemini-3-pro-in-gemini-cli/",
+      "published": "2026-01-05T15:46:45.900440+08:00",
+      "saved_at": "2026-01-05T15:46:49.605026+08:00",
+      "due_at": "2026-01-07T15:46:49.605026+08:00",
+      "score": 3.0,
+      "base_hits": [
+        "Google",
+        "Gemini"
+      ]
+    }
+  ],
+  "done": []
+}
