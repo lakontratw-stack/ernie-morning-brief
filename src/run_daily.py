@@ -411,194 +411,32 @@ def pick_by_topic(
 
 
 # -----------------------------
-# Formatter
+# Delay Tracking Storage
 # -----------------------------
-def format_digest(
-    picks: List[dict],
-    topics: List[dict],
-    threads_tw: List[str],
-    threads_global: List[str],
-    topic_threads_terms: Dict[str, List[str]],
-) -> str:
-    today = datetime.now(TAIPEI_TZ)
-
-    strict_cnt = len([p for p in picks if p.get("item") is not None and not p.get("is_fallback", False)])
-    fallback_cnt = len([p for p in picks if p.get("item") is not None and p.get("is_fallback", False)])
-    blank_topic_cnt = len([p for p in picks if p.get("item") is None])
-
-    real_count = len([p for p in picks if p.get("item") is not None])
-
-    header = (
-        f"☀️ Ernie 早安AI日報 ☀️\n"
-        f"📅 {today.year}年{today.month}月{today.day}日\n"
-        f"📌 今日狀態摘要：嚴格命中 {strict_cnt} 則｜保底 {fallback_cnt} 則｜空白 {blank_topic_cnt} 主題\n\n"
-        f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
-    )
-
-    body_lines: List[str] = []
-    sources: List[str] = []
-    idx = 0
-
-    for p in picks:
-        topic = p["topic_name"]
-        it = p.get("item")
-
-        if it is None:
-            mapped = topic_threads_terms.get(p.get("topic_id", ""), [])[:5]
-            mapped_str = "、".join(mapped) if mapped else "（無）"
-            body_lines.append(
-                f"— {topic}\n"
-                f"💡 今日無符合條件的新聞（此主題採嚴格篩選，避免塞入無關內容）\n"
-                f"🔥 Threads 線索（此主題）：{mapped_str}\n"
-            )
-            continue
-
-        idx += 1
-        title = it["title"]
-        link = it["link"]
-        summary = strip_html(it.get("summary", ""))
-        summary = " ".join(summary.split())
-        short = textwrap.shorten(summary, width=120, placeholder="…") if summary else ""
-
-        b1 = f"💡 主題：{topic}"
-        b2 = f"💡 {short}" if short else "💡（無摘要，建議直接點開來源）"
-
-        score = float(p.get("score", 0.0))
-        base_hits = p.get("base_hits", [])[:6]
-        radar_hits = p.get("radar_hits", [])[:4]
-        base_hits_str = "、".join(base_hits) if base_hits else "—"
-        radar_hits_str = "、".join(radar_hits) if radar_hits else "—"
-
-        lines = [f"{idx}️⃣ {title}", b1, b2]
-
-        if p.get("is_fallback", False):
-            if p.get("topic_id") == "ai_major":
-                lines.append("🟡 保底快訊（官方來源，未命中嚴格關鍵字）")
-            else:
-                lines.append("🟡 保底新聞（補足主題資訊，未命中嚴格關鍵字）")
-
-        lines.append(f"🔎 命中：{base_hits_str}｜score={score:.1f}")
-        lines.append(f"⚡ Threads 觸發：{radar_hits_str}")
-        body_lines.append("\n".join(lines) + "\n")
-
-        sources.append(f"[{idx}] {link}")
-
-    threads_block = (
-        "\n━━━━━━━━━━━━━━\n"
-        "🔥 Threads 熱詞（雷達用，不直接當新聞）\n"
-        f"台灣：{('、'.join(threads_tw[:12]) if threads_tw else '（本次未取得）')}\n"
-        f"全球：{('、'.join(threads_global[:12]) if threads_global else '（本次未取得）')}\n"
-    )
-
-    footer = "━━━━━━━━━━━━━━\n📰 新聞來源：\n" + ("\n".join(sources) if sources else "（本次無可推播之來源連結）")
-    return header + "\n".join(body_lines) + threads_block + footer
-
-
-# -----------------------------
-# LINE Push
-# -----------------------------
-def push_text_to_user(user_id: str, message: str):
-    token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-    url = "https://api.line.me/v2/bot/message/push"
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-    payload = {"to": user_id, "messages": [{"type": "text", "text": message[:4900]}]}
-    r = requests.post(url, headers=headers, json=payload, timeout=30)
-    r.raise_for_status()
-
-
-def line_push(message: str):
-    user_id = os.environ["LINE_USER_ID"]
-    push_text_to_user(user_id, message)
-
-
-# -----------------------------
-# Digest generation
-# -----------------------------
-def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = False) -> str:
-    cfg = load_config(cfg_path)
-    rss_urls = cfg.get("sources", {}).get("rss", []) or []
-    topics = cfg.get("topics", []) or []
-
-    lookback = int(cfg.get("digest", {}).get("lookback_hours", 48))
-    max_items = int(cfg.get("digest", {}).get("max_items", 8))
-    min_per_topic = int(cfg.get("digest", {}).get("min_per_topic", 1))
-
-    if for_new_user:
-        min_per_topic = 1
-        max_items = min(3, max_items)
-
-    items = fetch_rss(rss_urls, lookback_hours=lookback)
-
-    # Threads radar (optional)
-    radar_cfg = cfg.get("radar", {}).get("threads", {}) or {}
-    radar_enabled = bool(radar_cfg.get("enabled", False))
-    max_terms_per_topic = int(radar_cfg.get("max_terms_per_topic", 3))
-
-    threads_tw: List[str] = []
-    threads_global: List[str] = []
-    topic_threads_terms: Dict[str, List[str]] = {}
-
-    if radar_enabled:
-        threads_tw = fetch_threads_trending_tw()
-        threads_global = fetch_threads_trending_global()
-        merged = list(dict.fromkeys((threads_tw or []) + (threads_global or [])))  # de-dup keep order
-        topic_threads_terms = map_threads_terms_to_topics(merged, topics, max_per_topic=max_terms_per_topic)
-
-    topic_radar_terms = topic_threads_terms if radar_enabled else {t.get("id", ""): [] for t in topics}
-
-    picks = pick_by_topic(
-        items,
-        topics,
-        max_items=max_items,
-        min_per_topic=min_per_topic,
-        topic_radar_terms=topic_radar_terms,
-    )
-
-    return format_digest(
-        picks=picks,
-        topics=topics,
-        threads_tw=threads_tw,
-        threads_global=threads_global,
-        topic_threads_terms=topic_threads_terms,
-    )
-
-
-def push_digest_to_user(user_id: str, message: str):
-    push_text_to_user(user_id, message)
-
-
-def load_repo_users():
-    p = Path("data/users.json")
+def _read_json(path: str, default):
+    p = Path(path)
     if not p.exists():
-        return []
+        return default
     try:
         return json.loads(p.read_text(encoding="utf-8"))
     except Exception:
-        return []
+        return default
 
 
-def main():
-    msg = generate_today_digest("config.yml", for_new_user=False)
-
-    users = load_repo_users()
-    if not users:
-        line_push(msg)
-        print("沒有 users.json，先用舊方式推播")
-        return
-
-    ok = 0
-    fail = 0
-    for uid in users:
-        try:
-            push_digest_to_user(uid, msg)
-            ok += 1
-        except Exception as e:
-            fail += 1
-            print("推播失敗:", uid, str(e))
-
-    print(f"推播完成：成功 {ok} 人，失敗 {fail} 人")
+def _write_json(path: str, data):
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-
-if __name__ == "__main__":
-    main()
+def update_delayed_watchlist(
+    *,
+    cfg: dict,
+    topics: List[dict],
+    picks: List[dict],
+    now: datetime,
+    threads_terms_all: List[str],
+) -> Dict[str, Any]:
+    """
+    延遲追蹤機制（48h）：
+    1) 今
