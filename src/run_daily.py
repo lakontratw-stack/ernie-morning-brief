@@ -8,9 +8,75 @@ import requests
 from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Tuple, Any, Optional
 import json
-from pathlib import Path
+import base64
 
 TAIPEI_TZ = timezone(timedelta(hours=8))
+
+# GitHub repo (for persistence)
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
+GITHUB_REPO = os.getenv("GITHUB_REPO", "")  # e.g. lakontratw-stack/ernie-morning-brief
+
+
+# -----------------------------
+# GitHub Contents API helpers
+# -----------------------------
+def _gh_headers():
+    return {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+
+
+def gh_get_text(path: str) -> Tuple[str, Optional[str]]:
+    """
+    Return (raw_text, sha). If 404 => ("", None)
+    """
+    if not (GITHUB_TOKEN and GITHUB_REPO):
+        return "", None
+
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
+    r = requests.get(url, headers=_gh_headers(), timeout=25)
+    if r.status_code == 404:
+        return "", None
+    r.raise_for_status()
+    data = r.json()
+    content_b64 = data.get("content", "") or ""
+    sha = data.get("sha")
+    raw = base64.b64decode(content_b64).decode("utf-8") if content_b64 else ""
+    return raw, sha
+
+
+def gh_put_text(path: str, text_utf8: str, message: str, sha: Optional[str] = None):
+    if not (GITHUB_TOKEN and GITHUB_REPO):
+        raise RuntimeError("Missing GITHUB_TOKEN or GITHUB_REPO")
+
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
+    payload = {
+        "message": message,
+        "content": base64.b64encode(text_utf8.encode("utf-8")).decode("utf-8"),
+    }
+    if sha:
+        payload["sha"] = sha
+
+    r = requests.put(url, headers=_gh_headers(), json=payload, timeout=25)
+    r.raise_for_status()
+
+
+def gh_read_json(path: str, default):
+    raw, _sha = gh_get_text(path)
+    if not raw:
+        return default
+    try:
+        return json.loads(raw)
+    except Exception:
+        return default
+
+
+def gh_write_json(path: str, data, message: str):
+    raw_old, sha = gh_get_text(path)
+    content = json.dumps(data, ensure_ascii=False, indent=2)
+    gh_put_text(path, content, message=message, sha=sha)
 
 
 # -----------------------------
@@ -276,23 +342,6 @@ def pick_by_topic(
     min_per_topic: int,
     topic_radar_terms: Dict[str, List[str]],
 ) -> List[dict]:
-    """
-    Select items per topic (topic-by-topic).
-    Ensures each enabled topic has at least min_per_topic items if possible.
-    If not available, try fallback (policy-based). If still not, use placeholder.
-
-    Each picked entry:
-      {
-        "topic_id": ...,
-        "topic_name": ...,
-        "score": ...,
-        "item": {...} or None,
-        "base_hits": [...],
-        "radar_hits": [...],
-        "used_radar_terms": [...],
-        "is_fallback": bool
-      }
-    """
     picked_entries: List[dict] = []
     enabled_topics = [t for t in topics if t.get("enabled", True)]
     if not enabled_topics:
@@ -411,39 +460,15 @@ def pick_by_topic(
 
 
 # -----------------------------
-# Delay Tracking Storage
+# Delay Tracking (GitHub persistence)
 # -----------------------------
-def _read_json(path: str, default):
-    p = Path(path)
-    if not p.exists():
-        return default
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except Exception:
-        return default
-
-
-def _write_json(path: str, data):
-    p = Path(path)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 def update_delayed_watchlist(
     *,
     cfg: dict,
-    topics: List[dict],
     picks: List[dict],
     now: datetime,
     threads_terms_all: List[str],
 ) -> Dict[str, Any]:
-    """
-    延遲追蹤機制（48h）：
-    1) 今天先把「值得追」的候選新聞收進 watchlist（以 topic_id 分組）
-    2) 對於已到期（due_at <= now）的項目，用 threads_terms_all 做簡單比對
-       - 若 title/summary 出現 threads term（子字串），視為發酵
-    3) 保留未到期者；到期者會被移到 done 區（保留紀錄）
-    """
     delay_cfg = (cfg.get("radar", {}) or {}).get("delay_tracking", {}) or {}
     enabled = bool(delay_cfg.get("enabled", False))
     if not enabled:
@@ -454,11 +479,10 @@ def update_delayed_watchlist(
     max_candidates_per_topic = int(delay_cfg.get("max_candidates_per_topic", 3))
     min_score_to_watch = float(delay_cfg.get("min_score_to_watch", 2.5))
 
-    state = _read_json(storage_path, {"watching": [], "done": []})
+    state = gh_read_json(storage_path, {"watching": [], "done": []})
     watching: List[dict] = state.get("watching", []) or []
     done: List[dict] = state.get("done", []) or []
 
-    # de-dup by link in watching+done
     seen_links = set()
     for it in watching:
         if it.get("link"):
@@ -468,7 +492,6 @@ def update_delayed_watchlist(
             seen_links.add(it["link"])
 
     # 1) collect candidates from today's picks
-    #    只收「真實新聞」（item != None）且達到 min_score_to_watch
     topic_counts: Dict[str, int] = {}
     for p in picks:
         it = p.get("item")
@@ -494,7 +517,11 @@ def update_delayed_watchlist(
                 "topic_name": p.get("topic_name"),
                 "title": it.get("title"),
                 "link": link,
-                "published": (it.get("published").isoformat() if hasattr(it.get("published"), "isoformat") else None),
+                "published": (
+                    it.get("published").isoformat()
+                    if hasattr(it.get("published"), "isoformat")
+                    else None
+                ),
                 "saved_at": now.isoformat(),
                 "due_at": due_at,
                 "score": score,
@@ -503,9 +530,10 @@ def update_delayed_watchlist(
         )
         seen_links.add(link)
 
-    # 2) evaluate due items
+    # 2) evaluate due items (simple string match; your collector can improve later)
     terms = [str(x).strip() for x in (threads_terms_all or []) if str(x).strip()]
     terms_l = [t.lower() for t in terms]
+
     remained: List[dict] = []
     matured = 0
     fermented = 0
@@ -528,6 +556,7 @@ def update_delayed_watchlist(
         for t in terms_l:
             if t and t in blob:
                 matched_terms.append(t)
+
         is_fermented = bool(matched_terms)
         if is_fermented:
             fermented += 1
@@ -538,8 +567,9 @@ def update_delayed_watchlist(
         w2["fermented"] = is_fermented
         done.append(w2)
 
-    state2 = {"watching": remained, "done": done[-500:]}  # cap history
-    _write_json(storage_path, state2)
+    # cap history
+    state2 = {"watching": remained, "done": done[-500:]}
+    gh_write_json(storage_path, state2, message="chore: update delayed watchlist")
 
     return {
         "enabled": True,
@@ -552,22 +582,20 @@ def update_delayed_watchlist(
 
 
 # -----------------------------
-# Push Failure Tracking
+# Push Failure Tracking (GitHub persistence)
 # -----------------------------
-def load_users_local():
-    p = Path("data/users.json")
-    if not p.exists():
-        return []
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except Exception:
-        return []
+USERS_PATH = "data/users.json"
 
 
-def save_users_local(users: List[str]):
-    p = Path("data/users.json")
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(users, ensure_ascii=False, indent=2), encoding="utf-8")
+def load_repo_users() -> List[str]:
+    users = gh_read_json(USERS_PATH, [])
+    if isinstance(users, list):
+        return users
+    return []
+
+
+def save_repo_users(users: List[str]):
+    gh_write_json(USERS_PATH, sorted(list(dict.fromkeys(users))), message="chore: update LINE users list")
 
 
 def record_push_failure(cfg: dict, uid: str, err: Exception, now: datetime):
@@ -576,24 +604,29 @@ def record_push_failure(cfg: dict, uid: str, err: Exception, now: datetime):
         return
 
     path = str(ft.get("storage_path", "data/push_failures.json"))
-    data = _read_json(path, {})
+    data = gh_read_json(path, {})
 
-    rec = data.get(uid, {}) or {}
+    rec = (data.get(uid, {}) or {}) if isinstance(data, dict) else {}
     count = int(rec.get("fail_count", 0)) + 1
+
+    if not isinstance(data, dict):
+        data = {}
+
     data[uid] = {
         "fail_count": count,
         "last_failed_at": now.isoformat(),
         "last_error": str(err)[:500],
     }
-    _write_json(path, data)
+
+    gh_write_json(path, data, message="chore: update push failures")
 
     auto_remove = bool(ft.get("auto_remove_user", False))
     threshold = int(ft.get("auto_remove_threshold", 3))
     if auto_remove and count >= threshold:
-        users = load_users_local()
+        users = load_repo_users()
         if uid in users:
             users = [x for x in users if x != uid]
-            save_users_local(users)
+            save_repo_users(users)
 
 
 # -----------------------------
@@ -601,7 +634,6 @@ def record_push_failure(cfg: dict, uid: str, err: Exception, now: datetime):
 # -----------------------------
 def format_digest(
     picks: List[dict],
-    topics: List[dict],
     threads_tw: List[str],
     threads_global: List[str],
     topic_threads_terms: Dict[str, List[str]],
@@ -612,7 +644,6 @@ def format_digest(
     strict_cnt = len([p for p in picks if p.get("item") is not None and not p.get("is_fallback", False)])
     fallback_cnt = len([p for p in picks if p.get("item") is not None and p.get("is_fallback", False)])
     blank_topic_cnt = len([p for p in picks if p.get("item") is None])
-
     real_count = len([p for p in picks if p.get("item") is not None])
 
     header = (
@@ -701,11 +732,6 @@ def push_text_to_user(user_id: str, message: str):
     r.raise_for_status()
 
 
-def line_push(message: str):
-    user_id = os.environ["LINE_USER_ID"]
-    push_text_to_user(user_id, message)
-
-
 # -----------------------------
 # Digest generation
 # -----------------------------
@@ -749,12 +775,11 @@ def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = Fal
         topic_radar_terms=topic_radar_terms,
     )
 
-    # Delay tracking: always run (uses stub threads terms if not enabled)
+    # Delay tracking (works now; will be more meaningful once you implement threads collectors)
     now = datetime.now(TAIPEI_TZ)
     threads_all = list(dict.fromkeys((threads_tw or []) + (threads_global or [])))
     delay_status = update_delayed_watchlist(
         cfg=cfg,
-        topics=topics,
         picks=picks,
         now=now,
         threads_terms_all=threads_all,
@@ -762,7 +787,6 @@ def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = Fal
 
     return format_digest(
         picks=picks,
-        topics=topics,
         threads_tw=threads_tw,
         threads_global=threads_global,
         topic_threads_terms=topic_threads_terms,
@@ -770,37 +794,32 @@ def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = Fal
     )
 
 
-def push_digest_to_user(user_id: str, message: str):
-    push_text_to_user(user_id, message)
-
-
-def load_repo_users():
-    p = Path("data/users.json")
-    if not p.exists():
-        return []
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except Exception:
-        return []
-
-
 def main():
     cfg = load_config("config.yml")
     msg = generate_today_digest("config.yml", for_new_user=False)
 
     users = load_repo_users()
-    if not users:
-        line_push(msg)
-        print("沒有 users.json，先用舊方式推播")
-        return
 
     ok = 0
     fail = 0
     now = datetime.now(TAIPEI_TZ)
 
+    if not users:
+        # fallback: single-user test push if you still keep LINE_USER_ID in secrets
+        user_id = os.getenv("LINE_USER_ID", "")
+        if user_id:
+            try:
+                push_text_to_user(user_id, msg)
+                print("沒有 users.json 或無使用者名單，先用 LINE_USER_ID 測試推播")
+            except Exception as e:
+                print("測試推播失敗:", str(e))
+        else:
+            print("沒有 users.json，且未提供 LINE_USER_ID")
+        return
+
     for uid in users:
         try:
-            push_digest_to_user(uid, msg)
+            push_text_to_user(uid, msg)
             ok += 1
         except Exception as e:
             fail += 1
