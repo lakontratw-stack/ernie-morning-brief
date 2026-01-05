@@ -3,18 +3,34 @@ name: Daily Brief
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 22 * * *"  # 06:00 Asia/Taipei
+    - cron: "0 22 * * *" # 06:00 Asia/Taipei
+
+permissions:
+  contents: write
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - run: python src/run_daily.py
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run daily brief
+        run: python src/run_daily.py
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+
+          # 讓程式有能力讀/寫 GitHub 檔案（例如 users.json / push_failures.json）
+          # 建議用 GitHub 內建 token：GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # 你的 repo 名稱，格式：owner/repo
+          # 例如：lakontratw-stack/ernie-morning-brief
+          GITHUB_REPO: ${{ github.repository }}
