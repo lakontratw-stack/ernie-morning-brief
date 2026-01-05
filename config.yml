@@ -125,7 +125,7 @@ topics:
         - 國防
         - 戰爭
         - 俯瞰
-        - 101
+        - "101"
         - 查核
         - 查證
         - 事實查核
@@ -196,9 +196,6 @@ sources:
     # AI / 科技專業媒體（補充，但仍可能偏整理文）
     - https://ai-weekly.ai/feed
     - https://etcjournal.com/feed
-
-    # 台灣科技圈（補充）
-    - https://www.bnext.com.tw/rss
 
     # 商業與產業（避免只剩科技泡泡）
     - https://www.businessinsider.com/rss
