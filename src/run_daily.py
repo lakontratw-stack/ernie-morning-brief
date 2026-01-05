@@ -7,6 +7,8 @@ import feedparser
 import requests
 from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Tuple, Any, Optional
+import json
+from pathlib import Path
 
 TAIPEI_TZ = timezone(timedelta(hours=8))
 
@@ -565,10 +567,37 @@ def push_digest_to_user(user_id: str, message: str):
     push_text_to_user(user_id, message)
 
 
+def load_repo_users():
+    p = Path("data/users.json")
+    if not p.exists():
+        return []
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
 def main():
     msg = generate_today_digest("config.yml", for_new_user=False)
-    line_push(msg)
-    print("Pushed to LINE.")
+
+    users = load_repo_users()
+    if not users:
+        line_push(msg)
+        print("沒有 users.json，先用舊方式推播")
+        return
+
+    ok = 0
+    fail = 0
+    for uid in users:
+        try:
+            push_digest_to_user(uid, msg)
+            ok += 1
+        except Exception as e:
+            fail += 1
+            print("推播失敗:", uid, str(e))
+
+    print(f"推播完成：成功 {ok} 人，失敗 {fail} 人")
+
 
 
 if __name__ == "__main__":
