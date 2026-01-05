@@ -183,30 +183,23 @@ topics:
 
 sources:
   rss:
-    # Google News（基礎廣度）
+    # Google News（廣度：台灣語境）
     - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
 
-    # AI / 科技專業媒體
-    - https://www.techradar.com/rss
+    # AI 官方（一手訊息：提高精確度）
+    - https://openai.com/blog/rss.xml
+    - https://blog.google/technology/ai/rss
+    - https://developers.googleblog.com/feeds/posts/default
+    - https://ai.facebook.com/blog/rss/
+    - https://www.anthropic.com/news/rss.xml
+
+    # AI / 科技專業媒體（補充，但仍可能偏整理文）
     - https://ai-weekly.ai/feed
     - https://etcjournal.com/feed
-    - https://radicaldatascience.wordpress.com/feed
+
+    # 台灣科技圈（補充）
+    - https://www.bnext.com.tw/rss
 
     # 商業與產業（避免只剩科技泡泡）
     - https://www.businessinsider.com/rss
     - https://www.bnext.com.tw/rss
-    # OpenAI 官方
-    - https://openai.com/blog/rss.xml
-
-    # Google AI 官方
-    - https://blog.google/technology/ai/rss
-    - https://developers.googleblog.com/feeds/posts/default
-
-    # Meta AI / Research
-    - https://ai.facebook.com/blog/rss/
-
-    # Microsoft / Azure AI
-    - https://techcommunity.microsoft.com/plugins/custom/microsoft/o365/custom-blog-rss?tid=AzureAI
-
-    # Anthropic（Claude）
-    - https://www.anthropic.com/news/rss.xml
