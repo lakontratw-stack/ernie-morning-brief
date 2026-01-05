@@ -14,6 +14,23 @@ radar:
     max_terms_per_topic: 3
     show_in_footer: true
 
+  # 新增：延遲追蹤（先記線索，48 小時後回頭看是否發酵）
+  delay_tracking:
+    enabled: true
+    delay_hours: 48
+    max_candidates_per_topic: 3
+    min_score_to_watch: 2.5
+    storage_path: "data/delayed_watch.json"
+
+push:
+  # 新增：推播失敗追蹤
+  failure_tracking:
+    enabled: true
+    storage_path: "data/push_failures.json"
+    # 預設不自動移除，避免誤刪（你要開再改成 true）
+    auto_remove_user: false
+    auto_remove_threshold: 3
+
 topics:
   - id: watsons_tw
     name: 台灣屈臣氏與競爭對手
@@ -47,7 +64,6 @@ topics:
       - 毛利
       - 市場佔有率
       - 通路競爭
-    # watsons_tw：允許「競品保底」，但仍要排除你不想看到的語境
     guard:
       must_not_include_any:
         - 軍演
@@ -89,7 +105,6 @@ topics:
       - 證交所
       - 櫃買中心
       - SEC
-    # accounting：嚴格語境；寧可空白，不做語義保底
     guard:
       must_include_any:
         - IFRS
@@ -166,7 +181,6 @@ topics:
       - Sundar Pichai
       - Satya Nadella
       - Mark Zuckerberg
-    # ai_major：允許「官方快訊保底」（由程式邏輯處理），guard 先做基本排除
     guard:
       must_not_include_any:
         - 軍演
@@ -183,20 +197,13 @@ topics:
 
 sources:
   rss:
-    # Google News（廣度：台灣語境）
     - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
-
-    # AI 官方（一手訊息：提高精確度）
     - https://openai.com/blog/rss.xml
     - https://blog.google/technology/ai/rss
     - https://developers.googleblog.com/feeds/posts/default
     - https://ai.facebook.com/blog/rss/
     - https://www.anthropic.com/news/rss.xml
-
-    # AI / 科技專業媒體（補充，但仍可能偏整理文）
     - https://ai-weekly.ai/feed
     - https://etcjournal.com/feed
-
-    # 商業與產業（避免只剩科技泡泡）
     - https://www.businessinsider.com/rss
     - https://www.bnext.com.tw/rss
