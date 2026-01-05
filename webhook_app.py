@@ -64,7 +64,7 @@ def save_users_to_github(users: Set[str], sha: str | None):
 
 @app.get("/")
 def health():
-    return {"ok": True}
+    return {"ok": True, "ver": "v-users-1"}
 
 
 @app.post("/webhook")
