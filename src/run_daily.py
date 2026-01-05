@@ -439,4 +439,376 @@ def update_delayed_watchlist(
 ) -> Dict[str, Any]:
     """
     延遲追蹤機制（48h）：
-    1) 今
+    1) 今天先把「值得追」的候選新聞收進 watchlist（以 topic_id 分組）
+    2) 對於已到期（due_at <= now）的項目，用 threads_terms_all 做簡單比對
+       - 若 title/summary 出現 threads term（子字串），視為發酵
+    3) 保留未到期者；到期者會被移到 done 區（保留紀錄）
+    """
+    delay_cfg = (cfg.get("radar", {}) or {}).get("delay_tracking", {}) or {}
+    enabled = bool(delay_cfg.get("enabled", False))
+    if not enabled:
+        return {"enabled": False}
+
+    storage_path = str(delay_cfg.get("storage_path", "data/delayed_watch.json"))
+    delay_hours = int(delay_cfg.get("delay_hours", 48))
+    max_candidates_per_topic = int(delay_cfg.get("max_candidates_per_topic", 3))
+    min_score_to_watch = float(delay_cfg.get("min_score_to_watch", 2.5))
+
+    state = _read_json(storage_path, {"watching": [], "done": []})
+    watching: List[dict] = state.get("watching", []) or []
+    done: List[dict] = state.get("done", []) or []
+
+    # de-dup by link in watching+done
+    seen_links = set()
+    for it in watching:
+        if it.get("link"):
+            seen_links.add(it["link"])
+    for it in done:
+        if it.get("link"):
+            seen_links.add(it["link"])
+
+    # 1) collect candidates from today's picks
+    #    只收「真實新聞」（item != None）且達到 min_score_to_watch
+    topic_counts: Dict[str, int] = {}
+    for p in picks:
+        it = p.get("item")
+        if not it:
+            continue
+        score = float(p.get("score", 0.0))
+        if score < min_score_to_watch:
+            continue
+
+        link = it.get("link")
+        if not link or link in seen_links:
+            continue
+
+        tid = p.get("topic_id") or "unknown"
+        topic_counts[tid] = topic_counts.get(tid, 0) + 1
+        if topic_counts[tid] > max_candidates_per_topic:
+            continue
+
+        due_at = (now + timedelta(hours=delay_hours)).isoformat()
+        watching.append(
+            {
+                "topic_id": tid,
+                "topic_name": p.get("topic_name"),
+                "title": it.get("title"),
+                "link": link,
+                "published": (it.get("published").isoformat() if hasattr(it.get("published"), "isoformat") else None),
+                "saved_at": now.isoformat(),
+                "due_at": due_at,
+                "score": score,
+                "base_hits": p.get("base_hits", []),
+            }
+        )
+        seen_links.add(link)
+
+    # 2) evaluate due items
+    terms = [str(x).strip() for x in (threads_terms_all or []) if str(x).strip()]
+    terms_l = [t.lower() for t in terms]
+    remained: List[dict] = []
+    matured = 0
+    fermented = 0
+
+    for w in watching:
+        due_at_s = w.get("due_at")
+        try:
+            due_at = datetime.fromisoformat(due_at_s)
+        except Exception:
+            remained.append(w)
+            continue
+
+        if due_at > now:
+            remained.append(w)
+            continue
+
+        matured += 1
+        blob = f"{w.get('title','')} {w.get('link','')}".lower()
+        matched_terms = []
+        for t in terms_l:
+            if t and t in blob:
+                matched_terms.append(t)
+        is_fermented = bool(matched_terms)
+        if is_fermented:
+            fermented += 1
+
+        w2 = dict(w)
+        w2["checked_at"] = now.isoformat()
+        w2["threads_matched_terms"] = matched_terms[:10]
+        w2["fermented"] = is_fermented
+        done.append(w2)
+
+    state2 = {"watching": remained, "done": done[-500:]}  # cap history
+    _write_json(storage_path, state2)
+
+    return {
+        "enabled": True,
+        "storage_path": storage_path,
+        "added_today": sum(topic_counts.values()),
+        "matured_checked": matured,
+        "fermented": fermented,
+        "watching_now": len(remained),
+    }
+
+
+# -----------------------------
+# Push Failure Tracking
+# -----------------------------
+def load_users_local():
+    p = Path("data/users.json")
+    if not p.exists():
+        return []
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
+def save_users_local(users: List[str]):
+    p = Path("data/users.json")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(users, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def record_push_failure(cfg: dict, uid: str, err: Exception, now: datetime):
+    ft = (cfg.get("push", {}) or {}).get("failure_tracking", {}) or {}
+    if not bool(ft.get("enabled", True)):
+        return
+
+    path = str(ft.get("storage_path", "data/push_failures.json"))
+    data = _read_json(path, {})
+
+    rec = data.get(uid, {}) or {}
+    count = int(rec.get("fail_count", 0)) + 1
+    data[uid] = {
+        "fail_count": count,
+        "last_failed_at": now.isoformat(),
+        "last_error": str(err)[:500],
+    }
+    _write_json(path, data)
+
+    auto_remove = bool(ft.get("auto_remove_user", False))
+    threshold = int(ft.get("auto_remove_threshold", 3))
+    if auto_remove and count >= threshold:
+        users = load_users_local()
+        if uid in users:
+            users = [x for x in users if x != uid]
+            save_users_local(users)
+
+
+# -----------------------------
+# Formatter
+# -----------------------------
+def format_digest(
+    picks: List[dict],
+    topics: List[dict],
+    threads_tw: List[str],
+    threads_global: List[str],
+    topic_threads_terms: Dict[str, List[str]],
+    delay_status: Optional[Dict[str, Any]] = None,
+) -> str:
+    today = datetime.now(TAIPEI_TZ)
+
+    strict_cnt = len([p for p in picks if p.get("item") is not None and not p.get("is_fallback", False)])
+    fallback_cnt = len([p for p in picks if p.get("item") is not None and p.get("is_fallback", False)])
+    blank_topic_cnt = len([p for p in picks if p.get("item") is None])
+
+    real_count = len([p for p in picks if p.get("item") is not None])
+
+    header = (
+        f"☀️ Ernie 早安AI日報 ☀️\n"
+        f"📅 {today.year}年{today.month}月{today.day}日\n"
+        f"📌 今日狀態摘要：嚴格命中 {strict_cnt} 則｜保底 {fallback_cnt} 則｜空白 {blank_topic_cnt} 主題\n\n"
+        f"今天有 {real_count} 則最近值得關注的資訊分享給你 👇\n"
+    )
+
+    body_lines: List[str] = []
+    sources: List[str] = []
+    idx = 0
+
+    for p in picks:
+        topic = p["topic_name"]
+        it = p.get("item")
+
+        if it is None:
+            mapped = topic_threads_terms.get(p.get("topic_id", ""), [])[:5]
+            mapped_str = "、".join(mapped) if mapped else "（無）"
+            body_lines.append(
+                f"— {topic}\n"
+                f"💡 今日無符合條件的新聞（此主題採嚴格篩選，避免塞入無關內容）\n"
+                f"🔥 Threads 線索（此主題）：{mapped_str}\n"
+            )
+            continue
+
+        idx += 1
+        title = it["title"]
+        link = it["link"]
+        summary = strip_html(it.get("summary", ""))
+        summary = " ".join(summary.split())
+        short = textwrap.shorten(summary, width=120, placeholder="…") if summary else ""
+
+        b1 = f"💡 主題：{topic}"
+        b2 = f"💡 {short}" if short else "💡（無摘要，建議直接點開來源）"
+
+        score = float(p.get("score", 0.0))
+        base_hits = p.get("base_hits", [])[:6]
+        radar_hits = p.get("radar_hits", [])[:4]
+        base_hits_str = "、".join(base_hits) if base_hits else "—"
+        radar_hits_str = "、".join(radar_hits) if radar_hits else "—"
+
+        lines = [f"{idx}️⃣ {title}", b1, b2]
+
+        if p.get("is_fallback", False):
+            if p.get("topic_id") == "ai_major":
+                lines.append("🟡 保底快訊（官方來源，未命中嚴格關鍵字）")
+            else:
+                lines.append("🟡 保底新聞（補足主題資訊，未命中嚴格關鍵字）")
+
+        lines.append(f"🔎 命中：{base_hits_str}｜score={score:.1f}")
+        lines.append(f"⚡ Threads 觸發：{radar_hits_str}")
+        body_lines.append("\n".join(lines) + "\n")
+
+        sources.append(f"[{idx}] {link}")
+
+    delay_block = ""
+    if delay_status and delay_status.get("enabled"):
+        delay_block = (
+            "\n━━━━━━━━━━━━━━\n"
+            "🕒 延遲追蹤（48h）狀態\n"
+            f"今日新增：{delay_status.get('added_today', 0)}｜到期檢查：{delay_status.get('matured_checked', 0)}｜判定發酵：{delay_status.get('fermented', 0)}｜待追數：{delay_status.get('watching_now', 0)}\n"
+        )
+
+    threads_block = (
+        "\n━━━━━━━━━━━━━━\n"
+        "🔥 Threads 熱詞（雷達用，不直接當新聞）\n"
+        f"台灣：{('、'.join(threads_tw[:12]) if threads_tw else '（本次未取得）')}\n"
+        f"全球：{('、'.join(threads_global[:12]) if threads_global else '（本次未取得）')}\n"
+    )
+
+    footer = "━━━━━━━━━━━━━━\n📰 新聞來源：\n" + ("\n".join(sources) if sources else "（本次無可推播之來源連結）")
+    return header + "\n".join(body_lines) + delay_block + threads_block + footer
+
+
+# -----------------------------
+# LINE Push
+# -----------------------------
+def push_text_to_user(user_id: str, message: str):
+    token = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+    url = "https://api.line.me/v2/bot/message/push"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    payload = {"to": user_id, "messages": [{"type": "text", "text": message[:4900]}]}
+    r = requests.post(url, headers=headers, json=payload, timeout=30)
+    r.raise_for_status()
+
+
+def line_push(message: str):
+    user_id = os.environ["LINE_USER_ID"]
+    push_text_to_user(user_id, message)
+
+
+# -----------------------------
+# Digest generation
+# -----------------------------
+def generate_today_digest(cfg_path: str = "config.yml", for_new_user: bool = False) -> str:
+    cfg = load_config(cfg_path)
+    rss_urls = cfg.get("sources", {}).get("rss", []) or []
+    topics = cfg.get("topics", []) or []
+
+    lookback = int(cfg.get("digest", {}).get("lookback_hours", 48))
+    max_items = int(cfg.get("digest", {}).get("max_items", 8))
+    min_per_topic = int(cfg.get("digest", {}).get("min_per_topic", 1))
+
+    if for_new_user:
+        min_per_topic = 1
+        max_items = min(3, max_items)
+
+    items = fetch_rss(rss_urls, lookback_hours=lookback)
+
+    # Threads radar (optional)
+    radar_cfg = cfg.get("radar", {}).get("threads", {}) or {}
+    radar_enabled = bool(radar_cfg.get("enabled", False))
+    max_terms_per_topic = int(radar_cfg.get("max_terms_per_topic", 3))
+
+    threads_tw: List[str] = []
+    threads_global: List[str] = []
+    topic_threads_terms: Dict[str, List[str]] = {}
+
+    if radar_enabled:
+        threads_tw = fetch_threads_trending_tw()
+        threads_global = fetch_threads_trending_global()
+        merged = list(dict.fromkeys((threads_tw or []) + (threads_global or [])))  # de-dup keep order
+        topic_threads_terms = map_threads_terms_to_topics(merged, topics, max_per_topic=max_terms_per_topic)
+
+    topic_radar_terms = topic_threads_terms if radar_enabled else {t.get("id", ""): [] for t in topics}
+
+    picks = pick_by_topic(
+        items,
+        topics,
+        max_items=max_items,
+        min_per_topic=min_per_topic,
+        topic_radar_terms=topic_radar_terms,
+    )
+
+    # Delay tracking: always run (uses stub threads terms if not enabled)
+    now = datetime.now(TAIPEI_TZ)
+    threads_all = list(dict.fromkeys((threads_tw or []) + (threads_global or [])))
+    delay_status = update_delayed_watchlist(
+        cfg=cfg,
+        topics=topics,
+        picks=picks,
+        now=now,
+        threads_terms_all=threads_all,
+    )
+
+    return format_digest(
+        picks=picks,
+        topics=topics,
+        threads_tw=threads_tw,
+        threads_global=threads_global,
+        topic_threads_terms=topic_threads_terms,
+        delay_status=delay_status,
+    )
+
+
+def push_digest_to_user(user_id: str, message: str):
+    push_text_to_user(user_id, message)
+
+
+def load_repo_users():
+    p = Path("data/users.json")
+    if not p.exists():
+        return []
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
+def main():
+    cfg = load_config("config.yml")
+    msg = generate_today_digest("config.yml", for_new_user=False)
+
+    users = load_repo_users()
+    if not users:
+        line_push(msg)
+        print("沒有 users.json，先用舊方式推播")
+        return
+
+    ok = 0
+    fail = 0
+    now = datetime.now(TAIPEI_TZ)
+
+    for uid in users:
+        try:
+            push_digest_to_user(uid, msg)
+            ok += 1
+        except Exception as e:
+            fail += 1
+            print("推播失敗:", uid, str(e))
+            record_push_failure(cfg, uid, e, now)
+
+    print(f"推播完成：成功 {ok} 人，失敗 {fail} 人")
+
+
+if __name__ == "__main__":
+    main()
