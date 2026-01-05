@@ -8,6 +8,12 @@ digest:
   language: zh-TW
   min_per_topic: 1
 
+radar:
+  threads:
+    enabled: false
+    max_terms_per_topic: 3
+    show_in_footer: true
+
 topics:
   - id: watsons_tw
     name: 台灣屈臣氏與競爭對手
@@ -16,8 +22,6 @@ topics:
     keywords:
       - 屈臣氏
       - Watsons
-      - A.S.
-      - Watson
       - 長江和記
       - 長和集團
       - 康是美
@@ -25,6 +29,8 @@ topics:
       - 松本清
       - Tomod's
       - 日藥本舖
+      - 大樹藥局
+      - 杏一
       - 藥妝通路
       - 連鎖藥局
       - 展店
@@ -41,8 +47,20 @@ topics:
       - 毛利
       - 市場佔有率
       - 通路競爭
-      - 李澤鉅
-      - 李嘉誠
+    # watsons_tw：允許「競品保底」，但仍要排除你不想看到的語境
+    guard:
+      must_not_include_any:
+        - 軍演
+        - 共軍
+        - 導彈
+        - 烏克蘭
+        - 普廷
+        - 台海
+        - 國防
+        - 戰爭
+        - 事實查核
+        - 查核
+        - 查證
 
   - id: accounting
     name: 國內外會計相關訊息
@@ -52,30 +70,26 @@ topics:
       - IFRS
       - IASB
       - FASB
+      - 會計
       - 會計準則
-      - 國際會計準則
-      - 金管會
-      - 證交所
-      - 櫃買中心
-      - SEC
       - 財報
       - 財務報告
       - 年報
       - 季報
       - 合併報表
       - 審計
+      - 查核
       - 內控
       - 稽核
       - 舞弊
-      - ESG
       - 永續揭露
       - 永續報告
       - 碳揭露
-      - Andreas
-      - Barckow
-      - Gary
-      - Gensler
-      - 永續環保
+      - 金管會
+      - 證交所
+      - 櫃買中心
+      - SEC
+    # accounting：嚴格語境；寧可空白，不做語義保底
     guard:
       must_include_any:
         - IFRS
@@ -83,13 +97,13 @@ topics:
         - FASB
         - 會計
         - 會計準則
-        - 準則
         - 財報
         - 財務報告
         - 年報
         - 季報
         - 合併報表
         - 審計
+        - 查核
         - 內控
         - 稽核
         - 舞弊
@@ -111,7 +125,7 @@ topics:
         - 國防
         - 戰爭
         - 俯瞰
-        - "101"
+        - 101
         - 查核
         - 查證
         - 事實查核
@@ -123,23 +137,23 @@ topics:
     keywords:
       - OpenAI
       - Google
+      - DeepMind
       - Gemini
       - Anthropic
       - Claude
       - NVIDIA
       - Microsoft
       - Meta
+      - Copilot
       - 生成式
       - 大模型
       - 語言模型
-      - 模型
       - 推理
       - 算力
       - 資料中心
       - 自動化
       - AI助理
       - 智慧客服
-      - Copilot
       - 代理人
       - 企業導入
       - AI法
@@ -147,24 +161,39 @@ topics:
       - 監管
       - 晶片
       - 半導體
-      - Sam
-      - Altman
-      - Jensen
-      - Huang
-      - Sundar
-      - Pichai
-      - Satya
-      - Nadella
-      - Mark
-      - Zuckerberg
-
-radar:
-  threads:
-    enabled: false
-    max_terms_per_topic: 3
+      - Sam Altman
+      - Jensen Huang
+      - Sundar Pichai
+      - Satya Nadella
+      - Mark Zuckerberg
+    # ai_major：允許「官方快訊保底」（由程式邏輯處理），guard 先做基本排除
+    guard:
+      must_not_include_any:
+        - 軍演
+        - 共軍
+        - 導彈
+        - 烏克蘭
+        - 普廷
+        - 台海
+        - 國防
+        - 戰爭
+        - 事實查核
+        - 查核
+        - 查證
 
 sources:
   rss:
-    - "https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    # 1) Google News（總匯）
+    - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
 
-last_updated: "2026-01-02T08:03:25.060314"
+    # 2) AI / 大廠官方（用來提升準確度與速度）
+    - https://openai.com/news/rss.xml
+    - https://blog.google/technology/ai/rss/
+    - https://research.google/blog/rss/
+    - https://nvidianews.nvidia.com/rss
+
+    # 3) 監管/法遵（會計主題補強）
+    - https://www.sec.gov/news/pressreleases.rss
+    - https://www.sec.gov/news/speeches-statements.rss
+
+last_updated: "2026-01-03T00:00:00+08:00"
