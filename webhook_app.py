@@ -92,3 +92,8 @@ async def webhook(req: Request):
         save_users_to_github(users, sha)
 
     return {"ok": True, "users": len(users), "updated": changed}
+
+@app.get("/users")
+def users_count():
+    users, _ = load_users_from_github()
+    return {"count": len(users)}
