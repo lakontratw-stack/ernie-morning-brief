@@ -225,17 +225,23 @@ def map_threads_terms_to_topics(
 # Scoring
 # -----------------------------
 def score_item(
-    item: dict, base_keywords: List[str], radar_terms: Optional[List[str]] = None
+    item: dict,
+    base_keywords: List[str],
+    radar_terms: Optional[List[str]] = None,
+    low_weight_keywords: Optional[List[str]] = None,
 ) -> Tuple[float, List[str], List[str]]:
     """
     Keyword scoring with optional Threads radar terms.
 
     - base keyword title hit: +2
     - base keyword text hit: +1
+    - low-weight keyword title hit: +0.5
+    - low-weight keyword text hit: +0.2
     - radar term title hit: +0.8
     - radar term text hit: +0.4
     """
     radar_terms = radar_terms or []
+    low_weight_keywords = low_weight_keywords or []
 
     title = (item.get("title") or "").lower()
     text = _text_blob(item)
@@ -248,16 +254,22 @@ def score_item(
         if term not in hit_list:
             hit_list.append(term)
 
+    low_set = {str(x).lower().strip() for x in low_weight_keywords if str(x).strip()}
+
     for k in base_keywords or []:
-        kl = str(k).lower().strip()
+        kl_raw = str(k)
+        kl = kl_raw.lower().strip()
         if not kl:
             continue
+
+        is_low = kl in low_set
+
         if kl in title:
-            score += 2.0
-            _add_hit(base_hits, str(k))
+            score += (0.5 if is_low else 2.0)
+            _add_hit(base_hits, kl_raw)
         elif kl in text:
-            score += 1.0
-            _add_hit(base_hits, str(k))
+            score += (0.2 if is_low else 1.0)
+            _add_hit(base_hits, kl_raw)
 
     for rt in radar_terms:
         rl = str(rt).lower().strip()
@@ -354,6 +366,7 @@ def pick_by_topic(
         tname = t.get("name", tid)
         tmin = float(t.get("min_score", 0))
         tkeywords = t.get("keywords") or []
+        tlow = t.get("low_weight_keywords") or []
         tguard = t.get("guard") or {}
 
         radar_terms = topic_radar_terms.get(tid, [])
@@ -363,7 +376,7 @@ def pick_by_topic(
             if not guard_pass(it, tguard):
                 continue
 
-            s, base_hits, radar_hits = score_item(it, tkeywords, radar_terms=radar_terms)
+            s, base_hits, radar_hits = score_item(it, tkeywords, radar_terms=radar_terms, low_weight_keywords=tlow)
             if s < tmin:
                 continue
 
