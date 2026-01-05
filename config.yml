@@ -183,17 +183,30 @@ topics:
 
 sources:
   rss:
-    # 1) Google News（總匯）
+    # Google News（基礎廣度）
     - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
 
-    # 2) AI / 大廠官方（用來提升準確度與速度）
-    - https://openai.com/news/rss.xml
-    - https://blog.google/technology/ai/rss/
-    - https://research.google/blog/rss/
-    - https://nvidianews.nvidia.com/rss
+    # AI / 科技專業媒體
+    - https://www.techradar.com/rss
+    - https://ai-weekly.ai/feed
+    - https://etcjournal.com/feed
+    - https://radicaldatascience.wordpress.com/feed
 
-    # 3) 監管/法遵（會計主題補強）
-    - https://www.sec.gov/news/pressreleases.rss
-    - https://www.sec.gov/news/speeches-statements.rss
+    # 商業與產業（避免只剩科技泡泡）
+    - https://www.businessinsider.com/rss
+    - https://www.bnext.com.tw/rss
+    # OpenAI 官方
+    - https://openai.com/blog/rss.xml
 
-last_updated: "2026-01-03T00:00:00+08:00"
+    # Google AI 官方
+    - https://blog.google/technology/ai/rss
+    - https://developers.googleblog.com/feeds/posts/default
+
+    # Meta AI / Research
+    - https://ai.facebook.com/blog/rss/
+
+    # Microsoft / Azure AI
+    - https://techcommunity.microsoft.com/plugins/custom/microsoft/o365/custom-blog-rss?tid=AzureAI
+
+    # Anthropic（Claude）
+    - https://www.anthropic.com/news/rss.xml
