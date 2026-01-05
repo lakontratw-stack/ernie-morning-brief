@@ -1,6 +1,5 @@
-requests
 feedparser
-pyyaml
 fastapi
-uvicorn[standard]
+pyyaml
 requests
+uvicorn[standard]
