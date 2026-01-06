@@ -228,13 +228,46 @@ topics:
 
 sources:
   rss:
-    - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+    # ─────────────────────────────
+    # Watsons / 藥妝通路重點媒體（來自 Daily Clipping）
+    # ─────────────────────────────
+
+    # 工商時報（零售 / 財經）
+    - https://www.ctee.com.tw/rss
+
+    # 自由時報 – 財經
+    - https://news.ltn.com.tw/rss/business.xml
+
+    # 自由時報 – 消費
+    - https://news.ltn.com.tw/rss/consumption.xml
+
+    # 壹蘋新聞網
+    - https://tw.nextapple.com/rss
+
+    # Cosmopolitan Taiwan（消費 / 美妝）
+    - https://www.cosmopolitan.com/tw/rss
+
+    # 民眾日報（無正式分類 RSS，先用 Google News query 補）
+    - https://news.google.com/rss/search?q=%E6%B0%91%E7%9C%BE%E6%97%A5%E5%A0%B1%20%E8%97%A5%E5%A6%9D%20OR%20%E9%80%9A%E8%B7%AF&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+
+    # ─────────────────────────────
+    # 主題型 Google News RSS（縮小資料池）
+    # ─────────────────────────────
+
+    # Watsons / 競品 / 藥妝通路
+    - https://news.google.com/rss/search?q=%E5%B1%88%E8%87%A3%E6%B0%8F%20OR%20Watsons%20OR%20%E5%BA%B7%E6%98%AF%E7%BE%8E%20OR%20%E5%AF%B6%E9%9B%85%20OR%20%E6%9D%BE%E6%9C%AC%E6%B8%85%20OR%20Tomod%27s%20OR%20%E6%97%A5%E8%97%A5%E6%9C%AC%E8%88%96%20OR%20%E5%A4%A7%E6%A8%B9%E8%97%A5%E5%B1%80%20OR%20%E6%9D%8F%E4%B8%80%20(%E8%97%A5%E5%A6%9D%20OR%20%E8%97%A5%E5%B1%80%20OR%20%E9%96%80%E5%B8%82%20OR%20%E9%80%9A%E8%B7%AF%20OR%20%E9%9B%B6%E5%94%AE%20OR%20%E7%87%9F%E6%94%B6%20OR%20%E8%B2%A1%E5%A0%B1)&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+
+    # ─────────────────────────────
+    # AI 官方與技術來源（維持你目前設計）
+    # ─────────────────────────────
     - https://openai.com/blog/rss.xml
     - https://blog.google/technology/ai/rss
     - https://developers.googleblog.com/feeds/posts/default
     - https://ai.facebook.com/blog/rss/
     - https://www.anthropic.com/news/rss.xml
-    - https://ai-weekly.ai/feed
-    - https://etcjournal.com/feed
-    - https://www.businessinsider.com/rss
-    - https://www.bnext.com.tw/rss
+
+    # ─────────────────────────────
+    # 備援大水庫（最後才用）
+    # ─────────────────────────────
+    - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+
