@@ -14,28 +14,28 @@ radar:
     max_terms_per_topic: 3
     show_in_footer: true
 
-  # 新增：延遲追蹤（先記線索，48 小時後回頭看是否發酵）
-  delay_tracking:
-    enabled: true
-    delay_hours: 48
-    max_candidates_per_topic: 3
-    min_score_to_watch: 2.5
-    storage_path: "data/delayed_watch.json"
-
-push:
-  # 新增：推播失敗追蹤
-  failure_tracking:
-    enabled: true
-    storage_path: "data/push_failures.json"
-    # 預設不自動移除，避免誤刪（你要開再改成 true）
-    auto_remove_user: false
-    auto_remove_threshold: 3
-
 topics:
+  # =========================================================
+  # 台灣屈臣氏與競爭對手
+  # =========================================================
   - id: watsons_tw
     name: 台灣屈臣氏與競爭對手
     enabled: true
     min_score: 2
+
+    # 泛用詞只做輔助，避免亂中（例如運動開幕戰）
+    low_weight_keywords:
+      - 開幕
+      - 成長
+      - 營運
+      - 商圈
+      - 據點
+      - 布局
+      - 促銷
+      - 零售
+      - 網購
+      - 電子商務
+
     keywords:
       - 屈臣氏
       - Watsons
@@ -45,87 +45,78 @@ topics:
       - 寶雅
       - 松本清
       - Tomod's
+      - Tomod’s
       - 日藥本舖
       - 大樹藥局
+      - 大樹
       - 杏一
       - 藥妝通路
       - 連鎖藥局
       - 展店
       - 關店
-      - 開幕
       - 門市
-      - 據點
-      - 商圈
       - 通路布局
       - 實體零售
       - 營收
-      - 營運
-      - 成長
       - 毛利
       - 市場佔有率
       - 通路競爭
+      - 促銷
+      - 零售
+      - 網購
+      - 電子商務
+      - 蝦皮
+      - Shopee
+      - 酷澎
+      - Coupang
 
     guard:
-      # 新增：至少要有品牌或通路語境之一
+      # 至少要在「實體/電商零售通路語境」
       must_include_any:
-        - 屈臣氏
-        - watsons
-        - 康是美
-        - 寶雅
-        - 松本清
-        - tomod
-        - tomod's
-        - 日藥本舖
-        - 大樹
-        - 大樹藥局
-        - 杏一
         - 藥妝
         - 藥局
         - 門市
         - 通路
         - 零售
-        - 財報
-        - 營收
+        - 網購
+        - 電子商務
+        - 蝦皮
+        - shopee
+        - 酷澎
+        - coupang
 
       must_not_include_any:
+        - 開幕戰
+        - 日職
+        - WBC
+        - 棒球
+        - 投手
+        - 先發
+        - 球季
         - 軍演
         - 共軍
         - 導彈
-        - 烏克蘭
-        - 普廷
-        - 台海
-        - 國防
         - 戰爭
-        - 事實查核
-        - 查核
-        - 查證
-        # 新增：運動語境常見詞，避免「開幕戰」這種誤中
-        - 開幕戰
-        - 日職
-        - 棒球
-        - WBC
-        - 先發
-        - 投手
-        - 打擊
-        - 球季
+        - 國防
 
-  - id: accounting
-    name: 國內外會計相關訊息
+  # =========================================================
+  # 國內外財經相關訊息（你指定 must include：零售）
+  # =========================================================
+  - id: finance
+    name: 國內外財經相關訊息
     enabled: true
     min_score: 2
+
     keywords:
       - IFRS
       - IASB
       - FASB
-      - 會計
-      - 會計準則
       - 財報
       - 財務報告
       - 年報
       - 季報
       - 合併報表
       - 審計
-      - 查核
       - 內控
       - 稽核
       - 舞弊
@@ -136,51 +127,35 @@ topics:
       - 證交所
       - 櫃買中心
       - SEC
+      - 稅務
+      - 所得稅
+      - 營業稅
+      - 營所稅
+      - 零售
+
     guard:
       must_include_any:
-        - IFRS
-        - IASB
-        - FASB
-        - 會計
-        - 會計準則
-        - 財報
-        - 財務報告
-        - 年報
-        - 季報
-        - 合併報表
-        - 審計
-        - 查核
-        - 內控
-        - 稽核
-        - 舞弊
-        - 永續揭露
-        - 永續報告
-        - 碳揭露
-        - 金管會
-        - SEC
-        - 證交所
-        - 櫃買中心
+        - 零售
       must_not_include_any:
-        - 無人機
         - 軍演
         - 共軍
         - 導彈
-        - 烏克蘭
-        - 普廷
-        - 台海
-        - 國防
         - 戰爭
-        - 俯瞰
-        - "101"
+        - 國防
+        - 事實查核
         - 查核
         - 查證
-        - 事實查核
 
+  # =========================================================
+  # AI 應用與重大訊息（技術 + 應用）
+  # =========================================================
   - id: ai_major
     name: AI 應用與重大訊息
     enabled: true
     min_score: 2
+
     keywords:
+      # 技術 / 平台
       - OpenAI
       - Google
       - DeepMind
@@ -191,83 +166,65 @@ topics:
       - Microsoft
       - Meta
       - Copilot
-      - 生成式
       - 大模型
       - 語言模型
       - 推理
       - 算力
       - 資料中心
-      - 自動化
-      - AI助理
-      - 智慧客服
-      - 代理人
-      - 企業導入
-      - AI法
-      - 人工智慧法
-      - 監管
       - 晶片
       - 半導體
-      - Sam Altman
-      - Jensen Huang
-      - Sundar Pichai
-      - Satya Nadella
-      - Mark Zuckerberg
+
+      # 應用 / 導入（補強 Think with Google）
+      - 企業導入
+      - 商業應用
+      - 自動化
+      - 行銷科技
+      - 客戶體驗
+      - 營運效率
+      - 數位轉型
+
     guard:
       must_not_include_any:
         - 軍演
         - 共軍
         - 導彈
-        - 烏克蘭
-        - 普廷
-        - 台海
-        - 國防
         - 戰爭
+        - 國防
         - 事實查核
         - 查核
         - 查證
 
+# =========================================================
+# 來源設定
+# =========================================================
 sources:
   rss:
-    # ─────────────────────────────
-    # Watsons / 藥妝通路重點媒體（來自 Daily Clipping）
-    # ─────────────────────────────
-
-    # 工商時報（零售 / 財經）
+    # ---------- Watsons / 零售通路（Daily Clipping 對齊） ----------
     - https://www.ctee.com.tw/rss
-
-    # 自由時報 – 財經
     - https://news.ltn.com.tw/rss/business.xml
-
-    # 自由時報 – 消費
     - https://news.ltn.com.tw/rss/consumption.xml
-
-    # 壹蘋新聞網
     - https://tw.nextapple.com/rss
-
-    # Cosmopolitan Taiwan（消費 / 美妝）
     - https://www.cosmopolitan.com/tw/rss
 
-    # 民眾日報（無正式分類 RSS，先用 Google News query 補）
-    - https://news.google.com/rss/search?q=%E6%B0%91%E7%9C%BE%E6%97%A5%E5%A0%B1%20%E8%97%A5%E5%A6%9D%20OR%20%E9%80%9A%E8%B7%AF&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+    # ---------- 主題型 Google News RSS ----------
+    # Watsons / 競品 / 通路 / 電商
+    - https://news.google.com/rss/search?q=%E5%B1%88%E8%87%A3%E6%B0%8F%20OR%20Watsons%20OR%20%E5%BA%B7%E6%98%AF%E7%BE%8E%20OR%20%E5%AF%B6%E9%9B%85%20OR%20%E6%9D%BE%E6%9C%AC%E6%B8%85%20OR%20Tomod%27s%20OR%20%E6%97%A5%E8%97%A5%E6%9C%AC%E8%88%96%20OR%20%E5%A4%A7%E6%A8%B9%E8%97%A5%E5%B1%80%20OR%20%E6%9D%8F%E4%B8%80%20(%E9%9B%B6%E5%94%AE%20OR%20%E8%97%A5%E5%A6%9D%20OR%20%E8%97%A5%E5%B1%80%20OR%20%E9%80%9A%E8%B7%AF%20OR%20%E9%9B%BB%E5%AD%90%E5%95%86%E5%8B%99%20OR%20%E7%B6%B2%E8%B3%BC%20OR%20%E8%9D%A6%E7%9A%AE%20OR%20%E9%85%B7%E6%BE%8E)&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
 
-    # ─────────────────────────────
-    # 主題型 Google News RSS（縮小資料池）
-    # ─────────────────────────────
+    # 財經 × 零售 × 稅務
+    - https://news.google.com/rss/search?q=%E7%A8%85%E5%8B%99%20OR%20%E6%89%80%E5%BE%97%E7%A8%85%20OR%20%E7%87%9F%E6%A5%AD%E7%A8%85%20OR%20%E7%87%9F%E6%89%80%E7%A8%85%20(%E9%9B%B6%E5%94%AE)&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
 
-    # Watsons / 競品 / 藥妝通路
-    - https://news.google.com/rss/search?q=%E5%B1%88%E8%87%A3%E6%B0%8F%20OR%20Watsons%20OR%20%E5%BA%B7%E6%98%AF%E7%BE%8E%20OR%20%E5%AF%B6%E9%9B%85%20OR%20%E6%9D%BE%E6%9C%AC%E6%B8%85%20OR%20Tomod%27s%20OR%20%E6%97%A5%E8%97%A5%E6%9C%AC%E8%88%96%20OR%20%E5%A4%A7%E6%A8%B9%E8%97%A5%E5%B1%80%20OR%20%E6%9D%8F%E4%B8%80%20(%E8%97%A5%E5%A6%9D%20OR%20%E8%97%A5%E5%B1%80%20OR%20%E9%96%80%E5%B8%82%20OR%20%E9%80%9A%E8%B7%AF%20OR%20%E9%9B%B6%E5%94%AE%20OR%20%E7%87%9F%E6%94%B6%20OR%20%E8%B2%A1%E5%A0%B1)&hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+    # AI 技術 / 應用（一般）
+    - https://news.google.com/rss/search?q=OpenAI%20OR%20Anthropic%20OR%20DeepMind%20OR%20Gemini%20OR%20NVIDIA%20OR%20Microsoft%20OR%20Copilot%20OR%20Meta%20(AI%20OR%20agent%20OR%20automation)&hl=zh-TW&gl=US&ceid=US:en
 
-    # ─────────────────────────────
-    # AI 官方與技術來源（維持你目前設計）
-    # ─────────────────────────────
+    # ---------- AI 應用 × 商業決策（Think with Google） ----------
+    - https://news.google.com/rss/search?q=site:business.google.com/think%20(AI%20OR%20automation%20OR%20%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7)%20(%E9%9B%B6%E5%94%AE%20OR%20%E8%A1%8C%E9%8A%B7%20OR%20%E7%87%9F%E9%81%8B%20OR%20%E5%AE%A2%E6%88%B6)&hl=zh-TW&gl=US&ceid=US:en
+
+    # ---------- AI 官方一手 ----------
     - https://openai.com/blog/rss.xml
     - https://blog.google/technology/ai/rss
     - https://developers.googleblog.com/feeds/posts/default
     - https://ai.facebook.com/blog/rss/
     - https://www.anthropic.com/news/rss.xml
 
-    # ─────────────────────────────
-    # 備援大水庫（最後才用）
-    # ─────────────────────────────
+    # ---------- 備援大水庫（最後才用） ----------
     - https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
-
