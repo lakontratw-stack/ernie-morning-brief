@@ -30,8 +30,8 @@
     "last_error": "429 Client Error: Too Many Requests for url: https://api.line.me/v2/bot/message/push"
   },
   "Uf387adf0427865a9145df2075b4e0481": {
-    "fail_count": 1,
-    "last_failed_at": "2026-01-17T06:14:35.214510+08:00",
+    "fail_count": 2,
+    "last_failed_at": "2026-01-18T06:13:26.885841+08:00",
     "last_error": "429 Client Error: Too Many Requests for url: https://api.line.me/v2/bot/message/push"
   },
   "Uff15931bbe769f744b09665568f878ab": {
