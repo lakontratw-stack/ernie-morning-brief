@@ -1,12 +1,12 @@
 {
   "U86e75d084abc5dfdc8479abc82ee0ed7": {
-    "fail_count": 22,
-    "last_failed_at": "2026-02-26T06:25:15.591219+08:00",
+    "fail_count": 21,
+    "last_failed_at": "2026-02-24T06:34:09.228222+08:00",
     "last_error": "429 Client Error: Too Many Requests for url: https://api.line.me/v2/bot/message/push"
   },
   "Ua8eee6c5a04800b0cd442649edc1cac1": {
-    "fail_count": 22,
-    "last_failed_at": "2026-02-25T06:25:53.290933+08:00",
+    "fail_count": 23,
+    "last_failed_at": "2026-02-26T06:25:15.591219+08:00",
     "last_error": "429 Client Error: Too Many Requests for url: https://api.line.me/v2/bot/message/push"
   },
   "Uaabc7d8c2de70e4e7aeaf8d9cee5ea55": {
