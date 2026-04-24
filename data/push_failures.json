@@ -1,7 +1,7 @@
 {
   "U86e75d084abc5dfdc8479abc82ee0ed7": {
-    "fail_count": 43,
-    "last_failed_at": "2026-04-24T06:36:58.725084+08:00",
+    "fail_count": 44,
+    "last_failed_at": "2026-04-25T06:33:30.167853+08:00",
     "last_error": "429 Client Error: Too Many Requests for url: https://api.line.me/v2/bot/message/push"
   },
   "Ua8eee6c5a04800b0cd442649edc1cac1": {
