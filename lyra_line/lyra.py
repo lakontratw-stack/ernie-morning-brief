@@ -9,6 +9,7 @@ from typing import Any
 import requests
 
 from .config import settings
+from .db import recent_history
 from .knowledge import (
     active_promotions,
     fallback,
@@ -43,15 +44,15 @@ def ask_lyra(user_id: str, text: str) -> str:
     elif provider == "openai_compatible":
         reply = _ask_openai_compatible(messages)
     else:
-        reply = _ask_mock(text)
+        reply = _ask_mock(text, recent_history(user_id, limit=10))
     return to_traditional(reply.strip())
 
 
-def _ask_mock(text: str) -> str:
-    return _ask_procurement_mock(text)
+def _ask_mock(text: str, history: list[Any] | None = None) -> str:
+    return _ask_procurement_mock(text, history or [])
 
 
-def _ask_procurement_mock(text: str) -> str:
+def _ask_procurement_mock(text: str, history: list[Any]) -> str:
     hard_escalation_keywords = [
         "例外核准",
         "稽核",
@@ -71,6 +72,10 @@ def _ask_procurement_mock(text: str) -> str:
     lower = text.lower()
     if any(keyword in lower for keyword in hard_escalation_keywords):
         return "[ESCALATE:需要正式判斷]\n這題可能會影響正式判斷，我先幫你轉給 NTP team 確認，比較安全。"
+
+    followup_reply = _followup_reply(text, history)
+    if followup_reply:
+        return followup_reply
 
     price_reply = _quick_price_analysis(text)
     if price_reply:
@@ -98,8 +103,9 @@ def _ask_procurement_mock(text: str) -> str:
         )
     if "asl" in lower or "供應商" in text:
         return (
-            "ASL 是 Approved Supplier List。\n\n"
-            "原則上不論金額多寡，使用單位都應與 ASL 供應商合作。若要用新供應商，需要先由 NTP 做 supplier pre-evaluation，並完成 ASL 建立後才適合進 tender 或採購流程。"
+            "ASL 是 Approved Supplier List，簡單說就是可合作供應商名單。\n"
+            "如果供應商已在 ASL，下一步通常就看金額門檻、CapEx/Opex 和 quotation/tender 要求。\n"
+            "如果你是在補前一筆採購資料，可以直接回金額、CapEx/Opex、是否 budgeted。"
         )
     if "tender" in lower or "招標" in text:
         return (
@@ -124,6 +130,88 @@ def _extract_amount(text: str) -> float | None:
     if not matches:
         return None
     return float(matches[0])
+
+
+def _followup_reply(text: str, history: list[Any]) -> str | None:
+    context = _history_text(history)
+    if not context:
+        return None
+
+    context_lower = context.lower()
+    lower = text.lower().strip()
+    amount = _extract_amount(text)
+
+    has_procurement_context = any(word in context for word in ["採購", "平板", "展示桌", "設備", "買"])
+    if amount is not None and has_procurement_context and _is_short_followup(text):
+        if amount <= 100000:
+            return (
+                f"如果前面那筆改成 NT${amount:,.0f}，且不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
+                "但仍要確認供應商在 ASL、是否已 budgeted，以及是否有 IT/CapEx 需求。\n"
+                "如果這三點都 OK，流程會比較單純。"
+            )
+        return (
+            f"如果前面那筆改成 NT${amount:,.0f}，就已經超過 NT$100,000。\n"
+            "原則上要進 NTP sourcing，通常會往 quotation process 看。\n"
+            "先確認 CapEx/Opex、是否已 budgeted、供應商是否在 ASL。"
+        )
+
+    detail_markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
+    if has_procurement_context and any(marker in lower for marker in detail_markers):
+        latest_amount = _extract_amount(context)
+        if latest_amount is not None and latest_amount > 100000:
+            return (
+                "收到，Opex、budgeted、供應商也在 ASL，方向就比較清楚。\n"
+                "因為金額超過 NT$100,000，下一步建議交 NTP 走 quotation process。\n"
+                "通常至少要準備 3 家書面報價；如果只有一家或家數不足，就要先把原因寫清楚給 NTP 確認。"
+            )
+        return (
+            "收到，這樣流程會比較單純。\n"
+            "如果金額未超過 NT$100,000、不是拆單、供應商在 ASL，通常不用走 NTP sourcing。\n"
+            "但如果有 IT/CapEx 或年度累計超門檻，還是要再確認。"
+        )
+
+    if _looks_contextual(text) and has_procurement_context:
+        latest_amount = amount or _extract_amount(context)
+        if latest_amount and latest_amount > 100000:
+            return (
+                "如果你是指前面那筆，因為已超過 NT$100,000，建議先進 NTP sourcing。\n"
+                "我還需要 CapEx/Opex、是否已 budgeted、供應商是否 ASL。\n"
+                "補上後我再幫你看 quotation 或 tender 路徑。"
+            )
+        return (
+            "如果你是指前面那筆小額採購，可以先走比較簡單的路徑。\n"
+            "但還不能直接說可以下單，因為要先確認 ASL、是否拆單/年度累計、以及 IT 或 CapEx 需求。"
+        )
+
+    return None
+
+
+def _is_short_followup(text: str) -> bool:
+    stripped = text.strip()
+    if re.fullmatch(r"(?:nt\$?|twd|台幣|新台幣)?\s*\d{4,}(?:\.\d+)?", stripped.lower().replace(",", "")):
+        return True
+    return len(stripped) <= 18 and bool(_extract_amount(stripped))
+
+
+def _looks_contextual(text: str) -> bool:
+    stripped = text.strip().lower()
+    return any(marker in stripped for marker in ["那", "這樣", "這個", "那如果", "那這個", "可以嗎"])
+
+
+def _history_text(history: list[Any]) -> str:
+    parts: list[str] = []
+    for item in history[-10:]:
+        user = item["user_message"] if hasattr(item, "keys") else item[0]
+        bot = item["bot_reply"] if hasattr(item, "keys") else item[1]
+        user_text = str(user or "").strip()
+        bot_text = str(bot or "").strip()
+        if not user_text or not bot_text:
+            continue
+        if bot_text in {"(human takeover: AI silent)", "(人工接手中，AI 不回)", "人工接手中，AI 不回"}:
+            continue
+        parts.append(user_text)
+        parts.append(bot_text)
+    return "\n".join(parts)
 
 
 def _small_purchase_reply(amount: float, text: str) -> str:

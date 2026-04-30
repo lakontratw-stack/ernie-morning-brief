@@ -6,7 +6,7 @@ from typing import Any
 
 from config import settings
 from db import connect
-from telegram_notifier import format_notification, send_telegram_message
+from telegram_notifier import build_reply_markup, format_notification, send_telegram_message
 
 
 def enqueue_notification(
@@ -56,8 +56,9 @@ def process_pending_notifications(limit: int = 20) -> int:
     for row in rows:
         payload = json.loads(row["payload_json"] or "{}")
         text = format_notification(row["event_type"], payload)
+        reply_markup = build_reply_markup(row["event_type"], payload)
         try:
-            send_telegram_message(text)
+            send_telegram_message(text, chat_id=row["target_chat_id"], reply_markup=reply_markup)
             with connect() as conn:
                 conn.execute(
                     """

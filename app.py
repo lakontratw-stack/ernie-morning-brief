@@ -9,6 +9,7 @@ import db
 from config import settings
 from line_handler import handle_line_webhook
 from notification_queue import process_pending_notifications
+from telegram_notifier import handle_telegram_callback
 
 APP_VERSION = "procurement-mvp-2026-04-30"
 
@@ -40,6 +41,11 @@ def create_app() -> Flask:
     def admin_recover_takeovers():
         recovered = db.auto_recover_takeovers(hours=settings.takeover_hours)
         return jsonify({"status": "ok", "recovered": len(recovered)})
+
+    @app.post("/webhook/telegram")
+    def webhook_telegram():
+        handle_telegram_callback(request.get_json(silent=True) or {})
+        return jsonify({"ok": True})
 
     return app
 

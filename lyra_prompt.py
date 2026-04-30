@@ -290,21 +290,38 @@ def _extract_amount(text: str) -> float | None:
 
 def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
     if not _looks_contextual(text) or not history:
-        return None
+        if not history:
+            return None
 
     context = _history_text(history).lower()
-    amount = _extract_amount(context)
+    amount = _extract_amount(text) or _extract_amount(context)
+    has_procurement_context = any(word in context for word in ["採購", "平板", "展示桌", "設備", "買"])
+
+    if has_procurement_context and _is_procurement_detail_followup(text):
+        latest_amount = _extract_amount(context)
+        if latest_amount is not None and latest_amount > 100000:
+            return (
+                "收到，Opex、budgeted、供應商也在 ASL，方向就比較清楚。\n"
+                "因為金額超過 NT$100,000，下一步建議交 NTP 走 quotation process。\n"
+                "通常至少要準備 3 家書面報價；如果只有一家或家數不足，就要先把原因寫清楚給 NTP 確認。"
+            )
+        return (
+            "收到，這樣流程會比較單純。\n"
+            "如果金額未超過 NT$100,000、不是拆單、供應商在 ASL，通常不用走 NTP sourcing。\n"
+            "但如果有 IT/CapEx 或年度累計超門檻，還是要再確認。"
+        )
+
     if amount is not None and any(word in context for word in ["採購", "平板", "設備", "買"]):
         if amount <= 100000:
             return (
-                "如果你是指前面那筆小額採購，可以先走比較簡單的路徑。\n"
-                "但還不能直接說可以下單，因為要先確認 ASL、是否拆單/年度累計、以及 IT 或 CapEx 需求。\n"
-                "你回我：供應商在 ASL 嗎？IT 有同意嗎？我再幫你判斷。"
+                f"如果前面那筆改成 NT${amount:,.0f}，且不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
+                "但仍要確認供應商在 ASL、是否已 budgeted，以及是否有 IT/CapEx 需求。\n"
+                "如果這三點都 OK，流程會比較單純。"
             )
         return (
-            "如果你是指前面那筆採購，金額已超過 NT$100,000，建議先進 NTP sourcing。\n"
-            "我還需要 CapEx/Opex、是否已 budgeted、供應商是否 ASL。\n"
-            "補上後我再幫你看 quotation 或 tender 路徑。"
+            f"如果前面那筆改成 NT${amount:,.0f}，就已經超過 NT$100,000。\n"
+            "原則上要進 NTP sourcing，通常會往 quotation process 看。\n"
+            "先確認 CapEx/Opex、是否已 budgeted、供應商是否在 ASL。"
         )
 
     if any(word in context for word in ["續約", "展延", "renew contract", "extend contract"]):
@@ -330,6 +347,12 @@ def _looks_contextual(text: str) -> bool:
         "可以嗎",
     ]
     return any(marker in stripped for marker in contextual_markers)
+
+
+def _is_procurement_detail_followup(text: str) -> bool:
+    lower = text.lower().strip()
+    markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
+    return any(marker in lower for marker in markers)
 
 
 def _clean_history(history: list[Any]) -> list[Any]:

@@ -28,9 +28,24 @@ from .telegram_client import (
     handle_callback,
 )
 
-ESCALATION_REPLY = "這個我幫您轉給專員確認比較準，稍後會有同事接續協助您。"
-KEYWORD_ESCALATIONS = ["客訴", "退貨", "退款", "發票", "投訴", "主管", "人工", "真人", "訂單", "庫存"]
-FRUSTRATION_ESCALATIONS = ["鬼打牆", "聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
+ESCALATION_REPLY = "這題可能會影響正式判斷，我先幫你轉給 NTP team 確認，比較安全。"
+KEYWORD_ESCALATIONS = [
+    "例外核准",
+    "稽核",
+    "Internal Audit",
+    "Legal",
+    "法務",
+    "客訴",
+    "個資",
+    "申訴",
+    "違規",
+    "合約爭議",
+    "主管要求",
+    "直接核准",
+    "幫我批准",
+    "幫我送簽",
+]
+FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
 APP_VERSION = "procurement-mvp-legacy-fastapi-compat"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
@@ -80,10 +95,10 @@ def admin_diagnostics() -> dict:
     refresh_knowledge()
     data = load_knowledge()
     sample_questions = [
-        "我想知道現在的促銷活動是甚麼",
-        "促銷活動啦",
-        "民權店",
-        "民權店營業時間",
+        "我想採購99999的平板，需要走甚麼程序",
+        "如果我要續約廣告代理人的合約，我要注意甚麼",
+        "A vendor 100, B vendor 170",
+        "那這樣可以嗎",
     ]
     return {
         "status": "ok",
@@ -133,9 +148,9 @@ def demo_page() -> str:
     <body>
       <main>
         <h1>Lyra LINE OA Preview</h1>
-        <p>這裡可以先測 Lyra 的客服回覆邏輯，不會真的傳 LINE，也不會通知 Telegram。</p>
+        <p>這裡可以先測 Lyra 的內部採購回覆邏輯，不會真的傳 LINE，也不會通知 Telegram。</p>
         <section>
-          <textarea id="text">請問屈臣氏營業到幾點？</textarea>
+          <textarea id="text">我想採購99999的平板，需要走甚麼程序</textarea>
           <button id="send">測試 Lyra 回覆</button>
           <div class="meta" id="meta"></div>
           <pre id="result">尚未測試</pre>
@@ -239,7 +254,7 @@ def _dispatch_event(event: dict) -> None:
     if msg_type == "text":
         _process_text(user_id, display_name, reply_token, message.get("text") or "")
     elif msg_type == "sticker":
-        reply_text(reply_token, "謝謝您的貼圖～有什麼可以幫您的嗎？")
+        reply_text(reply_token, "收到。採購或 tender 問題請直接打字給我。")
     elif msg_type == "image":
         reply_text(reply_token, ESCALATION_REPLY)
         db.set_takeover(user_id)
@@ -251,7 +266,7 @@ def _dispatch_event(event: dict) -> None:
 def _process_text(user_id: str, display_name: str, reply_token: str, text: str) -> None:
     if any(keyword in text for keyword in RESET_AI_KEYWORDS):
         db.clear_takeover(user_id)
-        customer_reply = "已恢復 Lyra 自動回覆。您可以再問我門市、營業時間或促銷活動。"
+        customer_reply = "已恢復 Lyra 自動回覆。你可以再問我採購流程、tender、續約或議價問題。"
         reply_text(reply_token, customer_reply)
         db.log_chat(user_id, text, customer_reply)
         return
@@ -271,7 +286,7 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
 
     frustration = next((kw for kw in FRUSTRATION_ESCALATIONS if kw in text), None)
     if frustration:
-        customer_reply = "抱歉，剛剛沒有理解到您的意思。我先幫您轉給專員接手，避免一直來回耽誤您。"
+        customer_reply = "我剛剛沒有抓準你的意思。這題我先幫你轉給 NTP team，避免來回誤判。"
         reply_text(reply_token, customer_reply)
         db.set_takeover(user_id)
         db.log_chat(user_id, text, customer_reply)
