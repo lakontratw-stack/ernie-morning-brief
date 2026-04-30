@@ -5,6 +5,15 @@ REPO_URL="${REPO_URL:-https://github.com/lakontratw-stack/ernie-morning-brief.gi
 BRANCH="${BRANCH:-main}"
 WORKDIR="${WORKDIR:-/tmp/ernie-morning-brief-deploy}"
 SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+DEPLOY_KEY="${DEPLOY_KEY:-$SOURCE_DIR/.deploy_keys/github_lakontratw_deploy}"
+
+if [[ -f "$DEPLOY_KEY" ]]; then
+  export GIT_SSH_COMMAND="ssh -i '$DEPLOY_KEY' -o IdentitiesOnly=yes"
+  if [[ "$REPO_URL" == https://github.com/* ]]; then
+    REPO_URL="git@github.com:${REPO_URL#https://github.com/}"
+    REPO_URL="${REPO_URL%.git}.git"
+  fi
+fi
 
 rm -rf "$WORKDIR"
 git clone "$REPO_URL" "$WORKDIR"
