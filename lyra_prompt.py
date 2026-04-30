@@ -255,16 +255,30 @@ def _amount_based_procurement_reply(text: str) -> str | None:
 
 def _contract_renewal_reply(text: str, history: list[Any]) -> str | None:
     lower = text.lower()
-    if not any(word in lower for word in ["續約", "展延", "延長合約", "合約到期", "renew contract", "extend contract"]):
+    context_text = _history_text(history)
+    context_lower = context_text.lower()
+    is_renewal = _is_contract_renewal_request(lower) or (
+        _is_contract_renewal_request(context_lower) and _looks_renewal_followup(text)
+    )
+    if not is_renewal:
         return None
 
-    context = _history_text(history) if _looks_contextual(text) else ""
+    context = context_text if (_looks_contextual(text) or _is_contract_renewal_request(context_lower)) else ""
     combined = f"{context}\n{text}".lower()
     is_agency = any(
         word in combined
         for word in ["agency", "代理", "廣告", "pr agency", "media agency", "consultant", "kol", "third party"]
     )
     amount = _extract_amount(text) or (_extract_amount(context) if context else None)
+    years = _extract_years(text) or (_extract_years(context) if context else None)
+
+    if amount and amount >= TENDER_THRESHOLD_NTD:
+        duration_note = f"、期間 {years:g} 年" if years else ""
+        return (
+            f"這份續約金額約 NT${amount:,.0f}{duration_note}，已超過約 NT$12M，不能當一般續約處理。\n"
+            "方向應先抓 re-tender / tender review，至少要看 5 家供應商或有清楚 exception 理由。\n"
+            "CapEx/Opex、budgeted、ASL 仍要確認，但不會改變 tender 門檻判斷。"
+        )
 
     lead = "可以先看，但我不會直接判斷能不能續。"
     if amount:
@@ -286,10 +300,37 @@ def _contract_renewal_reply(text: str, history: list[Any]) -> str | None:
 
 
 def _extract_amount(text: str) -> float | None:
-    matches = re.findall(r"(?:nt\$?|twd|台幣|新台幣)?\s*(\d{4,}(?:\.\d+)?)", text.lower().replace(",", ""))
+    normalized = text.lower().replace(",", "")
+    million_match = re.search(
+        r"(?:nt\$?|twd|台幣|新台幣)?\s*(\d+(?:\.\d+)?)\s*(?:m|mn|million|百萬)\b",
+        normalized,
+    )
+    if million_match:
+        return float(million_match.group(1)) * 1_000_000
+
+    matches = re.findall(r"(?:nt\$?|twd|台幣|新台幣)?\s*(\d{4,}(?:\.\d+)?)", normalized)
     if not matches:
         return None
     return float(matches[0])
+
+
+def _extract_years(text: str) -> float | None:
+    lower = text.lower()
+    match = re.search(r"(\d+(?:\.\d+)?)\s*(?:yrs?|years?|年)", lower)
+    if match:
+        return float(match.group(1))
+    chinese_years = {
+        "一年": 1,
+        "二年": 2,
+        "兩年": 2,
+        "三年": 3,
+        "四年": 4,
+        "五年": 5,
+    }
+    for label, value in chinese_years.items():
+        if label in text:
+            return float(value)
+    return None
 
 
 def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
@@ -366,6 +407,21 @@ def _looks_contextual(text: str) -> bool:
         "可以嗎",
     ]
     return any(marker in stripped for marker in contextual_markers)
+
+
+def _is_contract_renewal_request(text: str) -> bool:
+    lower = text.lower()
+    return any(
+        word in lower
+        for word in ["續約", "展延", "延長合約", "合約到期", "renew", "renewal", "extend contract", "contract renewal"]
+    )
+
+
+def _looks_renewal_followup(text: str) -> bool:
+    lower = text.lower().strip()
+    if _extract_amount(lower) is not None or _extract_years(lower) is not None:
+        return True
+    return any(word in lower for word in ["金額", "期間", "三年", "兩年", "一年", "asl", "budgeted", "opex", "capex"])
 
 
 def _tender_threshold_reply(amount: float) -> str:
