@@ -7,7 +7,15 @@ from typing import Any
 import requests
 
 from .config import settings
-from .knowledge import active_promotions, fallback, find_store, format_promotions, format_store_hours
+from .knowledge import (
+    active_promotions,
+    fallback,
+    find_store,
+    find_store_candidates,
+    format_promotions,
+    format_store_candidates,
+    format_store_hours,
+)
 from .prompts import build_messages
 
 try:
@@ -44,6 +52,9 @@ def _ask_mock(text: str) -> str:
         store = find_store(text)
         if store:
             return format_store_hours(store)
+        candidates = find_store_candidates(text)
+        if candidates:
+            return format_store_candidates(candidates)
         return fallback("store_hours") or "我可以幫您查門市營業時間。請問您想查哪一間門市呢？"
     if _is_promotion_question(normalized):
         return format_promotions(active_promotions())
@@ -53,6 +64,9 @@ def _ask_mock(text: str) -> str:
             address = store.get("address", "")
             if address and not address.startswith("請在這裡"):
                 return f"{store.get('name')}地址是：\n{address}"
+        candidates = find_store_candidates(text)
+        if candidates:
+            return format_store_candidates(candidates)
         return "屈臣氏門市很多，每間地址不同。\n您可以提供想查的地區或門市名稱，我再幫您確認。"
     return "您好，我是 Lyra。\n我可以先協助您查一般門市服務、營業時間、商品分類和常見購物問題。\n如果需要查訂單、庫存或會員資料，我會幫您轉給專員。"
 

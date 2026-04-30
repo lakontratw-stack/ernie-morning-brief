@@ -24,6 +24,10 @@ class Settings:
     lyra_provider: str = os.getenv("LYRA_PROVIDER", "mock")
     store_hours_csv_url: str = os.getenv("STORE_HOURS_CSV_URL", "")
     promotions_csv_url: str = os.getenv("PROMOTIONS_CSV_URL", "")
+    watsons_store_list_url: str = os.getenv(
+        "WATSONS_STORE_LIST_URL",
+        "https://www.watsons.com.tw/storedescription",
+    )
     hermes_bin: str = os.getenv("HERMES_BIN", "hermes")
     hermes_workdir: str = os.getenv("HERMES_WORKDIR", ".")
 
