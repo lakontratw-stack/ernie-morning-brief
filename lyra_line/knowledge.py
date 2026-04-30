@@ -14,6 +14,7 @@ import requests
 from .config import settings
 
 KNOWLEDGE_PATH = Path(__file__).resolve().parent.parent / "data" / "business_knowledge.json"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 _LAST_OFFICIAL_SOURCE_STATUS: list[dict[str, str | int]] = []
 
 
@@ -64,6 +65,17 @@ def _load_official_knowledge() -> dict:
 
     stores: list[dict] = []
     statuses: list[dict[str, str | int]] = []
+    cached_stores = _load_watsons_store_cache()
+    if cached_stores:
+        statuses.append({"source": "cache", "status": "ok", "count": len(cached_stores)})
+        _LAST_OFFICIAL_SOURCE_STATUS = statuses
+        return {"stores": cached_stores}
+    statuses.append({"source": "cache", "status": "missing", "path": settings.watsons_store_cache_path})
+
+    if not settings.watsons_enable_live_fetch:
+        _LAST_OFFICIAL_SOURCE_STATUS = statuses
+        return {"stores": []}
+
     sources = [
         ("openchat", settings.watsons_openchat_url, _load_watsons_openchat_list),
         ("storedescription", settings.watsons_store_list_url, _load_watsons_store_list),
@@ -84,8 +96,33 @@ def _load_official_knowledge() -> dict:
     return {"stores": _merge_store_lists(stores)}
 
 
+def _load_watsons_store_cache() -> list[dict]:
+    cache_path = _store_cache_path()
+    if not cache_path.exists():
+        return []
+    return _load_store_hours_csv(str(cache_path))
+
+
 def official_source_status() -> list[dict[str, str | int]]:
     return list(_LAST_OFFICIAL_SOURCE_STATUS)
+
+
+def store_cache_status() -> dict[str, str | int | bool]:
+    cache_path = _store_cache_path()
+    if not cache_path.exists():
+        return {"path": str(cache_path), "exists": False, "count": 0}
+    try:
+        count = len(_load_store_hours_csv(str(cache_path)))
+    except Exception as exc:
+        return {"path": str(cache_path), "exists": True, "count": 0, "error": str(exc)[:240]}
+    return {"path": str(cache_path), "exists": True, "count": count}
+
+
+def _store_cache_path() -> Path:
+    cache_path = Path(settings.watsons_store_cache_path)
+    if not cache_path.is_absolute():
+        cache_path = PROJECT_ROOT / cache_path
+    return cache_path
 
 
 def _merge_store_lists(*store_lists: list[dict]) -> list[dict]:
@@ -107,10 +144,17 @@ def _merge_store_lists(*store_lists: list[dict]) -> list[dict]:
 
 
 def _fetch_csv(url: str) -> list[dict[str, str]]:
-    response = requests.get(url, timeout=15)
-    response.raise_for_status()
-    text = response.text.lstrip("\ufeff")
+    if _is_http_url(url):
+        response = requests.get(url, timeout=15)
+        response.raise_for_status()
+        text = response.text.lstrip("\ufeff")
+    else:
+        text = Path(url).read_text(encoding="utf-8-sig").lstrip("\ufeff")
     return list(csv.DictReader(StringIO(text)))
+
+
+def _is_http_url(value: str) -> bool:
+    return value.startswith("http://") or value.startswith("https://")
 
 
 def _fetch_text(url: str) -> str:
@@ -242,8 +286,6 @@ def _next_address_line(lines: list[str], start_index: int) -> str:
 
 def _normalize_openchat_store_name(raw_name: str) -> str:
     name = re.sub(r"^[\u4e00-\u9fff]{2,3}(?=[\u4e00-\u9fff]{2,}店$)", "", raw_name)
-    if name.endswith("店"):
-        name = name[:-1]
     return name or raw_name
 
 
