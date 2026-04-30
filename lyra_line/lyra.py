@@ -4,6 +4,8 @@ import json
 import subprocess
 from typing import Any
 
+import os
+
 import requests
 
 from .config import settings
@@ -22,7 +24,7 @@ from .prompts import build_messages
 try:
     from opencc import OpenCC
 
-    _cc = OpenCC("s2twp")
+    _cc = OpenCC("s2twp") if os.getenv("ENABLE_OPENCC", "false").lower() == "true" else None
 except Exception:
     _cc = None
 
