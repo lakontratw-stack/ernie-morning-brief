@@ -31,7 +31,7 @@ from .telegram_client import (
 ESCALATION_REPLY = "這個我幫您轉給專員確認比較準，稍後會有同事接續協助您。"
 KEYWORD_ESCALATIONS = ["客訴", "退貨", "退款", "發票", "投訴", "主管", "人工", "真人", "訂單", "庫存"]
 FRUSTRATION_ESCALATIONS = ["鬼打牆", "聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "2026-04-30-lyra-knowledge-v7-store-cache"
+APP_VERSION = "2026-04-30-lyra-knowledge-v8-default-hours"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -96,6 +96,12 @@ def admin_diagnostics() -> dict:
         "store_cache": store_cache_status(),
         "watsons_fetch_timeout": settings.watsons_fetch_timeout,
         "watsons_fetch_retries": settings.watsons_fetch_retries,
+        "watsons_default_hours_enabled": settings.watsons_default_hours_enabled,
+        "watsons_default_hours": {
+            "days": settings.watsons_default_days,
+            "open": settings.watsons_default_open,
+            "close": settings.watsons_default_close,
+        },
         "official_sources": official_source_status(),
         "sample_replies": {question: ask_lyra("diagnostics", question) for question in sample_questions},
     }

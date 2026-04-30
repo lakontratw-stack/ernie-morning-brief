@@ -34,6 +34,10 @@ class Settings:
     )
     watsons_store_cache_path: str = os.getenv("WATSONS_STORE_CACHE_PATH", "data/watsons_stores.csv")
     watsons_enable_live_fetch: bool = os.getenv("WATSONS_ENABLE_LIVE_FETCH", "false").lower() == "true"
+    watsons_default_hours_enabled: bool = os.getenv("WATSONS_DEFAULT_HOURS_ENABLED", "true").lower() == "true"
+    watsons_default_days: str = os.getenv("WATSONS_DEFAULT_DAYS", "每日")
+    watsons_default_open: str = os.getenv("WATSONS_DEFAULT_OPEN", "10:00")
+    watsons_default_close: str = os.getenv("WATSONS_DEFAULT_CLOSE", "22:00")
     watsons_fetch_timeout: int = int(os.getenv("WATSONS_FETCH_TIMEOUT", "90"))
     watsons_fetch_retries: int = int(os.getenv("WATSONS_FETCH_RETRIES", "2"))
     hermes_bin: str = os.getenv("HERMES_BIN", "hermes")

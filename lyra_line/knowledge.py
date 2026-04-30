@@ -100,7 +100,7 @@ def _load_watsons_store_cache() -> list[dict]:
     cache_path = _store_cache_path()
     if not cache_path.exists():
         return []
-    return _load_store_hours_csv(str(cache_path))
+    return _apply_default_hours(_load_store_hours_csv(str(cache_path)))
 
 
 def official_source_status() -> list[dict[str, str | int]]:
@@ -190,7 +190,7 @@ def _load_watsons_store_list(url: str) -> list[dict]:
     rows = _parse_watsons_store_rows(text, url)
     if not rows:
         raise ValueError("no Watsons store rows found")
-    return rows
+    return _apply_default_hours(rows)
 
 
 def _load_watsons_openchat_list(url: str) -> list[dict]:
@@ -199,7 +199,29 @@ def _load_watsons_openchat_list(url: str) -> list[dict]:
     rows = _parse_watsons_openchat_rows(text, url)
     if not rows:
         raise ValueError("no Watsons openchat store rows found")
-    return rows
+    return _apply_default_hours(rows)
+
+
+def _apply_default_hours(stores: list[dict]) -> list[dict]:
+    if not settings.watsons_default_hours_enabled:
+        return stores
+    if not settings.watsons_default_open or not settings.watsons_default_close:
+        return stores
+    for store in stores:
+        if store.get("hours"):
+            continue
+        store["hours"] = [
+            {
+                "days": settings.watsons_default_days or "每日",
+                "open": settings.watsons_default_open,
+                "close": settings.watsons_default_close,
+                "is_default": True,
+            }
+        ]
+        note = store.get("notes", "")
+        default_note = "此營業時間為系統預設值；建議到店前仍以門市公告為準。"
+        store["notes"] = f"{note} {default_note}".strip() if note else default_note
+    return stores
 
 
 def _html_to_text(html: str) -> str:
@@ -410,7 +432,7 @@ def format_store_hours(store: dict) -> str:
         parts.append("我先幫您轉專員確認，避免回覆錯誤時間。")
         return "\n".join(parts)
     hour_lines = [
-        f"{item.get('days', '營業日')}：{item.get('open')} 到 {item.get('close')}"
+        _format_hour_line(item)
         for item in hours
     ]
     parts = [
@@ -428,6 +450,11 @@ def format_store_hours(store: dict) -> str:
     return "\n".join(parts)
 
 
+def _format_hour_line(item: dict) -> str:
+    suffix = "（預設參考）" if item.get("is_default") else ""
+    return f"{item.get('days', '營業日')}：{item.get('open')} 到 {item.get('close')}{suffix}"
+
+
 def format_store_summary(store: dict) -> str:
     parts = [f"我查到的是 {store.get('name', '這間門市')}："]
     if store.get("address"):
@@ -436,7 +463,7 @@ def format_store_summary(store: dict) -> str:
         parts.append(f"電話：{store['phone']}")
     if store.get("hours"):
         hour_lines = [
-            f"{item.get('days', '營業日')}：{item.get('open')} 到 {item.get('close')}"
+            _format_hour_line(item)
             for item in store["hours"]
         ]
         parts.append("營業時間：")
