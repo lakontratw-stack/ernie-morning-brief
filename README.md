@@ -138,3 +138,68 @@ https://github.com/lakontratw-stack/ernie-morning-brief.git
 現在 prompt 先用「台灣屈臣氏」作為測試範例，位於 `lyra_line/prompts.py` 的 `WATSONS_TAIWAN_EXAMPLE`。
 
 正式上線時請換成你的店家資料、服務項目、價格和一定轉人工的規則。
+
+## 常見問題知識庫
+
+第一版可編輯知識庫在：
+
+```text
+data/business_knowledge.json
+```
+
+目前支援：
+
+- 門市營業時間
+- 門市地址
+- 促銷活動訊息
+
+更新這個檔案後，重新部署 Render，Lyra 就會用新的資料回答。
+
+## Google Sheet 中階知識庫
+
+中階版本可以改用 Google Sheet 維護，不需要每次改程式。
+
+請建立一份 Google Sheet，至少兩個分頁：
+
+```text
+store_hours
+promotions
+```
+
+欄位格式可直接參考：
+
+```text
+templates/store_hours.csv
+templates/promotions.csv
+```
+
+`store_hours` 欄位：
+
+```text
+store_name, aliases, address, phone, days, open, close, notes
+```
+
+`promotions` 欄位：
+
+```text
+title, period, summary, details, status
+```
+
+Google Sheet 設定方式：
+
+1. Google Sheet 右上角點「共用」，設成知道連結的人可檢視。
+2. 針對每個分頁取得 CSV 發佈連結。
+3. 到 Render Environment Variables 填：
+
+```text
+STORE_HOURS_CSV_URL=<store_hours 分頁的 CSV URL>
+PROMOTIONS_CSV_URL=<promotions 分頁的 CSV URL>
+```
+
+部署後，Lyra 會優先讀 Google Sheet；如果 Sheet 讀不到，才會 fallback 到 `data/business_knowledge.json`。
+
+如果你更新 Google Sheet 後想立刻清快取，可呼叫：
+
+```bash
+curl -X POST https://ernie-morning-brief.onrender.com/admin/refresh-knowledge
+```

@@ -22,6 +22,8 @@ class Settings:
     takeover_hours: int = int(os.getenv("TAKEOVER_HOURS", "12"))
 
     lyra_provider: str = os.getenv("LYRA_PROVIDER", "mock")
+    store_hours_csv_url: str = os.getenv("STORE_HOURS_CSV_URL", "")
+    promotions_csv_url: str = os.getenv("PROMOTIONS_CSV_URL", "")
     hermes_bin: str = os.getenv("HERMES_BIN", "hermes")
     hermes_workdir: str = os.getenv("HERMES_WORKDIR", ".")
 

@@ -12,6 +12,7 @@ from . import db
 from .config import settings
 from .line_client import get_profile, reply_text, verify_signature
 from .lyra import ask_lyra
+from .knowledge import refresh_knowledge
 from .markers import parse_escalation, parse_notify
 from .telegram_client import (
     drain_once,
@@ -40,6 +41,12 @@ app = FastAPI(title="Lyra LINE OA Integration", lifespan=lifespan)
 @app.get("/healthz")
 def healthz() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.post("/admin/refresh-knowledge")
+def admin_refresh_knowledge() -> dict[str, str]:
+    refresh_knowledge()
+    return {"status": "refreshed"}
 
 
 @app.get("/", response_class=HTMLResponse)
