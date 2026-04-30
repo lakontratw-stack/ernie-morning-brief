@@ -28,6 +28,10 @@ class Settings:
         "WATSONS_STORE_LIST_URL",
         "https://www.watsons.com.tw/storedescription",
     )
+    watsons_openchat_url: str = os.getenv(
+        "WATSONS_OPENCHAT_URL",
+        "https://www.watsons.com.tw/openchat",
+    )
     hermes_bin: str = os.getenv("HERMES_BIN", "hermes")
     hermes_workdir: str = os.getenv("HERMES_WORKDIR", ".")
 

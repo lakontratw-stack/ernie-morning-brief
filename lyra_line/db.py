@@ -104,6 +104,19 @@ def set_takeover(user_id: str, staff_name: str | None = None) -> None:
         )
 
 
+def clear_takeover(user_id: str) -> None:
+    now = datetime.utcnow().isoformat()
+    with connect() as conn:
+        conn.execute(
+            """
+            UPDATE line_users
+               SET status='active', takeover_at=NULL, takeover_by=NULL, updated_at=?
+             WHERE line_user_id=?
+            """,
+            (now, user_id),
+        )
+
+
 def auto_recover_takeovers() -> list[sqlite3.Row]:
     cutoff = datetime.utcnow() - timedelta(hours=settings.takeover_hours)
     with connect() as conn:

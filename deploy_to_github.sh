@@ -8,7 +8,13 @@ SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 DEPLOY_KEY="${DEPLOY_KEY:-$SOURCE_DIR/.deploy_keys/github_lakontratw_deploy}"
 
 if [[ -f "$DEPLOY_KEY" ]]; then
-  export GIT_SSH_COMMAND="ssh -i '$DEPLOY_KEY' -o IdentitiesOnly=yes"
+  SSH_HOST="github.com"
+  SSH_PORT="22"
+  if [[ "${GITHUB_SSH_OVER_HTTPS:-1}" == "1" ]]; then
+    SSH_HOST="ssh.github.com"
+    SSH_PORT="443"
+  fi
+  export GIT_SSH_COMMAND="ssh -i '$DEPLOY_KEY' -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o HostName=$SSH_HOST -o Port=$SSH_PORT"
   if [[ "$REPO_URL" == https://github.com/* ]]; then
     REPO_URL="git@github.com:${REPO_URL#https://github.com/}"
     REPO_URL="${REPO_URL%.git}.git"

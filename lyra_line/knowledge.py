@@ -13,6 +13,7 @@ import requests
 from .config import settings
 
 KNOWLEDGE_PATH = Path(__file__).resolve().parent.parent / "data" / "business_knowledge.json"
+_LAST_OFFICIAL_SOURCE_STATUS: list[dict[str, str | int]] = []
 
 
 @lru_cache(maxsize=1)
@@ -58,13 +59,32 @@ def _load_json_knowledge() -> dict:
 
 
 def _load_official_knowledge() -> dict:
-    if not settings.watsons_store_list_url:
-        return {"stores": []}
-    try:
-        return {"stores": _load_watsons_store_list(settings.watsons_store_list_url)}
-    except Exception as exc:
-        print(f"Watsons official store list load failed: {exc}")
-        return {"stores": []}
+    global _LAST_OFFICIAL_SOURCE_STATUS
+
+    stores: list[dict] = []
+    statuses: list[dict[str, str | int]] = []
+    sources = [
+        ("storedescription", settings.watsons_store_list_url, _load_watsons_store_list),
+        ("openchat", settings.watsons_openchat_url, _load_watsons_openchat_list),
+    ]
+    for name, url, loader in sources:
+        if not url:
+            continue
+        try:
+            rows = loader(url)
+            statuses.append({"source": name, "status": "ok", "count": len(rows)})
+            stores.extend(rows)
+        except Exception as exc:
+            message = str(exc)
+            statuses.append({"source": name, "status": "failed", "error": message[:240]})
+            print(f"Watsons {name} load failed: {exc}")
+
+    _LAST_OFFICIAL_SOURCE_STATUS = statuses
+    return {"stores": _merge_store_lists(stores)}
+
+
+def official_source_status() -> list[dict[str, str | int]]:
+    return list(_LAST_OFFICIAL_SOURCE_STATUS)
 
 
 def _merge_store_lists(*store_lists: list[dict]) -> list[dict]:
@@ -117,6 +137,15 @@ def _load_watsons_store_list(url: str) -> list[dict]:
     return rows
 
 
+def _load_watsons_openchat_list(url: str) -> list[dict]:
+    html = _fetch_text(url)
+    text = _html_to_text(html)
+    rows = _parse_watsons_openchat_rows(text, url)
+    if not rows:
+        raise ValueError("no Watsons openchat store rows found")
+    return rows
+
+
 def _html_to_text(html: str) -> str:
     html = re.sub(r"(?i)<(br|/p|/tr|/li|/h[1-6])\b[^>]*>", "\n", html)
     text = re.sub(r"<[^>]+>", " ", html)
@@ -156,6 +185,54 @@ def _parse_watsons_store_rows(text: str, source_url: str) -> list[dict]:
             }
         )
     return stores
+
+
+def _parse_watsons_openchat_rows(text: str, source_url: str) -> list[dict]:
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    stores: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+    for index, line in enumerate(lines):
+        marker = "#### "
+        if marker not in line:
+            continue
+        raw_name = line.split(marker, 1)[1].strip()
+        if not raw_name:
+            continue
+        address = _next_address_line(lines, index + 1)
+        if not address:
+            continue
+        display_name = _normalize_openchat_store_name(raw_name)
+        key = (display_name, address)
+        if key in seen:
+            continue
+        seen.add(key)
+        stores.append(
+            {
+                "name": display_name,
+                "aliases": _unique([raw_name, display_name, f"屈臣氏{display_name}", f"{display_name}門市"]),
+                "address": address,
+                "phone": "",
+                "source_url": source_url,
+                "hours": [],
+                "notes": "此筆由 Watsons 門市 Open Chat 官方頁匯入；營業時間需以 Google Sheet 或官方門市詳細頁補齊。",
+            }
+        )
+    return stores
+
+
+def _next_address_line(lines: list[str], start_index: int) -> str:
+    city_pattern = re.compile(r"^[\u4e00-\u9fff]{2,3}[市縣][\u4e00-\u9fff]{2,4}[區鄉鎮市].+")
+    for line in lines[start_index : start_index + 4]:
+        if city_pattern.match(line):
+            return line
+    return ""
+
+
+def _normalize_openchat_store_name(raw_name: str) -> str:
+    name = re.sub(r"^[\u4e00-\u9fff]{2,3}(?=[\u4e00-\u9fff]{2,}店$)", "", raw_name)
+    if name.endswith("店"):
+        name = name[:-1]
+    return name or raw_name
 
 
 def _load_store_hours_csv(url: str) -> list[dict]:
