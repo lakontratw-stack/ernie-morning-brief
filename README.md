@@ -9,7 +9,7 @@ This MVP uses:
 - LINE Reply API
 - Telegram notification outbox
 - Local Markdown knowledge files
-- OpenAI chat completion
+- OpenAI-compatible chat completion, including NVIDIA Build/NIM
 
 It intentionally does not use ERP integration, external websites, or RAG/vector search.
 
@@ -20,7 +20,7 @@ app.py                    Flask app and background notification worker
 config.py                 Environment settings
 db.py                     SQLite schema and data access
 line_handler.py           LINE webhook, Reply API, markers, takeover logic
-lyra_prompt.py            System prompt, OpenAI call, OpenCC conversion
+lyra_prompt.py            System prompt, OpenAI-compatible call, OpenCC conversion
 knowledge_loader.py       Markdown knowledge loader
 guardrails.md             Lyra safety and escalation rules
 telegram_notifier.py      Telegram message sender
@@ -46,9 +46,26 @@ LINE_CHANNEL_SECRET=
 LINE_CHANNEL_ACCESS_TOKEN=
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_WORK_GROUP_CHAT_ID=
+LYRA_PROVIDER=openai_compatible
+OPENAI_BASE_URL=https://integrate.api.nvidia.com/v1
 OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4.1-mini
+OPENAI_MODEL=deepseek-ai/deepseek-v4-pro
 DB_PATH=./lyra_procurement.db
+```
+
+For NVIDIA Build/NIM, use the API key from build.nvidia.com as `OPENAI_API_KEY`.
+The hosted NVIDIA endpoint is OpenAI-compatible, so Lyra calls:
+
+```text
+https://integrate.api.nvidia.com/v1/chat/completions
+```
+
+If the deployed service is still running the legacy `lyra_line` app path, set these aliases too:
+
+```text
+OPENAI_COMPATIBLE_BASE_URL=https://integrate.api.nvidia.com/v1
+OPENAI_COMPATIBLE_API_KEY=your_nvidia_api_key
+OPENAI_COMPATIBLE_MODEL=deepseek-ai/deepseek-v4-pro
 ```
 
 Install dependencies:
@@ -68,6 +85,12 @@ Health check:
 
 ```text
 http://localhost:8000/healthz
+```
+
+Test the LLM provider before deploying:
+
+```bash
+.venv/bin/python scripts/test_llm_provider.py
 ```
 
 ## LINE Webhook

@@ -164,7 +164,7 @@ def ask_lyra(user_message: str, history: list[Any]) -> str:
 
     from openai import OpenAI
 
-    client = OpenAI(api_key=settings.openai_api_key)
+    client = OpenAI(api_key=settings.openai_api_key, base_url=settings.openai_base_url)
     response = client.chat.completions.create(
         model=settings.openai_model,
         messages=build_messages(user_message, clean_history),
