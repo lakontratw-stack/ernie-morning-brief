@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import hmac
+import json
 import time
 
 import requests
@@ -33,18 +34,21 @@ def reply_text(reply_token: str, text: str) -> None:
         LINE_REPLY_URL,
         headers={
             "Authorization": f"Bearer {settings.line_channel_access_token}",
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
         },
-        json={
-            "replyToken": reply_token,
-            "messages": [
-                {
-                    "type": "text",
-                    "text": text,
-                    "sender": {"name": settings.line_sender_name[:20]},
-                }
-            ],
-        },
+        data=json.dumps(
+            {
+                "replyToken": reply_token,
+                "messages": [
+                    {
+                        "type": "text",
+                        "text": text,
+                        "sender": {"name": settings.line_sender_name[:20]},
+                    }
+                ],
+            },
+            ensure_ascii=False,
+        ).encode("utf-8"),
         timeout=15,
     )
     response.raise_for_status()

@@ -24,7 +24,19 @@ from .telegram_client import (
 ESCALATION_REPLY = "這個我幫您轉給專員確認比較準，稍後會有同事接續協助您。"
 KEYWORD_ESCALATIONS = ["客訴", "退貨", "退款", "發票", "投訴", "主管", "人工", "真人", "訂單", "庫存"]
 FRUSTRATION_ESCALATIONS = ["鬼打牆", "聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "2026-04-30-lyra-knowledge-v3-no-opencc"
+APP_VERSION = "2026-04-30-lyra-knowledge-v4-utf8"
+
+
+class UTF8JSONResponse(JSONResponse):
+    media_type = "application/json; charset=utf-8"
+
+    def render(self, content) -> bytes:
+        return json.dumps(
+            content,
+            ensure_ascii=False,
+            allow_nan=False,
+            separators=(",", ":"),
+        ).encode("utf-8")
 
 
 @asynccontextmanager
@@ -37,7 +49,11 @@ async def lifespan(app: FastAPI):
     stop_event.set()
 
 
-app = FastAPI(title="Lyra LINE OA Integration", lifespan=lifespan)
+app = FastAPI(
+    title="Lyra LINE OA Integration",
+    lifespan=lifespan,
+    default_response_class=UTF8JSONResponse,
+)
 
 
 @app.get("/healthz")
@@ -51,7 +67,7 @@ def admin_refresh_knowledge() -> dict[str, str]:
     return {"status": "refreshed"}
 
 
-@app.get("/admin/diagnostics")
+@app.get("/admin/diagnostics", response_class=UTF8JSONResponse)
 def admin_diagnostics() -> dict:
     refresh_knowledge()
     data = load_knowledge()
