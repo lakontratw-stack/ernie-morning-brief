@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+import os
 import json
 import subprocess
 from typing import Any
-
-import os
 
 import requests
 
