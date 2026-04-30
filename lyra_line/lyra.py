@@ -76,27 +76,19 @@ def _ask_procurement_mock(text: str) -> str:
     if price_reply:
         return price_reply
 
+    renewal_reply = _contract_renewal_reply(text)
+    if renewal_reply:
+        return renewal_reply
+
     amount = _extract_amount(text)
     if amount is not None and any(word in text for word in ["採購", "買", "平板", "設備", "需要走", "程序"]):
         if amount <= 100000:
-            return (
-                "結論：\n"
-                "如果這筆採購是單筆或年度同項目不超過 NT$100,000，且不是拆單，通常不需要提交 PR 給 NTP。\n\n"
-                "但仍要注意：\n"
-                "1. 供應商仍應是 ASL 供應商。\n"
-                "2. 如果不是 ASL 供應商，仍需交 Supplier Profile Form 給 NTP 評估。\n"
-                "3. 如果是 CapEx、IT、Security、個資或其他 function 相關，可能還有額外 approval。\n\n"
-                "以你說的 NT$58,000 平板來看，我會先確認：是否 IT 設備、是否 CapEx、是否已 budgeted、供應商是否在 ASL。"
-            )
+            return _small_purchase_reply(amount, text)
         return (
-            "結論：\n"
-            "金額超過 NT$100,000 時，應由 NTP 依程序執行 sourcing activity。\n\n"
-            "需要先確認：\n"
-            "1. 金額與幣別\n"
-            "2. CapEx 或 Opex\n"
-            "3. 是否已 budgeted\n"
-            "4. 供應商是否在 ASL\n"
-            "5. 是否涉及 IT、Supply Chain、Security、Legal、Tax 或 Privacy"
+            f"這筆約 NT${amount:,.0f}，已超過 NT$100,000，原則上要進 NTP sourcing。\n"
+            "先不要自己直接找廠商定案。\n"
+            "我需要 3 個資訊：CapEx/Opex、是否已 budgeted、供應商是否在 ASL。\n"
+            "補上後我再幫你看應走 quotation 還是 tender。"
         )
 
     if any(word in lower for word in ["ntp", "non-trade", "non trade"]):
@@ -121,10 +113,9 @@ def _ask_procurement_mock(text: str) -> str:
         )
 
     return (
-        "您好，我是 Lyra，Watsons Taiwan 內部 NTP 採購小助理。\n"
-        "我可以協助你看 NTP policy、ASL、PR/PO、quotation/tender、議價 wording、報價比較和 IC summary 草稿。\n\n"
-        "你可以直接貼採購情境，例如：\n"
-        "「我要採購 58000 的平板，需要走什麼程序？」"
+        "你可以直接把採購情境貼給我，我會先幫你整理流程、風險和要補的資料。\n"
+        "最好包含金額、品項、供應商、是否續約、是否已有報價。\n"
+        "資訊越完整，我就能越快幫你判斷下一步。"
     )
 
 
@@ -133,6 +124,52 @@ def _extract_amount(text: str) -> float | None:
     if not matches:
         return None
     return float(matches[0])
+
+
+def _small_purchase_reply(amount: float, text: str) -> str:
+    lower = text.lower()
+    notes = "供應商是否在 ASL、是否已 budgeted、有沒有拆單或年度累計超過門檻"
+    if any(word in lower for word in ["平板", "ipad", "電腦", "筆電", "系統", "software", "it"]):
+        notes = "供應商是否在 ASL、是否已 budgeted、IT 是否同意"
+        return (
+            f"這筆約 NT${amount:,.0f}，如果不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
+            "但平板多半會牽涉 IT / hardware，也可能要看 CapEx。\n"
+            f"你先確認這 3 件事：{notes}。\n"
+            "回我這幾點，我再幫你判斷下一步。"
+        )
+
+    return (
+        f"這筆約 NT${amount:,.0f}，如果不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
+        f"先確認這 3 件事：{notes}。\n"
+        "如果任何一項不確定，就先不要直接下單。\n"
+        "你回我狀況，我再幫你接下一步。"
+    )
+
+
+def _contract_renewal_reply(text: str) -> str | None:
+    if any(word in text.lower() for word in ["平板", "ipad", "電腦", "筆電", "系統", "software", "it"]):
+        return None
+    lower = text.lower()
+    if not any(word in lower for word in ["續約", "展延", "延長合約", "合約到期", "renew contract", "extend contract"]):
+        return None
+
+    is_agency = any(
+        word in lower
+        for word in ["agency", "代理", "廣告", "pr agency", "media agency", "consultant", "kol", "third party"]
+    )
+    supplier_question = "這家是否在 ASL？之前有做 market testing 或其他報價嗎？"
+    if is_agency:
+        supplier_question += " agency 類也可能要一起看 Significant Expenditures / Investment Policy。"
+
+    return "\n".join(
+        [
+            "可以先看，但我不會直接判斷能不能續。",
+            "我先需要這 3 個資訊：",
+            "1. 原合約期間多久？本次想續多久？",
+            "2. 原合約金額和這次預估續約金額是多少？",
+            f"3. {supplier_question}",
+        ]
+    )
 
 
 def _quick_price_analysis(text: str) -> str | None:
@@ -173,15 +210,10 @@ def _quick_price_analysis(text: str) -> str | None:
 
     return "\n".join(
         [
-            "判斷：",
-            "這個案子可以先做商務合理性檢查，但不能直接下最終決策。",
-            "風險：",
-            *[f"- {risk}" for risk in risks],
-            "建議追問：",
-            "- 請供應商提供成本拆解、規格差異、服務範圍與漲價原因。",
-            "- 請確認是否有同規格 benchmark 或第二家報價可比。",
-            "可用 wording：",
-            "Could you please provide a detailed cost breakdown and clarify the key drivers behind the price movement, so we can complete an internal commercial review?",
+            "這個價格先不要直接收，我會先當成 commercial risk 看。",
+            "主要風險：" + "；".join(risks),
+            "先請供應商補 cost breakdown、scope 差異和 benchmark。",
+            "英文可以這樣問：Could you provide a cost breakdown and explain the key drivers behind the price movement?",
         ]
     )
 
