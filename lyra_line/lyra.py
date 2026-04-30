@@ -55,6 +55,11 @@ def to_traditional(text: str) -> str:
 
 
 def ask_lyra(user_id: str, text: str) -> str:
+    history = recent_history(user_id, limit=10)
+    deterministic_reply = _deterministic_procurement_reply(text, history)
+    if deterministic_reply:
+        return to_traditional(deterministic_reply.strip())
+
     messages = build_messages(user_id, text)
     provider = settings.lyra_provider.lower()
     if provider == "hermes_cli":
@@ -62,7 +67,7 @@ def ask_lyra(user_id: str, text: str) -> str:
     elif provider == "openai_compatible":
         reply = _ask_openai_compatible(messages)
     else:
-        reply = _ask_mock(text, recent_history(user_id, limit=10))
+        reply = _ask_mock(text, history)
     return to_traditional(reply.strip())
 
 
@@ -71,6 +76,18 @@ def _ask_mock(text: str, history: list[Any] | None = None) -> str:
 
 
 def _ask_procurement_mock(text: str, history: list[Any]) -> str:
+    deterministic_reply = _deterministic_procurement_reply(text, history)
+    if deterministic_reply:
+        return deterministic_reply
+
+    return (
+        "你可以直接把採購情境貼給我，我會先幫你整理流程、風險和要補的資料。\n"
+        "最好包含金額、品項、供應商、是否續約、是否已有報價。\n"
+        "資訊越完整，我就能越快幫你判斷下一步。"
+    )
+
+
+def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | None:
     hard_escalation_keywords = [
         "例外核准",
         "稽核",
@@ -142,11 +159,7 @@ def _ask_procurement_mock(text: str, history: list[Any]) -> str:
             "報價有效性也要能涵蓋採購決策當下。"
         )
 
-    return (
-        "你可以直接把採購情境貼給我，我會先幫你整理流程、風險和要補的資料。\n"
-        "最好包含金額、品項、供應商、是否續約、是否已有報價。\n"
-        "資訊越完整，我就能越快幫你判斷下一步。"
-    )
+    return None
 
 
 def _extract_amount(text: str) -> float | None:
