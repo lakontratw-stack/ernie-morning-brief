@@ -22,6 +22,8 @@ from .knowledge import (
 )
 from .prompts import build_messages
 
+TENDER_THRESHOLD_NTD = 12_000_000
+
 try:
     from opencc import OpenCC
 
@@ -87,13 +89,15 @@ def _ask_procurement_mock(text: str, history: list[Any]) -> str:
 
     amount = _extract_amount(text)
     if amount is not None and any(word in text for word in ["採購", "買", "平板", "設備", "需要走", "程序"]):
+        if amount >= TENDER_THRESHOLD_NTD:
+            return _tender_threshold_reply(amount)
         if amount <= 100000:
             return _small_purchase_reply(amount, text)
         return (
             f"這筆約 NT${amount:,.0f}，已超過 NT$100,000，原則上要進 NTP sourcing。\n"
-            "先不要自己直接找廠商定案。\n"
-            "我需要 3 個資訊：CapEx/Opex、是否已 budgeted、供應商是否在 ASL。\n"
-            "補上後我再幫你看應走 quotation 還是 tender。"
+            "但還沒到 tender 門檻，通常會先往 quotation process 看。\n"
+            "下一步確認供應商是否在 ASL，以及至少 3 家書面報價是否可取得。\n"
+            "CapEx/Opex、budgeted 會影響 approval 路徑，不是判斷 tender 的主因。"
         )
 
     if any(word in lower for word in ["ntp", "non-trade", "non trade"]):
@@ -142,7 +146,16 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
     amount = _extract_amount(text)
 
     has_procurement_context = any(word in context for word in ["採購", "平板", "展示桌", "設備", "買"])
+    if has_procurement_context and _is_threshold_challenge(text):
+        return (
+            "你說得對，金額如果超過約 NT$12M，應該先判斷為 tender，不是先問 CapEx/Opex。\n"
+            "CapEx/Opex、budgeted、ASL 會影響 approval、供應商資格和後續文件，但不會把 tender 需求變成 quotation。\n"
+            "這種案子下一步應抓 tender committee、5 家供應商、scoring criteria 和 sourcing report。"
+        )
+
     if amount is not None and has_procurement_context and _is_short_followup(text):
+        if amount >= TENDER_THRESHOLD_NTD:
+            return _tender_threshold_reply(amount)
         if amount <= 100000:
             return (
                 f"如果前面那筆改成 NT${amount:,.0f}，且不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
@@ -158,6 +171,12 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
     detail_markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
     if has_procurement_context and any(marker in lower for marker in detail_markers):
         latest_amount = _extract_amount(context)
+        if latest_amount is not None and latest_amount >= TENDER_THRESHOLD_NTD:
+            return (
+                "收到，不過這筆金額已超過約 NT$12M，方向應該是 tender。\n"
+                "Opex、budgeted、ASL 是後續 approval 和供應商資格要確認的事。\n"
+                "下一步建議準備 tender scope、5 家供應商名單、評分標準和 tender committee review。"
+            )
         if latest_amount is not None and latest_amount > 100000:
             return (
                 "收到，Opex、budgeted、供應商也在 ASL，方向就比較清楚。\n"
@@ -172,6 +191,8 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
 
     if _looks_contextual(text) and has_procurement_context:
         latest_amount = amount or _extract_amount(context)
+        if latest_amount and latest_amount >= TENDER_THRESHOLD_NTD:
+            return _tender_threshold_reply(latest_amount)
         if latest_amount and latest_amount > 100000:
             return (
                 "如果你是指前面那筆，因為已超過 NT$100,000，建議先進 NTP sourcing。\n"
@@ -196,6 +217,21 @@ def _is_short_followup(text: str) -> bool:
 def _looks_contextual(text: str) -> bool:
     stripped = text.strip().lower()
     return any(marker in stripped for marker in ["那", "這樣", "這個", "那如果", "那這個", "可以嗎"])
+
+
+def _tender_threshold_reply(amount: float) -> str:
+    return (
+        f"這筆約 NT${amount:,.0f}，已超過約 NT$12M，應先抓 tender 路徑。\n"
+        "也就是至少 5 家互相獨立供應商、tender committee、評分標準和 sourcing report。\n"
+        "CapEx/Opex、budgeted、ASL 仍要確認，但它們影響 approval 和供應商資格，不是決定要不要 tender 的主因。"
+    )
+
+
+def _is_threshold_challenge(text: str) -> bool:
+    lower = text.lower()
+    challenge = any(word in lower for word in ["為什麼", "難道", "不是", "應該", "直接跟我說"])
+    threshold = any(word in lower for word in ["tender", "12m", "12 m", "12000000", "超過12", "超過 12"])
+    return challenge and threshold
 
 
 def _history_text(history: list[Any]) -> str:

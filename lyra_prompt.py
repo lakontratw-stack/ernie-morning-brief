@@ -17,6 +17,7 @@ except Exception as exc:
 
 
 ESCALATION_REPLY = "這題可能會影響正式判斷，我先幫你轉給 NTP team 確認，比較安全。"
+TENDER_THRESHOLD_NTD = 12_000_000
 
 
 def build_system_prompt() -> str:
@@ -222,6 +223,9 @@ def _amount_based_procurement_reply(text: str) -> str | None:
     if not any(word in text for word in ["採購", "買", "平板", "設備", "需要走", "程序"]):
         return None
 
+    if amount >= TENDER_THRESHOLD_NTD:
+        return _tender_threshold_reply(amount)
+
     if amount <= 100000:
         lower = text.lower()
         notes = "供應商是否在 ASL、是否已 budgeted、有沒有拆單或年度累計超過門檻"
@@ -243,9 +247,9 @@ def _amount_based_procurement_reply(text: str) -> str | None:
 
     return (
         f"這筆約 NT${amount:,.0f}，已超過 NT$100,000，原則上要進 NTP sourcing。\n"
-        "先不要自己直接找廠商定案。\n"
-        "我需要 3 個資訊：CapEx/Opex、是否已 budgeted、供應商是否在 ASL。\n"
-        "補上後我再幫你看應走 quotation 還是 tender。"
+        "但還沒到 tender 門檻，通常會先往 quotation process 看。\n"
+        "下一步確認供應商是否在 ASL，以及至少 3 家書面報價是否可取得。\n"
+        "CapEx/Opex、budgeted 會影響 approval 路徑，不是判斷 tender 的主因。"
     )
 
 
@@ -297,8 +301,21 @@ def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
     amount = _extract_amount(text) or _extract_amount(context)
     has_procurement_context = any(word in context for word in ["採購", "平板", "展示桌", "設備", "買"])
 
+    if has_procurement_context and _is_threshold_challenge(text):
+        return (
+            "你說得對，金額如果超過約 NT$12M，應該先判斷為 tender，不是先問 CapEx/Opex。\n"
+            "CapEx/Opex、budgeted、ASL 會影響 approval、供應商資格和後續文件，但不會把 tender 需求變成 quotation。\n"
+            "這種案子下一步應抓 tender committee、5 家供應商、scoring criteria 和 sourcing report。"
+        )
+
     if has_procurement_context and _is_procurement_detail_followup(text):
         latest_amount = _extract_amount(context)
+        if latest_amount is not None and latest_amount >= TENDER_THRESHOLD_NTD:
+            return (
+                "收到，不過這筆金額已超過約 NT$12M，方向應該是 tender。\n"
+                "Opex、budgeted、ASL 是後續 approval 和供應商資格要確認的事。\n"
+                "下一步建議準備 tender scope、5 家供應商名單、評分標準和 tender committee review。"
+            )
         if latest_amount is not None and latest_amount > 100000:
             return (
                 "收到，Opex、budgeted、供應商也在 ASL，方向就比較清楚。\n"
@@ -312,6 +329,8 @@ def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
         )
 
     if amount is not None and any(word in context for word in ["採購", "平板", "設備", "買"]):
+        if amount >= TENDER_THRESHOLD_NTD:
+            return _tender_threshold_reply(amount)
         if amount <= 100000:
             return (
                 f"如果前面那筆改成 NT${amount:,.0f}，且不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
@@ -347,6 +366,21 @@ def _looks_contextual(text: str) -> bool:
         "可以嗎",
     ]
     return any(marker in stripped for marker in contextual_markers)
+
+
+def _tender_threshold_reply(amount: float) -> str:
+    return (
+        f"這筆約 NT${amount:,.0f}，已超過約 NT$12M，應先抓 tender 路徑。\n"
+        "也就是至少 5 家互相獨立供應商、tender committee、評分標準和 sourcing report。\n"
+        "CapEx/Opex、budgeted、ASL 仍要確認，但它們影響 approval 和供應商資格，不是決定要不要 tender 的主因。"
+    )
+
+
+def _is_threshold_challenge(text: str) -> bool:
+    lower = text.lower()
+    challenge = any(word in lower for word in ["為什麼", "難道", "不是", "應該", "直接跟我說"])
+    threshold = any(word in lower for word in ["tender", "12m", "12 m", "12000000", "超過12", "超過 12"])
+    return challenge and threshold
 
 
 def _is_procurement_detail_followup(text: str) -> bool:
