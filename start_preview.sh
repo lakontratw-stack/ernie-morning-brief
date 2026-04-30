@@ -8,4 +8,4 @@ if [[ ! -d .venv ]]; then
 fi
 
 .venv/bin/pip install -r requirements.txt
-.venv/bin/uvicorn lyra_line.app:app --host 127.0.0.1 --port "${PORT:-8000}"
+APP_PORT="${PORT:-8000}" .venv/bin/python app.py
