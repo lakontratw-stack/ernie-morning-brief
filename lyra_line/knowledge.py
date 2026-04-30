@@ -75,6 +75,7 @@ def _load_store_hours_csv(url: str) -> list[dict]:
                 "aliases": _split_aliases(row.get("aliases")),
                 "address": (row.get("address") or "").strip(),
                 "phone": (row.get("phone") or "").strip(),
+                "source_url": (row.get("source_url") or "").strip(),
                 "hours": [],
                 "notes": (row.get("notes") or "").strip(),
             },
@@ -154,6 +155,8 @@ def format_store_hours(store: dict) -> str:
         parts.append(f"電話：{store['phone']}")
     if store.get("notes"):
         parts.append(store["notes"])
+    if store.get("source_url"):
+        parts.append(f"官方門市頁：{store['source_url']}")
     return "\n".join(parts)
 
 

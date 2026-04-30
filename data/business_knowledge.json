@@ -5,16 +5,17 @@
     {
       "name": "民權店",
       "aliases": ["屈臣氏民權店", "民權門市", "民權"],
-      "address": "請在這裡填入民權店實際地址",
-      "phone": "請在這裡填入民權店電話",
+      "address": "台北市松山區民權東路三段136號",
+      "phone": "(02)27192207",
+      "source_url": "https://www.watsons.com.tw/store/wtctw_83_zh_TW",
       "hours": [
         {
-          "days": "每日",
-          "open": "11:00",
-          "close": "22:00"
+          "days": "一~日",
+          "open": "10:00",
+          "close": "23:00"
         }
       ],
-      "notes": "營業時間可能依門市公告調整，正式上線前請改成你的實際資料。"
+      "notes": "營業時間以官方門市頁公告為準。"
     }
   ],
   "promotions": [

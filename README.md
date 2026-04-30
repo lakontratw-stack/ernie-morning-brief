@@ -176,7 +176,7 @@ templates/promotions.csv
 `store_hours` 欄位：
 
 ```text
-store_name, aliases, address, phone, days, open, close, notes
+store_name, aliases, address, phone, days, open, close, notes, source_url
 ```
 
 `promotions` 欄位：
@@ -203,3 +203,38 @@ PROMOTIONS_CSV_URL=<promotions 分頁的 CSV URL>
 ```bash
 curl -X POST https://ernie-morning-brief.onrender.com/admin/refresh-knowledge
 ```
+
+### Watsons 門市資料匯入
+
+你提供的 Watsons 門市查詢頁：
+
+```text
+https://www.watsons.com.tw/store-finder?page=0&dataIndex=0
+```
+
+這個頁面適合給人查詢，但不是穩定的資料 API。中階版本建議做法是：
+
+1. 先用 Google Sheet 當客服知識庫。
+2. 每間門市一列資料，填入門市名稱、別名、地址、電話、營業時間。
+3. `source_url` 放 Watsons 官方門市頁，方便日後查核與更新。
+
+目前測試資料已先放入屈臣氏民權店：
+
+```text
+source_url=https://www.watsons.com.tw/store/wtctw_83_zh_TW
+營業時間=一~日 10:00 到 23:00
+```
+
+如果要先批次匯入 Watsons 門市名稱與地址，可在本機執行：
+
+```bash
+python scripts/import_watsons_storedescription.py
+```
+
+它會產生：
+
+```text
+templates/store_hours.generated.csv
+```
+
+注意：Watsons 的公開門市清單主要有門市名稱與地址，營業時間仍建議以各門市官方詳細頁或人工確認後填入，避免 Lyra 編造不確定資訊。
