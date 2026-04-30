@@ -1,0 +1,2179 @@
+
+
+--- PAGE 1 ---
+ 
+ 
+Policy on Investment 
+ 
+ 
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 1 of 59 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+AS Watson Group 
+ 
+Policy on Investment 
+
+
+--- PAGE 2 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 2 of 59 
+ 
+ 
+Table of Content 
+1. Scope 
+2. Key Changes from Version 9.0 
+3. General Procedures 
+4. Capital Expenditure (“CapEx”) 
+4.1 Definition 
+4.2 New Store & Relocation CapEx Approval (within budget) 
+4.3 Store Refit CapEx Approval (within budget) 
+4.4 Non-Store CapEx Approval (within budget) 
+4.5 Purchase of Private Cars 
+4.6 Budget CapEx Increase and Unbudgeted CapEx Approval (as Exception ONLY) 
+4.7 CapEx Overspend (should be STRICTLY AVOIDED) 
+4.8 Unspent CapEx Budget at Year End 
+5. Store Closure and Store Lease Renewal 
+6. Non-current Asset Write-off / Disposal Costs 
+7. Business Acquisition and Disposal (incl. Equity Participation Changes) 
+8. Significant Expenditures 
+9. Engagement of Third Party Representatives 
+10. Property Related Transactions in Hong Kong, Macau and China 
+11. Charitable Donations & Sponsorships and Contribution to Political Associations 
+12. Store Investment Cycle 
+13. Finance Authorisation / Approval Map 
+14. Reporting 
+Appendix I – ASW Group Standard Financial Model 
+Appendix II – CapEx Control Sheet 
+Appendix III – Hutchison Property Memo 
+Appendix IV – ASK Paper 
+Appendix V – Monthly CapEx Report 
+Appendix VI – New Store / Store Refit Performance Tracking 
+Appendix VII – New Stores Strategy 
+Appendix VIII – Major Refit Programme Strategy 
+Appendix IX – Value Engineering Report 
+
+
+--- PAGE 3 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 3 of 59 
+ 
+ 
+Appendix X – CKHH Group Car Purchase Requisition Form 
+Appendix XI – CKHH Group Third Party Representatives Requisition Form 
+ 
+ 
+
+
+--- PAGE 4 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 4 of 59 
+ 
+ 
+1. Scope 
+ 
+ 
+This document covers the Financial Approval of the following areas: 
+ 
+ 
+a) Capital Expenditure 
+b) Store Closure and Store Lease Renewal  
+c) Non-current Asset Write Off 
+d) Business Acquisition and Disposal (inc. Equity Participation Changes) 
+e) Significant Expenditures 
+f) Engagement of Third Party Representatives 
+g) Property Related Transactions in Hong Kong, Macau and China 
+h) Charitable Donations & Sponsorships and Contributions to Political 
+Associations  
+
+
+--- PAGE 5 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 5 of 59 
+ 
+ 
+2. Key Changes from Version 9.0 
+ 
+a) Section 4.3.5 – Policy on Individual Store Refits 
+A clarification has been added under 4.3.5.1 i) regarding forced refit proposals. 
+If a business is being forced to undergo a refit, the proposal shall be prepared 
+using the New Store Financial Model. 
+b) Section 9 – Engagement of Third Party Representatives 
+The approval threshold has been revised for the engagement of Management 
+Consultants: 
+• Commitments of HK$1 M or below require approval from Business Unit 
+MD and FD (subject to authorisations set by Divisional Teams). 
+• Commitments between HK$1 M and HK$5 M require approval from both 
+ASW Group CEO and ASW Group Chief Financial Officer. 
+• Commitments of HK$5 M or above must be approved by the ASW 
+Investment Committee. 
+ 
+
+
+--- PAGE 6 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 6 of 59 
+ 
+ 
+3. General Procedures  
+ 
+a) No persons from any business unit within A S Watson Group (hereafter “ASW”) can 
+enter into any commitments with outside parties (whether oral or written) without first 
+having obtained finance approval, if such commitment falls within an area covered by 
+this document (e.g. lease agreements and major financial commitments). 
+b) All requests for CKHH and ASW Group approval will require a memo covering 
+background, commercial rationale and key financial measures to be submitted to ASW 
+Group Finance. 
+c) The memo should be written by the Business Unit Finance Director (FD) and signed by 
+the Business Unit Managing Director (MD).   
+d) Approval memos MUST be signed by the Divisional CEO and FD (where appropriate) 
+prior to submission to ASW Group Finance.   
+e) If the Divisional office is located outside of Hong Kong and a signed copy of the memo 
+cannot be easily sent to ASW Group Finance, alternative arrangements can be agreed 
+with ASW Group Finance to adopt more convenient means of evidencing endorsement 
+by relevant management.  The Divisional FDs should liaise with ASW Group Finance 
+to agree on an alternative arrangement. 
+f) In the absence of Divisional CEO and / or FD, or under special circumstances, with the 
+endorsement of ASW Group Finance, approval authority of BU can be raised to that of 
+Divisional level.  BUs should assume a more conservative approval limit unless special 
+arrangements have been agreed with ASW Group Finance. 
+g) The memo should be accompanied by financial analysis (ASW Group standard 
+Financial Models should be used where appropriate), including but not limited to, IRR, 
+incremental EBIT impact and cash payback calculations for the proposed investment. 
+h) All requests to CKHH need prior approval from ASW Group. 
+i) Adequate time must be allowed for review and approval to be done (at least a week for 
+each level of approval, i.e. one week for ASW and one week for CKHH).  
+j) To allow the approval process to take place while final site planning and negotiations 
+(e.g. on rental) are still to conclude, BU can use estimates instead of finalised numbers 
+in the financial models for approval.  Any approval will then be granted for conditions 
+“no worse than” that contained in the submitted version (i.e. only upside to be had).  
+Otherwise, another approval will have to be sought before any commitments can be 
+entered into.   
+However, such estimates must be “conservative” and the memo must explicitly state the 
+financial consequences of “worse case” scenario. 
+k) CapEx approval granted to specific project / new store is only valid for the year(s) 
+specified.   If non-store projects, new stores, store lease renewals or store relocations are 
+delayed by 12 months or more from the approved date of commencement, BU must re-
+table the case to ASW Investment Committee for re-approval.   
+
+
+--- PAGE 7 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 7 of 59 
+ 
+ 
+l) For closure and relocation applications already approved by ASW Investment 
+Committee, if the business unit later considers it is more beneficial to retain the existing 
+store, the business unit should seek the approval of ASW Investment Committee again. 
+m) In the event of overspend of Rate Card Opex applications (e.g. Significant Expenditures 
+– Rate Cards, Engagement of Third Party Representatives etc), the following will apply: 
+i. If the overspend is solely due to higher volume than approved, there is no need for 
+further approval. 
+ii. If the overspend is due to reasons other than higher volume than approved (e.g. higher 
+unit rate), then re-approval in accordance with section 8 is required.  
+n) In the event of overspend of non-Rate Card Opex applications (e.g. S ignificant 
+Expenditures - Commitments, Engagement of Third Party Representatives  etc) which 
+were approved by ASW Investment Committee, the following will apply: 
+i. If the overspend is less than 10% of the approved amount, then approva l is required 
+by BU FD and BU MD. 
+ii. If the overspen d is 10% of the approved amount or above, then approval by ASW 
+Investment Committee is required.  
+o) In the exceptional circumstance where (1) an overspend of a non-Rate Card Opex which 
+was approved within a BU and/or Division arises and (2) the sum of overspend amount 
+and original planned amount would exceed the original approver’s limit (i.e. BU and/or 
+Division), the BU and/or Division should submit the whole case of non-Rate Card Opex 
+for the next level’s approval (e.g. ASW Investment Committee). 
+p) All IT related expenditure (including both CapEx and Opex) applications require IT 
+Departments’ approval, prior to submission to the corresponding line management and 
+finance authority at the same level. Thus, ALL IT related expenditure applications that 
+require ASW Investment Committee approval will require PRIOR approval from the 
+ASW Group Retail Technology Director .  Likewise for other functions, such as Big 
+Data, DataLab, eLab, Digital, HR, Supply Chain and Security. 
+q) All Supply Chain and Logistics expenditure (including both CapEx and Opex) 
+applications whose amount exceeds HK$ 1m will require PRIOR approval from the 
+ASW Group Supply Chain Director, before being proceeded to the corresponding line 
+management and finance authority.  Those projects whose amount does not exceed HK$ 
+1m will require Business Unit Supply Chain and Logistics Departments’ approval, prior 
+to submission to the Business Unit MD and FD. 
+r) All non-trade procurement tender and non-IB submitted services tender (including both 
+CapEx and Opex) applications that require ASW Investment Committee approval will 
+require clearance from the ASW Group Procurement Services (“GPS”) of Group 
+International Buying. 
+  
+
+
+--- PAGE 8 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 8 of 59 
+ 
+ 
+s) All applications must comply with the requirements of the current applicable version of 
+the ASW Group Tax Policy & Procedures, Group Legal Policy and Policy on Non-Trade 
+Procurement. 
+t) This document outlines the default approval procedures as prescribed by ASW Group 
+Finance.  Each division may further specify more stringent controls and procedures 
+within its BUs.  BUs may seek exceptions to approval limits (e.g. based on maturity and 
+scale of business).  Any request for such exception must be made by the Divisional FD 
+and CEO, to the ASW Group Chief Financial Of ficer for approval, with proposed 
+signing limits and rationale.  Unless written approval is granted by the ASW Group 
+Chief Financial Officer, BUs must adhere to policies at least as stringent as that outlined 
+in this document. 
+u) All CapEx  applications of above HK$ 10 M require CKHH approval. ASW Group 
+Finance will manage the submission from ASW to CKHH. 
+ 
+ 
+
+
+--- PAGE 9 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 9 of 59 
+ 
+ 
+4. Capital Expenditure (“CapEx”) 
+4.1 Definition 
+ 
+4.1.1 According to ASW Group Policy on Accounting, CapEx is defined as the expenditure 
+on acquiring an asset with a useful life exceeding one year and intended for long -
+term use (for details please refer to the applicable section of the current version of 
+the ASW Group Policy on Accounting).  It includes:  
+ 
+a) Expenditure on purchasing (including import duties and non -refundable 
+purchase taxes), installing and/or enhancing an existing asset (e.g. costs 
+associated with fitting out new stores) 
+ 
+b) Consultancy, design and professional fees and materials for assets under 
+development / construction.  E.g. IT system external consultant 
+implementation costs 
+ 
+4.1.2 The following items are excluded from CapEx and should be stated separately, in 
+any investment proposal: 
+ 
+a) Rental Deposit / Refund 
+b) Lease Acquisition Cost  
+c) Lease Premium paid to Landlord 
+d) Reverse Premium received from Landlord 
+e) Key Money 
+ 
+Note: Funds received from landlord which are explicitly Capital Contribution should 
+be INCLUDED in the total CapEx quoted for the investment proposal. 
+   
+ 
+ 
+
+
+--- PAGE 10 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 10 of 59 
+ 
+ 
+4.2 New Store & Relocation CapEx Approval (within budget) 
+ 
+4.2.1 Policy  
+ 
+a) All proposals for new store and store relocation must be supported by the ASW 
+Group Standard New Store Financial Model or Store Relocation Financial Model 
+(see Appendix I), with written explanation detailing the background and 
+investment rationale for the requests.   
+b) The level of authorisation required to approve a new store investment proposal is 
+dependent on the type of CapEx involved, as outlined in the table below. 
+ 
+Type of CapEx Ultimate Authorisation 
+Required 
+If any one of the following applies: 
+• CapEx above HK$ 10 M  
+• CapEx unbudgeted  
+• Budgeted store numbers exceeded 
+• Not meeting minimum investment return 
+criteria:  
+▪ IRR falls below 25%, or  
+▪ Cash payback exceeds 4 years 
+• Business unit under Stage-gate status of “On 
+Hold” 
+CKHH Group Chief Financial 
+Officer (via ASW) 
+All other new stores CapEx  ASW Investment Committee 
+ 
+c) Relocation, no matter what reason, is defined as closure of an existing store and an 
+opening of a new store nearby.   
+• If the business has the option to choose whether to stay or move to a new 
+location (e.g. BU wants to move to another floor with higher traffic flow), then 
+the business has to justify the economic rationale of moving (the cost of 
+moving versus the INCREMENT AL cash flow the new proposed site would 
+generate over the existing site). The assessment is done using the Store Refit 
+/ Relocation Financial Model .  The “before relocation” case shall reflect 
+projection of the existing store (based on recent performance but with 
+appropriate adjustment on sales and costs to reflect likely improvement or 
+deterioration of the future performance of the store).  In this case, the financial 
+measures will be based on incremental cash flows (“after case” less “before 
+case”).  
+• If the business is being forced to move to a new location for reasons such as 
+enhancement by landlord or mall closure, then the proposal shall be prepared 
+based on the New Store Financial Model. 
+
+
+--- PAGE 11 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 11 of 59 
+ 
+ 
+d) In general, the minimum investment return required is IRR of 25% and cash 
+payback period of not exceeding 4 years.  There must be very strong reasons to 
+support proposals that do not meet these requirements. 
+e) All new store and relocation proposals must be submitted together with a CapEx 
+Control Sheet (see Appendix II), which tracks the number of stores and CapEx 
+amount approved year-to-date versus Budget.  
+f) For new stores in Hong Kong  and Macau, Hutchison Property Memo must be 
+obtained before approval can be granted from ASW or CKHH. 
+g) All new store / relocation CapEx must be within budgeted number of new 
+stores and new store CapEx amount (including any authorised increase / 
+decrease to budget).  Any proposal that would exceed either the number of new 
+stores OR the New Store CapEx amount cannot be approved until approval for the 
+additional increase in budgeted number of new stores and/or CapEx amount has 
+been granted by CKHH. 
+h) All new store and store relocations will be critically evaluated against the Group 
+Value Engineering Target. 
+i) Performance of all new stores will be tracked on a monthly basis.  On an 
+annual basis, Store Strategies must be submitted before the annual budget 
+process begins (refer to section 12).  If necessary, ASW Group Finance will apply 
+a stage-gate approach to individual BUs.  Criteria and targets will be set and new 
+store openings will be slowed down until the BU meets the criteria and targets.   
+ 
+4.2.2 Procedures  
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD. 
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+c) Submit Financial Model, Memo and all other supporting documentation to ASW 
+Group Finance, via the ASW CapEx Approval email address:  
+Capexapproval@aswatson.com 
+d) New site leases in Hong Kong and Macau will require a Hutchison Property Memo 
+(see Appendix III) stating that the proposed rents and rates are reasonable.   
+This memo from Hutchison Estate Agents  should be secured in advance of  
+submission to ASW Group Finance but could be exempted if the landlord of the 
+site is a subsidiary, JCE or associate of Cheung Kong Property Holdings. 
+ 
+e) ASW Group Finance to review before approval can be granted by ASW Investment 
+Committee. 
+f) For proposals that require CKHH approval, ASW Group Finance will manage the 
+submission from ASW to CKHH. 
+g) It is the responsibility of the BU FD to keep the CapEx Control Sheet (see 
+Appendix II) updated and accurate.  Any approval given on the basis of an error in 
+
+
+--- PAGE 12 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 12 of 59 
+ 
+ 
+the CapEx Control Sheet (e.g. showing an unbudgeted new store request to be 
+within budget) is void. 
+ 
+
+
+--- PAGE 13 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 13 of 59 
+ 
+ 
+4.3 Store Refit CapEx Approval (within budget) 
+ 
+4.3.1 General Policy 
+ 
+a) Store refits are categorised under major refit programmes, store equipment roll-out 
+programmes and individual store refits. 
+b) Store refits exclude store relocations. 
+c) Total investment for a store refit request is the sum of CapEx, including the store’s 
+share of equipment roll-outs (please refer to section 4.3.3 for definition), and other 
+cash outlay as defined in section 4.1.2, such as lease acquisition cost and key 
+money. 
+d) In general, the minimum investment return required is IRR of 25% and cash 
+payback period of not exceeding 4 years.  There must be very strong reasons to 
+support proposals that do not meet these requirements. 
+4.3.2 Policy on Major Refit Programmes 
+a) Such programmes usually involve significant total investment in a group of stores, 
+new store formats, strategic repositioning and thus have high strategic importance.  
+If BUs are not sure whether a particular project requires ASW Investment 
+Committee approval, BUs should consult with ASW Group Finance for advice. 
+b) Approval from ASW Investment Committee must be obtained for all major refit 
+programmes prior to their commencement.   
+c) All major refit programme proposals must include, but not limited to, the 
+following: 
+i. Overall refit strategy 
+ii. Rollout timeline 
+iii. Store selection criteria 
+iv. Recent trial performance 
+v. Financial summary and overall assumptions 
+vi. Project team and key contacts 
+Please refer to Appendix VIII for details.   
+After approval of the major refit programme, BU should report the progress, 
+revisions, and performance versus “before refit” and versus the financial proposal 
+of the programme regularly (at least monthly). 
+d) The performance of all store refits under major refit programmes will be tracked 
+by the Monthly Store Refit Performance Tracker (see Appendix VI) to be submitted 
+to ASW Group Finance.   
+
+
+--- PAGE 14 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 14 of 59 
+ 
+ 
+4.3.3 Policy on Store Equipment Roll-outs 
+a) A store equipment roll-out is a programme planned to be implemented to a group 
+of stores relating to the installation or replacement of store equipment. (For 
+example, installing CCTVs for a group of high-shrinkage stores, replacing existing 
+EAS panels with new ones for a group of stores, installing fire warning systems in 
+stores to comply with legal requirements) 
+b) The levels of authorisation follow section 8 Significant Expenditures.  
+c) All individual store equipment roll -out proposals that require the approval from 
+ASW Investment Committee must be supported by a cost-and-benefit analysis.  A 
+memo explaining the background and rationale for the request must be submitted 
+together.  
+ 
+4.3.4 Policy on Themed Minor Refit Programmes 
+a) A themed minor refit programme is a programme planned to be implemented to a 
+group of stores relating to the implementation of a theme, for example, implanting 
+a spa inside a group of stores. 
+b) The levels of authorisation follow section 8 Significant Expenditures. 
+c) All themed minor refit programme  proposals must include, but not limited to, the 
+following: 
+i. Overall refit strategy 
+ii. Rollout timeline 
+iii. Store selection criteria 
+iv. Recent trial performance 
+v. Financial summary and overall assumptions 
+vi. Project team and key contacts 
+After approval of the themed minor refit programme, BU should report the 
+progress, revisions, and performance versus “before refit” and versus the financial 
+proposal of the programme regularly (at least monthly). 
+d) In addition, for refits that require total investment less than HK$ 500k per store, 
+the total CapEx will be tracked by ASW Group Finance.  The relevant MTD and 
+YTD CapEx should be reported in their Monthly Store Refit Performance Trackers. 
+ 
+ 
+ 
+ 
+ 
+ 
+4.3.5 Policy on Individual Store Refits 
+a) Individual store refits include store renovations, store down-sizings and other store 
+refits. 
+
+
+--- PAGE 15 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 15 of 59 
+ 
+ 
+4.3.5.1 Store renovations and down-sizings 
+a) A store renovation is an investment in an existing store to enhance its 
+profitability, without changing the existing lease, store shape or store size. 
+b) A store down -sizing is an investment to reduce the size of an existing store in 
+order to enhance its profitability, with rent intensity unchanged or reduced. 
+c) A proposal to reduce the store size with higher rent intensity is regarded as a case 
+of other store refits, which is governed by section 4.3.4.2. 
+d) The level of authorisation required for individual store renovation or down -
+sizing requests is dependent on the amount of total investment involved per store, 
+as stated in the table below.   
+Total Investment Amount 
+per Store 
+Type Ultimate Authorisation Required 
+> HK$ 10 M 
+Major refit 
+CKHH Group Chief Financial Officer 
+(via ASW) 
+HK$ 2 M to  HK$ 10 M ASW Investment Committee 
+HK$ 1 M to < HK$ 2 M Divisional CEO and FD 
+HK$ 0.5 M to < HK$ 1 M Business Unit MD and FD 
+< HK$ 0.5 M Minor refit Business Unit MD and FD 
+ 
+e) All individual store proposals with total investment HK$ 500k or more per store 
+must be supported by the ASW Group Standard Store Refit / Relocation 
+Financial Model (see Appendix I) so that investment returns will be evaluated 
+based on incremental cash flows (“after case” less “before case”).  
+f) The performance of all store refits that require total investment HK$ 500k or 
+more per store will be tracked by the Monthly Store Refit Performance Tracker 
+(see Appendix VI) to be submitted to ASW Group Finance. 
+g) Individual store proposals with total investment less than HK$ 500k per store 
+can be supported by either (1) the ASW Group Standard Store Refit / Relocation 
+Financial Model (see Appendix I) or (2) financial analysis acceptable by the 
+approving BU. 
+h) In addition, for refits that require total investment less than HK$ 500k per store, 
+the total CapEx will be tracked by ASW Group Finance.  The relevant MTD and 
+YTD CapEx should be reported in their Monthly Store Refit Performance 
+Trackers. 
+i) If the business is being forced to refit, then the proposal shall be prepared based 
+on the New Store Financial Model. 
+4.3.5.2 Policy on other store refits 
+a) Other store refits are all other refit cases in stores not covered by the above sub-
+sections. Typical examples are (1) store expansions and (2) store size reductions 
+with higher rent intensities. 
+
+
+--- PAGE 16 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 16 of 59 
+ 
+ 
+b) A store expansion is defined as the commitment to (1) a lease of an additional 
+space(s) while keeping the lease of an existing, adjoining (or nearby) store, or 
+(2) a change of an existing lease that gives the BU a bigger store size. 
+c) All other store refits will require ASW Investment Committee approval. 
+d) All individual other store refit proposals must be supported by the ASW Group 
+Standard Store Refit / Relocation Financial Model (see Appendix I) so that 
+investment returns will be evaluated based on incremental cash flows (“after 
+case” less “before case”).  A memo explaining the background and rationale for 
+the request must be submitted together.   
+e) The performance of all other store refits will be tracked by the Monthly Store 
+Refit Performance Tracker (see Appendix VI) to be submitted to ASW Group 
+Finance. 
+
+
+--- PAGE 17 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 17 of 59 
+ 
+ 
+4.3.6 Procedures  
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD. 
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+c) For proposals that require ASW and/or CKHH approval: 
+i. Submit Financial Model, Memo and other supporting documentation to ASW 
+Group Finance, via the ASW CapEx Approval email address:  
+Capexapproval@aswatson.com 
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee  
+iii. For proposals that require CKHH approval, ASW Group Finance will manage 
+the submission from ASW to CKHH 
+
+
+--- PAGE 18 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 18 of 59 
+ 
+ 
+4.4 Non-Store CapEx Approval (within budget) 
+ 
+4.4.1 Policy 
+ 
+a) The level of authorisation required for non -store CapEx approval is dependent on 
+the amount of CapEx involved, as stated in the table s per section  8 Significant 
+Expenditures. 
+b) In addition to the criteria above, for property related transactions in Hong Kong, 
+Macau and China, please refer to section 10. 
+c) All IT related projects require IT Departments approval, prior to submission to the 
+corresponding line management and finance authority at the same level.  Thus, 
+ALL IT related projects that require ASW Investment Committee approval will 
+require PRIOR appr oval from the ASW Group Retail Technology Director .  
+Likewise for other functions, such as CRM, Digital, HR, Supply Chain and 
+Security. 
+d) In addition, the following IT related projects require approval from the ASW Group 
+Retail Technology Director: 
+i. Strategic IT projects of HK$ 1m or above, AND 
+ii. Non-strategic IT projects of HK$ 0.3m or above 
+e) Examples of strategic IT include but not limited to: Retek / WES, Retalix, BO, 
+Oracle HR, Oracle AVT, Dell PC procurement, Hybris, supplier portals, RSIM / 
+Zetes, WINS warehouse system, Datacentre hardware to support Retek / WES / 
+Group CRM and Hardware for stores within global store systems tender process. 
+f) If in doubt, business units should refer to the ASW Group Retail Technology 
+Director on whether an IT related project is strategic or non-strategic. 
+g) Selection of new or upgrade of existing enterprise resource planning (“ERP”) and 
+business process management (“BPM”) should be conducted with CK Hutchison 
+Group Information Services Department (“GISD”) and CK Hutchison Group 
+Accounting and Taxation Departm ent (“GATD”). GISD and GATD should in all 
+cases be consulted for clarification as to whether or not a system falls into the ERP 
+and BPM category prior to any purchase or similar commitment being made. 
+h) All Supply Chain and Logistics projects exceeding HK$ 1m will require PRIOR 
+approval from the ASW Group Supply Chain Director, before being proceeded to 
+the corresponding line management and finance authority.  Those projects not 
+exceeding HK$ 1m will require Business Unit Supply Chain and Logistics 
+Departments’ approval, prior to submission to the Business Unit MD and FD.   
+ 
+  
+
+
+--- PAGE 19 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 19 of 59 
+ 
+ 
+i) All non -trade procurement tender and non -IB submitted services tender 
+applications that require ASW Investment Committee approval will require 
+clearance from the ASW Group Procurement Services (“GPS”) of Group 
+International Buying. 
+j) In accordance with ASW Group Legal Policy, all major legal contracts should be 
+discussed with and signed off by the Legal Department in your division.  Any 
+comments on risks made by the Legal Department should be explicitly noted in the 
+proposal memo.  Any approval granted by ASW Investment Committee would still 
+be contingent upon ASW Group Legal signoff. 
+k) Any material purchasing contracts involving cross -border payments and inter -
+company reallocations must be cleared with ASW Group Tax in accordance with 
+the current applicable version of the ASW Group Tax Policy & Procedures before 
+signing. 
+ 
+4.4.2 Procedures  
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD. 
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+c) For IT projects that require ASW and CKHH approval, submit along with other 
+supporting materials -an ASK Paper (see Appendix IV). 
+d) For IT CapEx  projects, the following information must be included in the 
+proposal: 
+i. Whether the CapEx has been budgeted  
+ii. Basis of investment 
+iii. Explanation of benefits of the new system (i.e. what the new system would 
+enable in functionality that could not be achieved previously)  
+iv. Alternative technologies and/or potential suppliers evaluated 
+v. Project management team structure, project timeline and key deliverables 
+vi. Breakdown of CapEx involved 
+vii. Whether external consultants need to be engaged, and alternatives considered 
+viii. Detailed financials 
+e) For Supply Chain and Logistics CapEx , the following information must be 
+included in the proposal:  
+i. Whether the CapEx has been budgeted 
+ii. Multiple alternatives (e.g. site locations) with clear evaluation on how each 
+rank against key decision criteria 
+
+
+--- PAGE 20 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 20 of 59 
+ 
+ 
+iii. Volume projections in accordance with Budget and 5 Year Plan, and space 
+utilisation projection over time    
+iv. Detailed financial projections with P&L and cash flow impact against the 
+alternatives 
+v. KPIs (e.g. cost as a % of net sales) projection as well as historical comparison 
+vi. Breakdown of CapEx involved 
+vii. The cash flow provided should be the incremental difference  between the 
+current scenario and the proposed scenario and/or the difference between the 
+proposed scenario and the next best alternative (if the current scenario is not a 
+viable option going forward, e.g. cannot renew the lease on the current 
+warehouse) 
+f) For proposals that require Group Legal Department signoff:  
+i. If Group Legal Department approval has been obtained before making the 
+proposal to Group Finance, reference to that approval should be made 
+explicitly in the memo to Group Finance, and Group Legal should be copied 
+on the memo. 
+ii. If Group Legal Department approval has not yet been obtained, then reference 
+to that should also be made explicitly in the memo to Group Finance, and any 
+approval granted by ASW Investment Committee would still be subject to 
+ASW Group Legal signoff, regard less of whether it is explicitly stated in the 
+approval memo or not.  A copy of the request for approval and the Group 
+Finance approval memo should then be submitted by the applying BU to the 
+Group Legal Department for reference. 
+g) For proposals that require ASW and/or CKHH approval:  
+i. Submit appropriate documentation to ASW Group Finance, via the ASW 
+CapEx Approval email address:  Capexapproval@aswatson.com  
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee 
+iii. For proposals that require CKHH approval, ASW Group Finance will manage 
+the submission from ASW to CKHH 
+ 
+
+
+--- PAGE 21 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 21 of 59 
+ 
+ 
+4.5 Purchase of Private Cars 
+ 
+4.5.1 Policy 
+ 
+All CapEx for the purchase of private cars (including acquisition of previously leased cars) 
+must be approved in advance by the ASW Investment Committee and a CKHH director. 
+4.5.2 Procedures  
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD. 
+b) Proposals should include information such as, but not limited to, the purpose of the 
+purchase, the price, model and condition of the proposed car to be purchased.    
+c) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+d) Submit appropriate documentation including the “ CKHH Group Car Purchase 
+Requisition Form” (Appendix X) to ASW Group Finance, via the ASW CapEx 
+Approval email address:  Capexapproval@aswatson.com 
+e) ASW Group Finance to review before approval can be granted by the ASW Group 
+Human Resources Director and ASW Group Chief Financial Officer. 
+f) ASW Group Finance will manage the submission from ASW to CKHH (attention 
+to CKHH General Manager – Group Human Resources with a cc copy to a CKHH 
+director). 
+ 
+
+
+--- PAGE 22 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 22 of 59 
+ 
+ 
+4.6 Budget CapEx Increase and Unbudgeted CapEx Approval (as Exception ONLY) 
+ 
+4.6.1 Policy 
+ 
+a) All business units should provide a prudent best estimate for each year’s CapEx 
+budget (by category) with an aim for NO unbudgeted CapEx (by category) for the 
+year. 
+b) Approval granted to specific project / new store is only valid for the year(s) 
+specified.   
+i. If prior to or during the budgeting process, BU foresees certain projects / new 
+stores will be delayed, even only partially, to subsequent year(s), the relevant 
+CapEx amount must be included in subsequent year(s)’ budget.   
+ii. If over 50% of total project CapEx appears likely to be re-phased over different 
+years over the project period, BU must obtain the appropriate level of approval 
+again. 
+c) Subsequent budget CapEx increase and unbudgeted CapEx items MUST be 
+approved by CKHH.   
+d) CapEx budget is monitored by BU, by category.  That is, any increase in CapEx 
+(regardless of amount) in any one category (e.g. Store Refits, IT hardware) in any 
+BU, requires prior approval from CKHH, even if the increase can be offset by 
+decreases in other areas, e.g. a corresponding decrease in CapEx in another 
+category within the same BU, or savings in another BU.  BUs cannot reclassify 
+CapEx across categories, nor between BUs, without prior approval. 
+e) Without additional CapEx approval, CapEx must be kept within each category’s 
+budget levels in terms of value amount.   
+f) The number of new store openings (include store relocations) must be kept within 
+the budgeted number of new stores as well as the budgeted amount of new store 
+CapEx. 
+g) Approval for additional CapEx budget is granted only in exceptional cases.  It 
+requires CKHH approval and may often be rejected.  Thus BUs should NOT make 
+commitments before the additional CapEx approval is authorised by CKHH.  In 
+the rare case of approval, it is usually done taking into consideration the year -to-
+date performance of the BU concerned, the opportunity to balance out any 
+increases with decreases in CapEx in other parts of the Group, and the overall 
+financial position of the Group. 
+ 
+
+
+--- PAGE 23 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 23 of 59 
+ 
+ 
+4.6.2 Procedures  
+ 
+a) Any divisions or business units foreseeing the need for additional CapEx should 
+indicate their requests to ASW Group Finance before such commitments are made 
+and sufficient time should be allowed for the review and approval process. 
+b) To request for additional CapEx budget (in any category), BU FDs should prepare 
+a memo requesting the increase.  The memo should include the following 
+information: 
+i. The amount of CapEx by category approved in Budget and the revised amount 
+required for the categories concerned 
+ii. The rationale for the additional increase above Budget levels 
+iii. The financial benefit of the additional investment 
+iv. Any proposed and known area of savings that will compensate for the 
+overspend amount  (e.g. decrease in new stores CapEx offsetting an increase 
+in refit CapEx, the Divisional CEO and FD proposing a decrease in CapEx 
+spending in another BU to offset the increase requested in one BU) 
+c) Documentation requesting approval for increase in CapEx should be: 
+i. Prepared by BU FD and signed by BU MD 
+ii. Reviewed and endorsed by Divisional CEO and FD via signatures 
+iii. Submitted with appropriate documentation to ASW Group Finance, via the 
+ASW CapEx Approval email address:  Capexapproval@aswatson.com 
+iv. Reviewed by ASW Group Finance before approval can be granted by ASW 
+Group Chief Financial Officer  (or ASW Investment Committee for store 
+related CapEx) 
+v. ASW Group Finance will manage the submission from ASW to CKHH 
+ 
+
+
+--- PAGE 24 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 24 of 59 
+ 
+ 
+4.7 CapEx Overspend (should be STRICTLY AVOIDED) 
+ 
+4.7.1 Policy 
+ 
+a) All CapEx spending should be strictly within the approved amount.  Conservative 
+contingencies should be built into the initial proposed amount, if necessary.  No 
+spending over and above the approved levels should be committed. 
+b) In the exceptional circumstance where an overspend of a CapEx project which was 
+approved by CKHH arises, BU should seek CKHH’s re-approval, via ASW Group 
+Finance. 
+c) In the exceptional circumstance where an overspend of a CapEx project which was 
+approved by ASW Investment Committee arises, the following will apply: 
+i. If the overspend amount: 
+▪ is less than 10% of the approved amount, AND 
+▪ can be offset by net savings in other projects within the same BU and same 
+CapEx category, 
+Then, approval is required by BU FD and BU MD  
+ii. If the overspend breaches any one of the two conditions in (i) above, then:  
+▪ where the overspend amount is less than 10% of the approved amount and 
+the overspend can be offset by net savings within the Division  and same 
+CapEx category, Divisional FD and CEO approval is required 
+▪ ASW Investment Committee approval is required for all other cases 
+▪ savings in other projects or categories must be identified and committed to 
+compensate for the overspend amount  
+d) In the exceptional circumstance where (1) an overspend of a CapEx project which 
+was approved within a BU and/or Division arises and (2) the sum of overspend 
+amount and original planned amount would exceed the original approver’s limit 
+(i.e. BU and/or Division), the BU and/or Division should submit the whole case of 
+CapEx project for the next level’s approval (e.g. ASW Investment Committee). 
+ 
+
+
+--- PAGE 25 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 25 of 59 
+ 
+ 
+4.7.2 Procedures  
+ 
+a) Where a CapEx project will incur overspend that breaches any one of the two 
+conditions in section 4.7.1 (c)(i) or section 4.7.1(d) , the BU FD and MD must 
+prepare an explanation memo as soon as the potential overspend is identified.   
+b) The memo should include:  
+i. Reasons for the overspend  
+ii. An updated financial analysis using the latest CapEx amount  
+iii. Any proposed and known area of savings that will compensate for the 
+overspend amount  
+iv. Outline of steps that have been taken (e.g. control process and procedural 
+changes) to prevent similar overspending in the future; and  
+v. In cases where the over -spend has already been committed, the manager 
+concerned making the decision for the overspend and reasons for not seeking 
+prior approval 
+For overspends of projects previously approved by CKHH 
+ 
+c) The memo will need to be submitted to ASW Group Finance for approval at ASW 
+Investment Committee after the Division FD and CEO have reviewed and 
+approved it. 
+d) ASW Group Finance will manage the submission from ASW to CKHH. 
+ 
+For overspends of projects previously approved by ASW Investment Committee  
+ 
+e) If the overspend amount is  less than 10% of the approved amount  and the 
+overspend can be offset by net savings within the Division  and same CapEx 
+category, the memo only needs to be sent to Divisional FD and CEO for approval. 
+f) For all other cases, the memo will need to be submitted to ASW Group Finance for 
+approval at ASW Investment Committee after the Divisional FD and CEO ha ve 
+reviewed and approved it. 
+g) For overspends that require CKHH approval, ASW Group Finance will manage 
+the submission from ASW to CKHH. 
+ 
+  
+
+
+--- PAGE 26 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 26 of 59 
+ 
+ 
+For overspends of projects now requiring the next level’s approval 
+ 
+h) The memo will need to be submitted to the next level (e.g. ASW Investment 
+Committee) for approval after the original approver (BU and/or Division) have 
+reviewed and approved it. 
+ 
+
+
+--- PAGE 27 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 27 of 59 
+ 
+ 
+4.8 Unspent CapEx Budget at Year End  
+ 
+4.8.1 Policy 
+ 
+a) There is NO CapEx carry forward allowed. 
+b) At the time of the annual Budget, BUs should review status of all CapEx projects.  
+For projects expected to be delayed past the year end, CapEx budget in the 
+following year should be increased before Budget finalisation and approval to 
+include that amount (and forecast CapEx spend for the current year should 
+decrease). 
+c) For CapEx items that were not foreseen to be delayed beyond year end at time of 
+Budget, but due to exceptional circumstances, were unexpectedly delayed, BUs 
+need to request approval from ASW Group Chief Financial Officer for an increase 
+in “Additional CapEx budget” for the following year. 
+d) Note that “Additional CapEx Budget” is granted only in exceptional cases.  It 
+requires CKHH approval and may often not be granted.   
+e) In case CKHH approval is not granted, the BU will need to absorb (i.e. find off -
+setting savings for) the CapEx in the corresponding Budgeted CapEx category for 
+the following year.  
+ 
+4.8.2 Procedures  
+ 
+     The request for approval for “Additional CapEx Budget” should be:  
+ 
+a) Drafted by BU FD, signed by BU MD, containing a detailed list by item of those 
+CapEx projects, and the reasons why the delay was not expected when Budget was 
+compiled 
+b) Reviewed and endorsed by Divisional CEO and FD via signatures 
+c) Submitted with appropriate documentation to ASW Group Finance, via the ASW 
+CapEx Approval email address:  Capexapproval@aswatson.com 
+d) Received by Group Finance no later than January 20th of the subsequent year  
+e) Reviewed by ASW Group Finance before endorsed by ASW Group Chief 
+Financial Officer 
+f) ASW Group Finance will manage the submission from ASW to CKHH 
+
+
+--- PAGE 28 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 28 of 59 
+ 
+ 
+5. Store Closure and Store Lease Renewal 
+5.1 Store Closure 
+5.1.1 Policy 
+ 
+a) All store closures will require ASW Investment Committee approval.  Closure 
+should be the last resort after all other possible turnaround initiatives have been 
+exhausted.  
+b) Where closure costs or asset write-offs are involved, section 6 of the ASW Policy 
+on Investment would apply. 
+c) Closure costs (e.g. fixed assets and stock write -off, agency fee, redundancy costs) 
+should only be provided for in the company’s profit and loss statement when the 
+approval to close the store(s) is granted by ASW Group. 
+5.1.2 Procedures 
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD.  The document 
+should include the following: 
+i. Breakdown of the net gain or loss, which will typically include fixed asset 
+write-off, stock write -off, penalty and other expenses, e.g. transaction taxes/ 
+write off of tax losses, plus potentially key money receipt.   
+ii. A memo explaining why closing the store is the preferred option 
+iii. Expected closure date 
+iv. Latest 12-month rolling SOP  
+v. Projected sales uplift required to breakeven   
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+c) For proposals that require ASW and CKHH approval: 
+i. Submit appropriate documentation to ASW Group Finance, via the ASW 
+CapEx Approval email address:  Capexapproval@aswatson.com 
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee 
+ 
+
+
+--- PAGE 29 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 29 of 59 
+ 
+ 
+5.2 Store Lease Renewal 
+5.2.1 Policy 
+ 
+a) All store lease renewal requests will require ASW Investment Committee approval. 
+b) For loss-making stores and stores expected to turn loss-making before the time of 
+lease breaks, any decisions related to the exercise or non -exercise of lease break 
+points should also be submitted to  ASW Investment Committee for 
+approval.  Please ensure that such requests are submitted three months before the 
+notice periods of the lease break points. 
+c) Where additional CapEx is required, section 4 of the ASW Policy on Investment  
+would apply. 
+5.2.2 Procedures 
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD.  The memo 
+should outline the details and rationale for the transaction.   
+b) Reviewed and endorsed by Divisional CEO and FD via signatures. 
+c)       Store lease renewal requests relating to sites located in Hong Kong and Macau 
+should be submitted to ASW Group Finance on an individual case basis for ASW 
+Investment Committee approval. 
+d) Store lease renewal requests relating to sites located in markets other than Hong 
+Kong and Macau should be submitted to ASW Group Finance in batches on a 
+quarterly basis for ASW Investment Committee approval. 
+e) For proposals that require ASW and CKHH approval: 
+i. Submit appropriate documentation to ASW Group Finance, via the ASW 
+CapEx Approval email address:  Capexapproval@aswatson.com 
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee 
+f) For Hong Kong  and Macau sites, a Hutchison Property Memo stating that the 
+proposed rents and rates are reasonable should be attached to the written request .  
+(The memo from Hutchison Estate Agents  should be secured in advance of 
+submission to Group Finance.) 
+ 
+ 
+
+
+--- PAGE 30 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 30 of 59 
+ 
+ 
+6. Non-current Asset Write-off / Disposal Costs  
+6.1 Policy 
+ 
+a) All write-offs or disposals of (1) real estates  (e.g. buildings, land etc)  or (2) 
+intangible assets (e.g. pharmacy licences, key moneys, land use rights etc) require 
+ASW Investment Committee approval. 
+b) For write -offs or disposal s of non -current assets other than real estates and 
+intangible assets, the level of authorisation required is dependent on the Actual Net 
+Loss amount, as stated in the table below:   
+Net Loss Amount Ultimate Authorisation Required 
+> HK$ 1 M CKHH Group Chief Financial Officer 
+(via ASW Investment Committee) 
+HK$ 0.5 to  HK$ 1 M Divisional CEO and FD 
+< HK$ 0.5 M Business Unit MD and FD 
+Gain Business Unit MD and FD 
+ 
+c) Net Loss is defined as proceeds of transaction (including any gains), less fixed and 
+non current assets write-off, less any disposal and transaction costs, 
+ 
+ Proceeds of Disposal  
+ Less:   Write-off amount  
+             Net gain / loss =  ▪ Fixed assets 
+  ▪ Other non-current assets (e.g. key money) 
+ Less: Disposal / Transaction costs 
+ 
+d) Approval for Net Loss write-off must be obtained prior to actions that would cause 
+the actual write -off, e.g. decisions on store closures must only be made AFTER 
+write-off approval has been granted. 
+e) If the actual net gain / loss amount subsequent to the approval is found to be 
+materially different from the approved amount (negative variance by over 30%), a 
+separate memo should be submitted to explain the variance.  If the final write -off 
+amount is so much greater than the original approved amount that it would have 
+required a more senior level authorisation had the full amount been known at the 
+time of the proposal, then the memo must be further submitted to that more senior 
+level for review and approval. 
+f) Write-off / Disposal costs (e.g. fixed assets and stock write -off, agency fee, 
+redundancy costs) should only be provided for in the company’s profit and loss 
+statement when the approval to write-off / dispose the asset is granted. 
+ 
+  
+
+
+--- PAGE 31 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 31 of 59 
+ 
+ 
+6.2 Procedures 
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD.   
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures. 
+c) For proposals that require ASW and/or CKHH approval: 
+i. Submit appropriate documentation to ASW Group Finance, via the ASW 
+CapEx Approval email address:  Capexapproval@aswatson.com 
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee  
+iii. ASW Group Finance will manage the submission from ASW to CKHH 
+  
+
+
+--- PAGE 32 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 32 of 59 
+ 
+ 
+7. Business Acquisition and Disposal (incl. Equity Participation Changes) 
+7.1 Policy  
+ 
+a) All equity and joint-venture participations, investments in new activities and new 
+markets, and proposals to dispose of existing activities and investments will require 
+prior approval of the CKHH Group Managing Director. 
+b) Similarly, any change (increase and decrease) in equity amount and equity 
+participation levels in current businesses, will require prior approval of the CKHH 
+Group Managing Director. 
+c) All joint-venture, shareholder, franchise or other profit -sharing agreements must 
+be first cleared with ASW Group Legal.  
+d) All such agreements must also be first cleared with ASW Group Tax prior to ASW 
+Group or CKHH approval. 
+   
+7.2 Procedures 
+ 
+a) Divisional CEO to obtain in principle agreement from ASW Group CEO and notify 
+ASW Group Chief Financial Officer. 
+b) Divisional CEO to engage relevant support (e.g. financial modelling, contractual 
+negotiations and corporate structuring) and signoff from ASW Group Finance, 
+Group Legal and Group Tax.  
+c) Divisional CEO to prepare official presentation to ASW Group CEO and ASW 
+Group Chief Financial Officer, addressing the following: 
+i. Investment rationale 
+ii. Business plan and strategy 
+iii. Financial valuation, with modelling assumptions (including any significant tax 
+considerations and assumptions if any). Supporting market benchmarks where 
+appropriate 
+iv. Proposed transaction execution team and transaction timeline 
+v. Management team structure and phased organisation support  
+d) If ASW approval is given to approach CKHH for approval, then Divisional CEO 
+and FD prepare memo to CKHH requesting approval, in line with supporting 
+financials and standard PIP documentation. 
+e) ASW Group Head Office will coordinate presentation to CKHH, with presentation 
+from Divisional team, where appropriate. 
+f) For subsequent cash settlement for approved projects, please refer to the ASW 
+Group Treasury Policies and Procedures. 
+ 
+
+
+--- PAGE 33 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 33 of 59 
+ 
+ 
+8. Significant Expenditures 
+8.1 Definition - Commitments 
+ 
+a) Commitments are contracts which bind business units  to (1) a minimum order 
+quantity or minimum financial obligations, (2) exclusivity clauses in favour of the 
+contracted vendor’s services or products, or (3) both.  Typical examples are 
+warehouse leases, office le ases, car rental contracts that  restrict the Group to 
+renting only the contracted lessor’s cars and logistics contracts that disallow the 
+Group to procure logistical services from other vendors. 
+b) For any non-trade-related Commitments (exclude trade-related commitments like 
+trade suppliers; but include non-store lease contracts, master lease agreements for 
+company cars  and non -trade-related list of rates or prices with some form of 
+commitment), the following authorisation is required: 
+Commitment Amount 
+(Small BUs) Ultimate Authorisation Required 
+≥ HK$ 3 M ASW Investment Committee 
+HK$ 1 to < HK$ 3 M Divisional CEO and FD 
+< HK$ 1 M Business Unit MD and FD 
+ 
+Commitment Amount 
+(Big BUs) Ultimate Authorisation Required 
+≥ HK$ 5 M ASW Investment Committee 
+HK$ 3 to < HK$ 5 M Divisional CEO and FD 
+< HK$ 3 M Business Unit MD and FD 
+ 
+ Remarks: For definition of Small BUs and Big BUs, please refer to Retail 
+Operating Standards. 
+ 
+c) For non-trade-related list of rates or prices with some form of commitment, the 
+commitment amount should be estimated with the estimated volume during the 
+expected contract period. 
+d) In addition to the criteria above, property related transactions in Hong Kong , 
+Macau and China require the approval of ASW Investment Committee, via ASW 
+Group Finance (please refer to section 10). 
+e) Commitment amount is calculated as the sum of cash outflows over the whole life 
+of the contract, regardless of any break clause, e.g. for a new warehouse, the total 
+commitment amount includes the CapEx, rent and rates and related operating cash 
+costs over the lease period.   
+  
+
+
+--- PAGE 34 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 34 of 59 
+ 
+ 
+8.2 Definition – Rate Cards 
+a) Rate Cards are pre-agreed lists of rates or prices , between vendors and business 
+units as paying clients or customers, against products or services to be acquired , 
+with no C ommitments attached.  Any other agreements not fulfilling the above 
+definition of Rate Cards are deemed Commitments and should follow the 
+authorisation limits stated in section 8.1. 
+b) A typical example of Rate Cards is a list of prices of different grades or brands of 
+floor tiles, which (1)  do not bind the Group to a minimum order quantity, and (2) 
+do not restrict the Group to buying exclusively only from the contracted vendor. 
+c) The level of authorisation required is stated in the table below.  
+Estimated Contract 
+Amount 
+Ultimate Authorisation Required 
+Where the lowest cost 
+bidder is proposed 
+Where the lowest cost 
+bidder is NOT proposed 
+≥ HK$ 10 M ASW Investment 
+Committee 
+ASW Investment 
+Committee 
+HK$ 5 to < HK$ 10 M ASW Group Chief 
+Financial Officer 
+ASW Investment 
+Committee 
+< HK$ 5 M Business Unit MD and FD Business Unit MD and FD 
+ 
+ 
+8.3 Group IT and Group IB’s Authorisation 
+a) The level of authorisation required for Group IT Project s is stated in the table 
+below. 
+Estimated Contract 
+Amount 
+Ultimate Authorisation Required 
+Budgeted Group IT 
+Projects 
+Unbudgeted Group IT 
+Projects 
+≥ HK$ 5 M ASW Investment 
+Committee 
+ASW Investment 
+Committee 
+HK$ 1 to < HK$ 5 M ASW Group Chief 
+Financial Officer 
+ASW Investment 
+Committee 
+< HK$ 1 M ASW Group Retail 
+Technology Director 
+ASW Group Retail 
+Technology Director 
+ 
+ 
+ 
+ 
+
+
+--- PAGE 35 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 35 of 59 
+ 
+ 
+b) The level of authorisation required for Group IB Rate Cards is stated in the table 
+below. 
+Estimated Contract 
+Amount Ultimate Authorisation Required 
+≥ HK$ 10 M ASW Investment Committee 
+< HK$ 10 M International Buying (“IB”) 
+ 
+c) Where Business Units only sign contracts with the chosen vendors under master 
+contracts and cost schedules according to duly -approved Group IB Rate Cards , 
+there is no need for further approvals by ASW GPS or Investment Committee. 
+ 
+8.4 Policy 
+a) All requests for approval should be made via a memo to the ASW Group Chief 
+Financial Officer, outlining the details and rationale for the transaction. 
+b) All requests for ASW Investment Committee’s approval must be first cleared with 
+the relevant Group Function before reaching ASW Group Chief Financial Officer.  
+For instance, IT expenditure requests requiring ASW Investment Committee’s 
+approval must be first cleared with Group Retail Technology Director  before 
+reaching ASW Group Chief Financial Officer. 
+c) All contracts must be first cleared with ASW Group Legal in accordance with the 
+current applicable version of the ASW Group Legal Policy.  
+d) All contracts (exclude trade related contracts like trade suppliers) must be cleared 
+with ASW Group Tax in accordance with the current applicable version of the 
+ASW Group Tax Policy & Procedures. 
+e) All non -trade procurement tender and non -IB submitted services tender 
+applications that require ASW Investment Committee approval will require 
+clearance from the ASW Group Procurement Services (“GPS”) of Group 
+International Buying. 
+f) All master lease agreements for company cars must be first cleared with ASW 
+Group Human Resources in accordance with the current applicable version of the 
+ASW Group Human Resources Policy. 
+g) All construction projects have to be approved by the CKHH Directors Executive 
+Committee and are reviewed regularly. 
+ 
+8.5  Procedure 
+ 
+a) Documentation to be prepared by BU FD and signed by BU MD 
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures 
+
+
+--- PAGE 36 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 36 of 59 
+ 
+ 
+i. For proposals that require ASW and/or CKHH approval: Submit all relevant 
+documentation to ASW Group Finance, via the ASW CapEx Approval email 
+address:  Capexapproval@aswatson.com 
+ii. ASW Group Finance to review before approval can be granted by ASW 
+Investment Committee 
+iii. ASW Group Finance will manage the submission from ASW to CKHH 
+  
+
+
+--- PAGE 37 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 37 of 59 
+ 
+ 
+9. Engagement of Third Party Representatives 
+9.1 Policy  
+   
+a) Before procuring and renewing the services of any external consultancy firm, the 
+following authorisation is required. 
+Type Commitment 
+Amount Ultimate Authorisation Required 
+Lobbyists and 
+Advisors All CKHH Group Co-Managing Director 
+Management 
+Consultants 
+≥ HK$ 5 M ASW Investment Committee  
+HK$ 1 to < HK$ 
+5 M 
+ASW Group CEO and  
+ASW Group Chief Financial Officer 
+ HK$ 1 M 
+Business Unit MD and FD 
+(Subject to authorisations set by Divisional 
+Teams) 
+Celebrities 
+≥ HK$ 1 M ASW Investment Committee  
+ HK$ 1 M 
+Business Unit MD and FD 
+(Subject to authorisations set by Divisional 
+Teams) 
+ 
+b) Commitment amount is calculated as the sum of cash outflows over the entire life 
+of the contract, regardless of any break clause.   
+c) Management consultancy firms include McKinsey and Co., etc.  
+d) Celebrities include third party spokespersons, KOLs, Bloggers, Vloggers and the 
+like. 
+e) Advertising and Marketing consultants and agencies include store design agencies, 
+advertising agencies, PR agencies, media agencies, social listening companies and 
+market research companies.  Their levels of authorisation follow section 8  
+Significant Expenditures. 
+f) All requests for CKHH and ASW Group approval should be made via a memo 
+outlining the scope, principles, details and rationale for hiring an external 
+consultant instead of using internal resource. The memo should also describe the 
+criteria and selection / tender process adopted. 
+g) All contracts which require ASW or CKHH Group approval must be cleared with 
+ASW Group Legal. All other contracts must also be first cleared with ASW Group 
+Legal in accordance with the current applicable version of the ASW Group Legal 
+Policy.  
+h) Excluded from the scope of this Policy are: 
+i. Audit, audit-related and taxation advisory services 
+ii. Legal services 
+
+
+--- PAGE 38 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 38 of 59 
+ 
+ 
+iii. Engagement related to implementation of approved IT systems 
+iv. Recruitment agencies and training or development agencies or consultants 
+v. All temporary staff hired for existing vacancies or special events (e.g. 
+promotion activities) 
+9.2 Procedure 
+ 
+a) BU FD and MD to prepare a proposal outlining the rationale for the engagement: 
+i. Commercial background and reasons for the initiative 
+ii. Reasons for requiring external consultants, instead of using internal resources 
+iii. Financial justification, with supporting benchmarks where appropriate 
+iv. Any alternative consultants considered and evaluation against key selection 
+criteria 
+b) To be reviewed and endorsed by Divisional CEO and FD via signatures, as required 
+c) Where approval is required from CKHH and ASW Group, please submit the 
+proposal and any supporting documentation to ASW Group Finance for review. 
+d) For proposals that require CKHH approval for Lobbyists or Advisors, BU should 
+submit together with other documentation, the “ CKHH Group – Third Party 
+Representatives” (see Appendix XI).  ASW Group Finance will manage the 
+submission from ASW to CKHH. 
+  
+
+
+--- PAGE 39 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 39 of 59 
+ 
+ 
+10. Property Related Transactions in Hong Kong, Macau and China 
+10.1 Policy  
+ 
+a) Property related transactions in Hong Kong , Macau and China (including new / 
+lease renewal of warehouse and new / lease renewal of office space) meeting both 
+of the following criteria will require a formal written request for approval to ASW 
+Investment Committee.  The two criteria are:  
+• Lease period over 6 months 
+• Financial commitment of over HK$ 500k  
+b) The policy applies whether we directly buy/ rent OR cause a third party (e.g. third 
+party logistics provider) to buy / rent such properties.   
+c) Commitment amount is calculated as the sum of cash outflows over the whole life 
+of the contract, regardless of any break clause, e.g. for a new warehouse, the total 
+commitment amount includes the CapEx, rent and rates and related operating cash 
+costs over the lease period.   
+d) Specifically, for property related transactions in Hong Kong and Macau, Hutchison 
+Property Memo must be obtained before approval can be granted from the ASW 
+or CKHH Group Chief Financial Officer but can be exempted if the landlord of the 
+property is a subsidiary, JCE or associate of Cheung Kong Property Holdings.  
+e) Property transactions with zero financial commitment are exempt from this policy. 
+ 
+10.2   Procedure 
+ 
+a) Request to be prepared by BU FD and signed by BU MD 
+b) A Hutchison Property Memo stating that the proposed rents and rates are 
+reasonable should be attached to the written request  (The memo from Hutchison 
+Estate Agents should be secured in advance of submission to Group Finance) 
+c) Obtain appropriate signatures of Divisional CEO and FD 
+d) Submit appropriate documentation to ASW Group Finance, via the ASW CapEx 
+Approval email address:  Capexapproval@aswatson.com 
+e) ASW Group Finance to review before approval can be granted by ASW Investment 
+Committee 
+f) Where approval for a proposal is required from CKHH, ASW Group Finance will 
+manage the submission from ASW to CKHH 
+ 
+ 
+11. Charitable Donations & Sponsorships and Contributions to Political Associations 
+11.1 Policy 
+ 
+
+
+--- PAGE 40 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 40 of 59 
+ 
+ 
+In a Group with the size of CKHH, it is not uncommon for several of our companies to 
+receive appeals from the same charities and other causes.  To avoid duplication, CKHH 
+requires its subsidiaries to obtain approval from Head Office on ALL cash donations and 
+sponsorships. For in -kind sponsorships or projects involving customer/supplier 
+donations, although the donation form does not need to go through CKHH approval, 
+subsidiaries should still fill in the donation form and keep ASW GPR informed.  
+For details, please refer to section 7.1 of the current applicable version of ASW Group 
+Public Relations & Public Engagement Policy and Procedures. 
+11.2 Procedures 
+ 
+a) Donation and Sponsorship 
+  
+
+
+
+--- PAGE 41 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 41 of 59 
+ 
+ 
+b) Charitable Advertising  
+• Charitable advertising is at the discretion of each member company, except for 
+Hong Kong where in general will be undertaken at the CKHH corporate level, 
+hence should be submitted to CKHH via Group PR. 
+For Hong Kong BUs only:  
+ 
+• Please pay special attention to donations linked to the Hong Kong Community 
+Chest. Since Cheung Kong Holdings is a major corporate donor to the 
+Community Chest as a group, they would like to be consulted for any charity 
+activities linked to the Chest. Plea se obtain approval from CKHH-GCA via 
+ASW GPR. 
+c) Contributions to Politicians / Political Associations  
+• It is the Group’s policy NOT TO  make any form of donation to political 
+associations or individual politicians.  If any requests are made for political 
+contributions by the Group, these should be referred to CKHH-GCA via ASW 
+GPR. 
+ 
+  
+
+
+--- PAGE 42 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 42 of 59 
+ 
+ 
+12. Store Investment Cycle 
+ 
+   
+
+
+
+--- PAGE 43 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 43 of 59 
+ 
+ 
+13. Finance Authorisation / Approval Map 
+ 
+The maps below summarise the Authorisation Process 
+ 
+ 
+  
+
+
+
+--- PAGE 44 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 44 of 59 
+ 
+ 
+ 
+ 
+ 
+
+
+
+--- PAGE 45 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 45 of 59 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+
+
+
+--- PAGE 46 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 46 of 59 
+ 
+ 
+14. Reporting 
+ 
+The following reports are required to be submitted to ASW Group Finance 
+ 
+14.1 Routine Reports 
+ 
+a) Monthly CapEx Report  (see Appendix V) 
+• Report on CapEx usage to-date and forecast for remaining year 
+b) New Stores & Store Refit Performance Tracking (see Appendix VI) 
+• Monthly performance report on new stores and store refit of or over HK$ 500k (or 
+belonging to a Major Refit Programme or Other Store Refits) 
+• Some of the key metrics tracked include CapEx, sales, and SOP.  The actual 
+performance is tracked against the Financial Proposal and “Before Refit” (in the 
+case of store refit) 
+• Excel template and summary slide to be submitted to Group Finance on a monthly 
+basis.   
+c) Store Strategies   
+• Annual report on New Store Opening Strategies, to be submitted by end of first 
+half and before budget process begins (see Appendix VII) 
+• Major Refit Programme Strategies, required from selected business units that have 
+major refit programmes.  BUs will be notified separately (see Appendix VIII) 
+d) Value Engineering Report (see Appendix IX) 
+• Monthly report on New Stor e CapEx, to be compared against Value Engineering 
+Targets 
+ 
+14.2 Reporting Timetable  
+ 
+ See ASW Group Financial Reporting Timetable published each year 
+
+
+--- PAGE 47 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 47 of 59 
+ 
+ 
+Appendix I – ASW Group Standard Financial Model 
+Example: New Store Model 
+ 
+ 
+ 
+ 
+ 
+ 
+Sample screenshots   
+
+
+
+--- PAGE 48 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 48 of 59 
+ 
+ 
+Appendix II – CapEx Control Sheet 
+Example 
+ 
+ 
+ 
+
+
+
+--- PAGE 49 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 49 of 59 
+ 
+ 
+Appendix III – Hutchison Property Memo 
+Example 
+ 
+
+
+
+--- PAGE 50 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 50 of 59 
+ 
+ 
+Appendix IV – ASK Paper 
+ 
+  
+Date  : DD MMM YYYY 
+Subject  : Summary Description 
+Author  : Name 
+ 
+Paper Objective 
+▪ 1-2 bullet points that articulate objective 
+▪ Expenditure ask should be shown here 
+▪ State budget condition here (in budget, not in budget – plus which line) 
+▪ State expected timing 
+ 
+1. Why you need to know this information? 
+▪ Set background/context of paper 
+ 
+2. What we’ve found 
+General Findings 
+▪ Explain findings 
+▪  
+Group IT Implications 
+▪ State whether Group IT help is required for ongoing development, integration, maintenance, support, or 
+other. 
+▪ State whether any deviation with existing GIT strategies or standards 
+▪ Consider whether the proposed solution (or similar) exists in any of the other BUs and whether it could be 
+reused 
+ 
+3. What are we planning to do next? 
+▪ Explain action plan that addresses implications in findings 
+▪ Include: 
+a) Options, Benefits, Concerns and Recommendations to justify action plan 
+b) Commencement, completion date and project duration 
+c) Project timeline and schedule details 
+d) Resource and support requirement 
+ 
+4. Financial Implications 
+▪ Provide some financial metrics here – state: 
+a) 5 year CapEx 
+b) 5 year OpEx (which P&L will it impact?) 
+c) 5 year Total Cost of Ownership (TCO) 
+ 
+5. What we need from you today 
+▪ Seek approval to proceed with recommendation, action plan and expenditure 
+This paper to be used for IT initiatives less than HKD 1million 
+Sample page only; For detailed 
+templates, please contact Group IT 
+
+
+--- PAGE 51 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 51 of 59 
+ 
+ 
+Appendix V – Monthly CapEx Report 
+ 
+ 
+  
+
+
+
+--- PAGE 52 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 52 of 59 
+ 
+ 
+Appendix VI – New Store / Store Refit Performance Tracking 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+--- PAGE 53 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 53 of 59 
+ 
+ 
+Appendix VII – New Stores Strategy 
+ 
+ 
+ 
+BU
+Lccy
+As at Mar 2015
+I. Existing Formats
+Format Target Customer Type Location Type Typical Size 
+(sqft) # of Stores ATV 
+(Lccy)
+Net Area Beauty Skincare Health
+Personal 
+Care Baby
+House-
+hold GM
+1
+2
+3
+4
+5
+6
+7
+20
+7
+II. New Formats
+Format Target Customer Type Location Type Typical Size 
+(sqft) # of Stores ATV 
+(Lccy)
+Net Area Beauty Skincare Health
+Personal 
+Care Baby
+House-
+hold GM
+8
+9
+10
+(A) Store Format Explanation / Description
+Category Participation Difference
+Category Participation Difference
+
+
+--- PAGE 54 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 54 of 59 
+ 
+ 
+ 
+Country Map
+Area Map - Potential site
+E
+B
+HC
+B
+D
+G
+EE
+E
+E
+2 km catchment
+
+
+--- PAGE 55 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 55 of 59 
+ 
+ 
+Appendix VIII – Major Refit Programme Strategy 
+ 
+ 
+ 
+ 
+  
+   
+1
+Major Refit Program Strategy – Guidelines
+• Explanation of what is driving the request for refits (e.g. 10% of stores have not 
+been refit in past 6 years or offer is being repositioned)
+• Overview of current store portfolio / format performance (if necessary) 
+• Refer to tab “Comparables” in Reference Excel workbook
+Overview
+Timelines • Rollout timelines by month and by location
+• Make note of any local authorization required timelines (e.g. licenses)
+• Criteria used to select the “candidate” stores, for example: 
+– Strategic site with nearby competition and no recent refit 
+– Refit older than 6 years and high Sales & SOP but low SOP%
+• Refer to “SelectionCriteria” tab in Reference Excel workbook
+Selection 
+Criteria
+• Expected investment returns
+• Overall assumptions used across the refit submissions, for example:
+– Refit capex compared to VE targets,
+– Sales uplifts and margin improvements, 
+– Refit / disruption period (stores closed or partially opened?),
+– Inflation factors on cost base,
+– Change in sales mix, offer range etc…
+• Refer to “Assumptions” tab in Reference Excel workbook
+Financial 
+Summary
+Suggested topics for the 
+Refit Program Strategy
+2
+Major Refit Program Strategy – Guidelines
+• Financial performance of any trial stores
+– versus “before refit”
+– versus expectation or IRR submission
+• Customer feedback
+• Key learning and implication for the roll-out program
+Trial 
+Performance
+(If any)
+Summary by 
+Store
+• Key statistics by store
+• Refer to “Summary” tab in Reference Excel workbook
+• Key contact names, emails and phone numbers, including second-in-charge for 
+Operations and Finance teamsProject Team
+Backup • Any photos, floor plans, and additional information
+Suggested topics for the 
+Refit Program Strategy
+
+
+--- PAGE 56 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 56 of 59 
+ 
+ 
+Appendix IX – Value Engineering Report 
+ 
+ 
+ 
+ 
+
+
+
+--- PAGE 57 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 57 of 59 
+ 
+ 
+Appendix X – CKHH Group Car Purchase Requisition Form 
+ 
+
+
+
+--- PAGE 58 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 58 of 59 
+ 
+ 
+Appendix XI – CKHH Group Third Party Representatives  
+Requisition Form 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+--- PAGE 59 ---
+ 
+ 
+Policy on Investment 
+ 
+  
+Policy No: GFN005 Version No: 10.0 Last Update: June 2025 Policy Owner: Scott Blakemore 
+ 
+Page 59 of 59 
+ 
+ 
+ 
+ 

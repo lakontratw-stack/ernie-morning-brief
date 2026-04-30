@@ -1,0 +1,1244 @@
+
+
+--- PAGE 1 ---
+ 
+ 
+1 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Non-Trade Procurement Guideline 
+ 
+By Non-Trade Procurement 
+ 
+Revised in Jan 2024 (Version 9) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- PAGE 2 ---
+ 
+ 
+2 
+Non-Trade Procurement 
+Watsons Taiwan 
+Table of Content 
+1.0 Overview………………………………………………………………………..………………………………….4 
+2.0 Spending Groups, Type of Purchase and Non Trade Procurement Scope…………….5 
+2.0.1 Spending groups………………………………………………………………………………………………5 
+2.0.2 Type of purchase……………………………………………………………………………………………..5 
+2.0.3 Non-Trade Procurement Scope………………………………………………………………………..6 
+3.0 Overview on Non Trade Procurement Process (Appendix 1)……………………………….6 
+4.0 General Instruction of Non Trade Procurement Process……………………………………..6 
+4.1 Supplier Pre-evaluation and Approved Supplier List (ASL)…………………………………..6 
+4.2 Purchase Requisition and Purchase Requisition Form (PR Form)………………………..9 
+4.3 Capex Request Form (Appendix 2)…………………………………………………………………...10 
+4.4 Urgent Purchase……………………………………………………………………………………………… 10 
+4.5 Request for Quotes/Request for Proposal…………………………………..…………………...10 
+4.6 Competitive Tendering Process…………………………………………………………………………12 
+4.6.1Tender Committee and Its Responsibility………………………………………………………..12 
+4.6.2Tender Procedure and Open Tender Report……………………………………………………13 
+4.7 Sourcing Report and Scoring Mechanism….………………………………………………………17 
+4.8 Exception Report………………………………………………………………………………………………19 
+4.9 Changes on Tender/Quotation …………………………………………………………………………19 
+4.10 Retaining Purchasing Data………………………………………………………………………………20 
+4.11 Purchase Order (PO) …….………………………………………………………………………………..20 
+4.12 Contract Conception, Review and Approval………………………………….………………..21 
+4.13 Purchase Order Variation………………………………………………………………………………..23 
+4.14 Goods Receipt………………………………………………………………………………………………..24 
+4.15 Payment Request……………………………………………………………………………………………25 
+4.16 Supplier Performance Evaluation……………………………………………………………………25 
+4.16.1 Annual Review of supplier Performance………………………………………………………26 
+4.16.2 Failure in Supplier Performance Appraisal……………………………………………………26 
+4.17 Other Situations.…………………………………………………………………………………………….27 
+4.18 Quality Control……………………………………………………………………………………………….27 
+4.19 Process Flowcharts (Appendix 5)……………………………………………………..…..………..28 
+4.20 Purchase-related Forms (Appendix 6)…………………………………….…………………..….28  
+5.0 Integrity……………………………………………………………………………………………………………28 
+6.0 Re-approval diagrams……………………………………………………………….………………………29 
+6.1 Rate-Card Opex Overspends……………………………………………………..………………………29 
+6.2 Commitment Opex Overspends…………………………………………..……………………………30 
+6.3 Capex Overspends……………………………………………………………………………………………31 
+
+
+--- PAGE 3 ---
+ 
+ 
+3 
+Non-Trade Procurement 
+Watsons Taiwan 
+Appendix………………………………………………………………………………………………..32 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- PAGE 4 ---
+ 
+ 
+4 
+Non-Trade Procurement 
+Watsons Taiwan 
+1.0 Overview  
+ 
+The purpose of this policy is to provide user departments with guidelines on the necessary 
+Non Trade Procurement procedures we should follow, to ensure that A.S. Watson Group 
+(“ASW Group”) will get the most favorable trading terms and services for corporate and 
+obtain the most value and benefits from our suppliers.  The core aspect of this policy is to 
+centralize all non-trade purchasing activities at Watsons Taiwan and all stores island wide in 
+order to realize the potential savings and create more synergy effects referring to costs and 
+quality of products and services.  
+ 
+Non Trade Procurement shall satisfy internal customers with good products, service quality, 
+and competitive price as well as on-time delivery. In addition, it is necessary to assure all 
+purchasing activities are transparent and provide internal customers relevant information 
+regarding supplier market, products and services.   
+ 
+Each branch office in the group should develop policies as to the size of the purchase above 
+which tendering should be carried out.  For purchases exceeding this limit, suppliers 
+should be selected on the basis of competitive tendering including the impartial selection 
+of appropriately qualified suppliers.  Whenever competitive tendering above the size 
+thresholds is not carried out a file note explaining why such tendering was not done should 
+be produced and kept on the purchasing file.  Additionally, re-tendering should in general 
+take place at least every three years.  Monitoring systems should be put in place to ensure 
+the proper fulfillment of contractual obligations and to provide reasonable assurance that 
+fraudulent or corrupt activities are prevented.  Suppliers should make a statement before 
+making transactions with Watsons Taiwan that no personal benefit accrues to Watsons 
+personnel from this business arrangement and that they have complied with all legal 
+requirements.  
+ 
+A transparent procurement process means that usually at least three suppliers submit their 
+quotations based on pre-defined specifications and requirements by the deadline.  Non 
+
+
+--- PAGE 5 ---
+ 
+ 
+5 
+Non-Trade Procurement 
+Watsons Taiwan 
+Trade Procurement will then verify and compare quotations or proposals in terms of price, 
+delivery, suppliers’ expertise and service quality to conduct the supplier assessment.  All 
+supporting document should be available for each purchasing activity for a transparent 
+procurement process.  
+ 
+A centralized Non Trade Procurement function helps user departments not only realize 
+potential cost savings but also create a good approach to supplier market, develop good 
+supplier relationship and evaluate suppliers’ performance for creating more tangible or 
+intangible benefits.  Furthermore, Non Trade Procurement helps develop integrated 
+procurement strategies for an efficient buying at Watsons Taiwan.  
+ 
+2.0 Spending Groups, Type of Purchase and Non Trade Procurement Scope 
+ 
+2.0.1 Spending groups 
+ 
+The spending can be divided into two groups according to spending nature:  
+- Fixed Assets / Capex: For example, equipment, system, IT hardware, machinery, etc 
+- Expense:  
+ Diverse production/single items: commodities with physical character, 
+e.g. printing material, POP , etc. 
+ Diverse services: non-material items such as consulting, IT-solution, 
+advertising agency, PR agency, repair and maintenance, logistic 
+services are some examples. 
+ 
+2.0.2 Type of purchase 
+      There are two forms of purchase as follows:   
+ Time purchase: Prices for products or services were negotiated with 
+suppliers previously, such as contract-based purchasing, stationary, 
+regular agency retainer fee, carrier bags, uniforms, etc.  Some 
+services or commodities (regular consumables) belong to blanket 
+order purchase and on contract base. 
+
+
+--- PAGE 6 ---
+ 
+ 
+6 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+ Spot buy/ad-hoc: There is no framework contract to be used for spot 
+buy.  Usually one-time purchase without continuous or regular 
+demand is classified to spot buy.  
+ 
+2.0.3 Non-Trade Procurement Scope:    
+ 
+Negative List: 
+ 
+ The following expenses will be out of scope of Non Trade Procurement:  
+ 
+- Rental for stores, housing for expatriates, commissions for estate agencies and employment 
+agency service for office/DC employees, etc.  
+- Utility such as electricity and water, and state-owned suppliers 
+- Employee expense 
+- Government fee, tax, penalty, administration cost for office, garage, shared public facility cost 
+- Membership fee 
+- Trading commodities (buy-in and sell-out) 
+- Bank-related surcharge, e.g. charge for remittance, guarantee fee, interest expense 
+- Legal fee, auditing fee, back-end income recovery service fee, insurance fee subject to 
+group-related functions review and approval             
+- Store payout and expense pay-on-behalf for trade supplier 
+ 
+Non Trade Procurement shall get involved all other expenses which are out of the negative list 
+above.  Furthermore, Non Trade Procurement shall get involved in the purchase for GWP no 
+matter it belongs to COGS (Cost of Goods Sold) or Advertising & Promotion (A&P), if the GWP is 
+not bought from International Buying.    
+ 
+3.0 Overview on Non Trade Procurement Process (see Appendix 1)  
+4.0 General Instruction of Non Trade Procurement Process 
+4.1 Supplier Pre-evaluation and Approved Supplier List (ASL):  
+
+
+--- PAGE 7 ---
+ 
+ 
+7 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+This practice ensures that only reliable suppliers are used and minimizes the overhead costs 
+and time required for surveying suppliers.  Suppliers on the list shall be invited to bid based 
+on a fair share principle.  All group appointed suppliers and IB suppliers will be 
+automatically established in the ASL.  However, user department shall provide sufficient 
+supporting for IB/Group appointed suppliers, such as contract, confirmation letter and 
+notice, etc. with necessary information in terms of commodity, services, contractual prices, 
+delivery lead time, contract period etc.  
+ 
+No matter how much the total purchase amount is, each user department can ONLY work 
+with suppliers who are approved and maintained on the Approved Supplier List (ASL).  If it 
+is necessary to work with a new and potential supplier, a supplier pre-evaluation process 
+executed by Non Trade Procurement is mandatory.  For efficiency, the supplier 
+pre-evaluation process can be executed in phone or face-to-face interview with suppliers.   
+During the interview with suppliers, Non-Trade Procurement buyers shall understand 
+suppliers’ basic profile, expertise, and current customer database, etc.  The interview must 
+be kept in record by buyers instead of filling the Supplier Profile Form out if needed.  After 
+the pre-evaluation process, buyers can invite the new and potential suppliers to join 
+quotation process.   Before issuing purchase orders or signing contract to new suppliers, 
+suppliers MUST submit the Supplier Profile Form and banking information with necessary 
+chops in order to enter the ASL.  Please note that all new suppliers must be on ASL prior to 
+conduct tendering process.  Only interview process for supplier pre-evaluation is NOT 
+allowed for tendering process.   
+ 
+Some necessary document below must be submitted by suppliers if they would like to be on 
+the ASL:  
+ Photocopy of Business Licence  
+ Completed Watsons Taiwan Supplier Profile Form  
+ Photocopy of banking account information  
+
+
+--- PAGE 8 ---
+ 
+ 
+8 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+   Non Trade Procurement shall evaluate new suppliers according to the following criterion:  
+- Suppliers who intend to cooperate with Watsons Taiwan must have registered legal form 
+in accordance with Company Act, Taiwan, ROC.  
+- Professional know-how, product and service quality 
+ 
+      All Non Trade Procurement team members and user department related employees must 
+declare in writing if there is any own family member or close relative who joins quotation 
+or tender process in compliance with Corporate Policy.  The declaration must be approved 
+in writing by the Department Head and People Director.  A close relative is considered as 
+any of the followings:  
+- Spouse (or co-habiting partner) 
+- Children 
+- Parents 
+- Brothers or sisters 
+- Grandparents 
+- Grandchildren 
+- Uncle or aunt 
+- Nephew or niece 
+- Parents-in-law 
+- Brothers or sisters-in-law 
+ 
+      Moreover, if suppliers are family members or close relatives of Watsons Taiwan employees  
+who represent user department, Non Trade Procurement or one member of tendering 
+committee, employees cannot get involved in defining specifications, bidding process and 
+supplier evaluation.  
+ 
+      The Supplier Profile Form has to be signed and approved by Non Trade Procurement 
+Section Head.  The admission to or deletion from the Approved Supplier List should be 
+
+
+--- PAGE 9 ---
+ 
+ 
+9 
+Non-Trade Procurement 
+Watsons Taiwan 
+approved by Non Trade Procurement Section Head and Finance Director. 
+ 
+The ASL should be updated at least once every two years and submitted to Finance Director 
+for review and approval.  Non-trade Procurement buyers shall justify if these suppliers are 
+valuable for staying in the supplier pool.  The revised ASL should then be announced by 
+Non Trade Procurement team on the Watsons Taiwan Portal.   
+         
+4.2 Purchase Requisition and Purchase Requisition Form (PR Form):  
+ 
+ User department should submit a Purchase Requisition Form (PR Form) in Oracle      
+ Purchasing System, if the purchase item is NOT on Negative List.  For the same purchase 
+ item, it is not allowed to split up in small batches.  Additionally, it is not allowed to ignore   
+ normal procedures when making purchases and always carrying out urgent purchases to   
+ circumvent normal procedures.  
+ 
+ In addition, the estimated budget must be provided on the Purchase Requisition Form for                
+ Non Trade Procurement’s information and further quotation/tendering process.  The   
+ estimated budget can be allocated by using previous purchase amount or user department    
+ can execute an initial price survey on markets.  
+     
+ The Purchase Requisition Form is NOT necessary to be submitted for the following items:  
+    
+- Items on the Negative List  
+- Total purchase amount is less or equal to NT$100,000 at one time.  However, a 
+split order is NOT allowed. Although Non Trade Procurement do not get involved in 
+the purchase when the total amount is less or equal to NT$100,000, the supplier 
+must be selected from the Approved Supplier List (ASL).  If the assigned supplier is 
+not on the ASL, user department has to raise a request by submitting Supplier 
+Profile Form to Non Trade Procurement for surveying the new supplier.   
+ 
+
+
+--- PAGE 10 ---
+ 
+ 
+10 
+Non-Trade Procurement 
+Watsons Taiwan 
+4.3 Capex Request Form (Appendix 2):  
+ If the purchase belongs to Capex/Fixed Asset, the Capex Request Form has to be approved 
+by Management first before processing an Oracle PO.  The approved capex request form 
+should be attached to the Oracle PO as a supporting document.   
+ 
+4.4 Urgent Purchase  
+ 
+The urgent purchase is defined that there is a negative impact on the operation of stores or 
+offices without immediately handling the purchase.  For instance, the air-con is out of 
+order or the rolling shelter cannot be automatically opened or closed.  All urgent purchases 
+have to be defined with the check points and factors below:  
+- To avoid negative impact or serious damage 
+- To keep consumer safety 
+- To keep store or office operation 
+- Equipment must be replaced or changed within three days for keeping store/office 
+operation or consumer safety 
+     However, suppliers must be selected ONLY from the ASL (Approved Supplier List) and the 
+purchase amount must NOT exceed HK$ 50,000.  Moreover, user departments have to 
+provide supporting document and submit PR form for Non Trade Procurement’s further 
+review and Purchase Order process.  For urgent purchase, executing sourcing activity is not 
+mandatory for Non Trade Procurement.  The reason for urgent purchase must be clearly 
+described and explained on the PR form with supporting if needed.   
+ 
+4.5 Request for Quotes / Request for Proposal  
+ 
+  Non Trade Procurement shall conduct sourcing activity if the purchase amount exceeds 
+NT$100,000.  Based on pre-defined specifications and relevant information from user 
+department, Non Trade Procurement will conduct a sourcing activity and invite at least 
+three potential suppliers to join the briefing meeting or send Request for Quote (RFQ) or 
+Request for Proposal (RFP) to suppliers if the estimated budget/purchase amount between 
+NT$100,001 and HK$3M.  A tendering must be executed, if the estimated 
+
+
+--- PAGE 11 ---
+ 
+ 
+11 
+Non-Trade Procurement 
+Watsons Taiwan 
+budget/purchase amount exceeds HK$3M.  At least five quotations have to be acquired 
+from at least five competing suppliers.  Quotes or proposals shall be submitted by 
+suppliers directly to Non Trade Procurement by the quote submission deadline.  The 
+required procedures are needed to follow depending on the value of individual contract or 
+purchase amount:  
+Estimated budget/ 
+Previous Spending Quotation Process Tendering Process 
+> NT$100,000 and  
+< = HK$3M 
+At least 3 quotes from 
+3 competing suppliers -  
+> HK$3M above -  At least 5 sealed bids from 
+5 competing suppliers 
+Remarks:  Quotations obtained from the suppliers must be in writing and they must be 
+current, i.e. prices quoted are within four months from the date the decision to purchase is 
+made.      
+ 
+The “significant Expenditures” and “Engagement of Third Party Representatives” may be 
+required to be approved by the Divisional Management, ASW or HWL Group Office in with 
+the requirements stipulated in Section 8 and 9 of the ASW Group Policy on Investment.   
+ 
+ With regards to sale of used fixtures, furniture, equipment, and all other hardware, Non 
+Trade Procurement shall acquire minimum two quotations for selling price comparison.  
+ 
+ Suppliers, who join the sourcing no matter for a quotation process or a tendering, must be 
+independent from other suppliers and do not have any shareholding relationship.   
+ 
+4.6 Competitive Tendering process 
+      
+      If pre-defined budget, estimated purchase amount or the previous purchase amount is 
+HK$3M above, a complete tendering process must be conducted.  According to the 
+current Group Policy for Non-trade Procurement, a tender must be re-executed at least 
+
+
+--- PAGE 12 ---
+ 
+ 
+12 
+Non-Trade Procurement 
+Watsons Taiwan 
+every three years. 
+ 
+      There should be adequate control and security measures to ensure the tender process is 
+fair and competitive.  To enhance fair competition, important tender information such as 
+the marking scheme for tender evaluation, decisive factors for the award of the contract, 
+any revision of tender requirements etc. should be made known to all bidders.  Where 
+briefing sessions or site visits are organized, all bidders should be invited to attend.   
+  
+4.6.1 Tender Committee and Its Responsibility 
+ 
+      In a competitive tendering, it is advisable to form a panel comprising staffs with expertise, 
+user department and other related department to vet and approve the tender 
+specifications and evaluation criterion as well as its weightage before issue.  The panel 
+shall be comprised of Finance Director (or senior competent delegates), Head of User 
+Department and Non Trade Procurement Section Head as well as other Department Heads 
+who have to be concurred.  Head of User Department must execute the supplier 
+assessment and no delegation is allowed.   
+ 
+      Tender committee members and the tender project manager must fill in a Conflict of 
+Interest Declaration regardless of the existence of conflicts. In case there are any conflict(s) 
+that can potentially affect the tender results, written approval with documented 
+justifications must be obtained from the BU’s GM (Group FD or Group Department Head if 
+the concerned party is the BU’s GM or Group Functions respectively) before the tender 
+opening if they continue to play any role in the supplier evaluation and selection process.  
+ 
+      All panel members must approve the tendering scope and evaluation criterion, weightage 
+on the pre-tendering summary as well as quote/proposal review and supplier assessment 
+with a sign-off process.  In addition, the panel must approve the tenderers who shall be 
+invited to join the competitive tendering before Non Trade Procurement sending out the 
+RFQ/RFP .  For tendering projects led or conducted by Group Functions, the final tender 
+
+
+--- PAGE 13 ---
+ 
+ 
+13 
+Non-Trade Procurement 
+Watsons Taiwan 
+results should be approved by the tender committee which is composed of the Head of 
+GPS, the relevant Group Functional Heads and the relevant BU Heads of User Department.  
+     
+4.6.2 Tender Procedure and Open Tender Report 
+ 
+      In general, there will be at least 5 potential tenderers who join the tendering.  When 
+prospective suppliers withdraw from the bidding without giving Watsons Taiwan a written 
+notice, Non Trade Procurement team is required to inform the suppliers in writing that no 
+tendering documents have been received.  In situations where the required number of 
+quotations or tenders cannot be obtained (regardless of number of prosperous suppliers 
+invited), the justification must be documented and the exception has to be approved by 
+both BU’s GM and FD.  Non Trade Procurement will survey the other potential suppliers 
+under consideration of timeliness, supplier qualification and complexity.   
+ 
+Having good justifications for not obtaining enough quotes or tenders documented for 
+transparency purpose is important, otherwise the exception approvals obtained from BU’s 
+GM and FD alone would not be good enough. The below sets out the recommended 
+directions for good “justification(s)”:  
+Direction Explanation 
+Compatibility with 
+products/services under 
+existing contract 
+The subject being purchased needs to be compatible 
+with existing items/services in use, with adequate 
+explanation on why compatibility is necessary. 
+Uniqueness 
+The feature(s) that make a product/service unique 
+with adequate explanation on why such uniqueness is 
+important to the business.  
+Timeframe 
+When there is an urgent need for a product/service 
+and there is a limited number of known sources that 
+can fulfill the business needs within the allowable 
+timeframe. 
+
+
+--- PAGE 14 ---
+ 
+ 
+14 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+In extreme cases where there is only 1 single prospective supplier such that competitive 
+bidding is not feasible, there should still be alternative means (e.g., benchmark of market 
+price) to assure that the supplier’s offer is reasonable whenever possible. 
+ 
+Investment Committee’s approval does not replace nor supersede the above sign-off 
+requirements. Quotations and tenders should still be obtained as per 4.5 above. This 
+principle is also applicable to subsequent Variation Orders (as stipulated in 4.13). 
+ 
+Where termination notice is required contractually with an existing supplier, it is crucial for 
+BUs to inform the existing supplier upfront prior to the start of the tendering process 
+(which can be started months before the official termination notice period).  
+ 
+Non-disclosure Agreement (using the latest template from Group Legal) should be signed 
+by all prospective suppliers before tendering process.  However, based on the current 
+NDA template at Watsons Taiwan, there is no time period limit and no specific contract 
+object in the NDA.  Therefore, the signed NDA is valid lifelong.   
+ 
+Tender notice has to be prepared and sent to the prospective suppliers (preferably 
+including the existing supplier unless proven unsatisfactory) as an invitation to tender.  A 
+sample Invitation to Tender is attached in the Appendix 3 for reference.  The sample 
+template should be followed for all tenders with necessary modifications depending on 
+type of goods/services being tendered.  It is preferable to issue an ITT with our preferred 
+contract terms and on the basis that such terms will be binding if the tenderer is awarded 
+the contract. If preferred contract terms and conditions are to be included on a binding 
+basis or as an indication of expected contract terms (not explicitly binding) or the services 
+to be provided involve processing of Personal Data, these must be reviewed and approved 
+by BU Legal Department in advance of issue of the tender invitation, and as part of the 
+tender preparation process. 
+
+
+--- PAGE 15 ---
+ 
+ 
+15 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+Tender is different from quotations as it requires prospective suppliers to submit their 
+sealed bids and other related tender document by a certain deadline.  Tender documents 
+should be dropped in a designated tender box where the key is under custody of an 
+“independent custodian” (e.g. Finance) until the appointed open tendering date under the 
+witness of an independent party.  At least totally 3 authorized persons from user 
+department, Non Trade Procurement and Finance Department will participate the open 
+tender meeting.  All quote prices have to be clearly stated on the Open Tender Report 
+which has to be signed by witnesses from the three above mentioned 
+departments/functions. 
+ 
+BU can apply for exemption via FCS from the requirement of having an independent 
+witness in opening tenders if they are received via a tendering system or dedicated email 
+account which can ensure (i) confidentiality of submitted tenders prior to tender opening 
+and (ii) data integrity of tenders after tender opening. 
+ 
+BUs are encouraged to strike even more favorable trading terms through further rounds of 
+negotiations.  Details of the revised scope or price expectation must be communicated to 
+the shortlisted suppliers on the same basis.  In case the lowest tender for goods and 
+services of comparable quality or the prospective supplier with the highest score is not 
+shortlisted, the decision must be made transparent to the tender committee with 
+documented justifications.   
+ 
+Re-submission is treated in the same manner as the initial tender submission, and must be 
+opened in the presence of an independent party.  No private conversation or negotiation 
+with the prospective suppliers is allowed without presence of any tender committee 
+member, or his / her delegate, to mitigate any collusion risks. 
+ 
+Pricing from different rounds of supplier proposals must be clearly documented and 
+
+
+--- PAGE 16 ---
+ 
+ 
+16 
+Non-Trade Procurement 
+Watsons Taiwan 
+supported with source quotations or tenders submitted by the vendors. For re-negotiation 
+with finalist(s) whose re-submission is not done in the same manner as the initial tender 
+submission, as a minimum, an email summary should be sent to each individual finalist to 
+confirm the renegotiation results. 
+ 
+As a best practice, BU can inform in writing to the supplier(s) who have joined the tender 
+but were not awarded for the contract, but this should be done only after securing the 
+signed contract with the preferred supplier(s). This ensures that the preferred supplier 
+appreciates that there are other suppliers who could be selected if the negotiation with 
+that preferred supplier does not proceed well and also provides the BU with a backup. 
+ 
+ For spending requiring IC approval according to the ASW Group Policy on Investment, the 
+corresponding tender arrangement should be reviewed by GPS and Group Finance 
+according the following protocol:  
+ 
+-  Before proceeding with each tendering project, around 5 to 6 months prior to 
+expiry of a current contract, or commencement of a new contract, BUs must 
+complete Part A of the IC Submission Question List (Appendix 4) and submit it to 
+GPS (Group Procurement Services) and Group Data Privacy (if the matter is likely to 
+concern processing of personal data) for compliance review.  GPS will review the 
+pre-tender process for compliance, as well as identification of joint-tendering 
+opportunities or common suppliers with other BUs for the benefit of the whole 
+ASW Group.  
+-   At the end of the tendering: BUs must complete Part B of the IC Submission 
+Question List (Appendix 4) with the tender results and recommendation for final 
+review by both Group Finance, GPS and Group Data Privacy (if the matter is likely to 
+concern processing of personal data) and other related Group Functions before 
+submission to IC for approval.  
+ 
+
+
+--- PAGE 17 ---
+ 
+ 
+17 
+Non-Trade Procurement 
+Watsons Taiwan 
+For exceptional cases relating to tender submissions, e.g. late submission by certain 
+supplier with valid reasons, late invitation of additional tenders after the pre-agreed 
+invitees and tender schedules, etc., the justifications should be documented for approval 
+by all tender committee members before such exceptional tenders are accepted. 
+ 
+4.7 Sourcing Report and Scoring Mechanism 
+ 
+ After reviewing quotes and completing scoring if needed, a sourcing report will be created 
+and used for supplier assessment.  The criterion of supplier assessment should be based 
+on best value, such as prices, service, suppliers’ expertise, quality, delivery, warranty scope,  
+innovation and initiatives that would help meet the Group 2030 Sustainability Vision (to be 
+considered whenever appropriate and practicable) as published in the Group CSR Portal, 
+etc.   
+ 
+As Sustainability is now a strategic focus of the Group, the following baselines are 
+mandatory to be considered: 
+▪ All Supply Chain Tenders – Sustainability should take at least 10% score in the supplier 
+evaluation 
+▪ Plastic carrier bags / packaging material – must contain a minimum 30% of 
+Post-Consumer Recycled (“PCR”) material 
+▪ Printing and copying paper – must be made exclusively from sustainable material (FSC, 
+PEFC or recycled) 
+ 
+BU are encouraged to include the sustainable factors in the selection criteria, and should 
+contribute to at least 10% minimum in weighting. Suppliers that can offer product / 
+services that can help to achieve the Group 2030 Sustainability Vision should be given 
+priority in the assessment. Below are some possible factors that can be take into 
+consideration: 
+▪ Provide any viable recycling, close loop, reduce, reuse, refurbishment proposal 
+▪ Using sustainable energy for the production or distribution 
+
+
+--- PAGE 18 ---
+ 
+ 
+18 
+Non-Trade Procurement 
+Watsons Taiwan 
+▪ Equip with innovative and viable proposal that could reduce carbon emissions 
+▪ Established a ESG policy that align with the direction of our Group 
+ 
+A weighted scoring system (where “price” should form at least 50% of the overall score) 
+should be established upfront to avoid last-minute changes after the tenders/quotations 
+have been submitted.   
+ 
+      The “price” element should be scored quantitatively instead of judgmentally.  For example, 
+under a scoring system of 1-5 (5 being the highest score), score can be assigned to the 
+“price” element of each tender/quotation based on the following computation:  
+Example:  Tender/Quotation 
+Amount in NT$ Score 
+Tender 1 / Quotation 1 5M 5.00 
+Tender 2 / Quotation 2 6M 4.17 (5M/6M*5) 
+Tender 3 / Quotation 3 7.5M 3.33 (5M/7.5M*5) 
+Tender 4 / Quotation 4 8M 3.13 (5M/8M*5) 
+Tender 5 / Quotation 5 9M 2.78 (5M/9M*5) 
+ The score of price element shall be rounded to 2 decimal places.  All other criteria shall 
+be evaluated in integer.   
+      Quotation final results and decision have to be signed off by the Head of User Department 
+and FD (or senior competent delegates).  Tender final results and decision have to be 
+signed off by the Head of User Department, all Tender Committee members (tenders), FD 
+and GM (LOA).  Both quotation and tender related document including the justification 
+has to be clearly documented.  
+ 
+ 
+ 
+ 
+ 
+
+
+--- PAGE 19 ---
+ 
+ 
+19 
+Non-Trade Procurement 
+Watsons Taiwan 
+ The following chart is to explain the sourcing process:  
+ 
+ 
+4.8 Except Report 
+ 
+     No matter the purchase amount is between NT$100,001 and HK$3M or HK$3M above, if 
+the lowest tender for goods and services of comparable quality or the prospective supplier 
+with the highest score is not selected or if it is a sole source/appointed supplier and the 
+required number of quotations or tenders cannot be obtained, the decision must be 
+justified and the reasons must be documented.  In addition, approval has to be obtained 
+from BU’s GM, FD, User Department Head, related parties and Non-trade Procurement 
+Section Head to endorse this decision.  Further approval from Divisional Management, 
+Group Office or IC may be necessary (depending on contract value) according to the ASW 
+Group of Investment.  The Exception Report has to be filed with all other sourcing 
+document/supporting and be available for audit inspection.   
+ 
+4.9 Changes on Tender/Quotation  
+ 
+      In some cases, if the lowest tender/quotation or the highest score supplier cannot meet 
+ Non Trade Procurement shall source potential suppliers according to pre-defined specifications and issue RFQ/RFP to suppliers unless 1) Security Dept has to execute security clearance/on-site check prior to invitation to bidding; 2) Tendering process  Non Trade Procurement conduct quote/proposal analysis Mockup or dummy production and confirmation, supplier assessment, contract finalization Quotation/tendering process (quotes/proposals submission by deadline) User dept. provides precise specifications, requirement, quantity and budget while submitting PR Form and/or Capex Request Form 
+
+
+--- PAGE 20 ---
+ 
+ 
+20 
+Non-Trade Procurement 
+Watsons Taiwan 
+the required budget level, Non Trade Procurement shall notify user department and the 
+tender committee of the gap.   BU can amend the project or service scope and invite all 
+original prospective suppliers to re-submit their tenders.  Any tendering scope, 
+specification, evaluation criteria, weightage and tenderer list changes as well as supplier 
+assessment must be informed and approved by tender committee.  
+ 
+ If there is any practical constraint of the project such that re-submission of tenders from all 
+prospective suppliers is not possible, the lowest bidder or the highest score supplier should 
+be selected for price re-negotiation purpose based on the changes of project or service 
+scope.  If suppliers other than the lowest bidder or the highest score supplier are involved 
+in the price re-negotiation process (instead of re-tendering), the justification should be 
+documented and approved by BU’s GM and FD or Group Management if needed.  
+ The potential conflict of interest risks should also be mitigated with proper retention of (i) 
+the trail of communications with each selected supplier for price re-negotiation purpose 
+and (ii) the final offer from each supplier which should be provided in writing.  
+ 
+      For quotations, if the lowest quotation or the quotation with the highest score cannot meet 
+the required budget level, BUs can amend the project or service scope and invite all the 
+original prospective suppliers for re-submit their quotations.  
+ 
+4.10 Retaining Purchasing Data  
+ 
+ All quotation documents have to be retained by the BUs for a minimum period of 3 years 
+and all tender documents should be retained for a minimum period of 5 years following the 
+end of contractual period for future audit purpose.   
+ 
+4.11 Purchase Order (PO) 
+ 
+Before issuing an official purchase order to suppliers, the Purchase Requisition Form should 
+be approved according to the LOA regulation.  In addition, the PO amount must be within 
+PR amount (budget).  An official purchase order for the amount of NT$100,000 above will 
+
+
+--- PAGE 21 ---
+ 
+ 
+21 
+Non-Trade Procurement 
+Watsons Taiwan 
+only be issued by Non Trade Procurement.   
+ 
+4.12 Contract Conception, Review and Approval 
+ 
+ In general, the contract duration shall be limited to maximal 3 years.  Non Trade 
+Procurement must conduct price and supplier market survey at least every three years in 
+order to understand price competitiveness and products/services quality for time purchase.  
+A supplier performance appraisal based on the agreed KPI must be conducted by user 
+department before re-tendering when the purchase order or contractual purchase amount 
+with value of HK$3M above.  
+ 
+It is necessary to sign a contract, if Watsons Taiwan and suppliers would like to concisely  
+define mutual legal right and obligation in a formal written form.  However, BUs have to sign 
+a formal contract for any procurement with estimated or committed value of or more than 
+HK$0.5M or other conditions stated in the Group Legal Policy.  
+ 
+Non-trade Procurement is required to maintain a register of all types of Non-trade 
+procurement contracts with their contract expiry dates.   
+ 
+For spending requiring IC approval, BUs and Group Functions have the obligation to allow 
+sufficient lead-time in conducting the tendering and submitting the results for review by 
+Group Finance and GPS prior to IC approval.  New Contract must be signed before expiry of 
+the existing contract if continuity of service is required.  
+ 
+Upon receiving the final feedback and confirmation from the lawyer, Non Trade 
+Procurement/User Department will email a softcopy of the contract to suppliers for sign-off 
+procedure.  Suppliers will mail the approved contract to user department for completing the 
+Corporate Chop Usage Application Form and submit the application form to Non Trade 
+Procurement for further sign-off at Watsons Taiwan.  The internal contract approval will 
+follow the current LOA regulation.  One original copy of contract should be centrally kept by 
+
+
+--- PAGE 22 ---
+ 
+ 
+22 
+Non-Trade Procurement 
+Watsons Taiwan 
+IA Department for filing and reference.  
+ 
+Contract renewal with the existing supplier without conducting the necessary tendering 
+procedures is considered a violation of the policy.  However, a commercial situation may 
+arise that prevents the tendering from being completed on time and a new contract awarded 
+before the expiry of existing contract.  In such circumstances, it is allowable for the existing 
+contract to be temporarily extended once (only) for a maximum period of 3 months, (or 6 
+months if the delay is due to facilitation of joint tendering time lines arranged by the Group) 
+without the tendering requirements provided that:  
+- the same (or better) terms and condition in the existing contract apply to the 
+extended contract period;  
+- the contract value for the extended period is below the approval threshold of 
+Divisional Management (if applicable) or Investment Committee (please refer to 
+ASW Group Policy on Investment for details) 
+ 
+If any of the above cannot be met, separate pre-approvals by the Divisional Management 
+and/or Investment Committee are required according to the ASW Group Policy on 
+Investment.   
+ 
+In extreme cases where the contract has to be further extended after the initial extension 
+period, regardless of the “extended” contract value, pre-approvals by the Divisional 
+Management (if applicable) and/or Investment Committee will be required if the original 
+contract was previously approved by them in accordance with the level of authority.  
+ 
+All BUs must have the following assessments be satisfactorily completed on the supplier (as 
+applicable) before entering into contract: 
+• Privacy Assessment (“PAT”) 
+• IT Security Assessment (“SAT”) 
+• Supplier Due Diligence (“SDD”) 
+
+
+--- PAGE 23 ---
+ 
+ 
+23 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+As best practice, BUs are encouraged to negotiate contractual rights that would allow us the  
+flexibility of switching to other suppliers if needed, e.g.: 
+▪ Control over the necessary information and records that is critical for supplier switchover 
+(e.g., system source code) 
+▪ Avoiding a long contract without exit clause 
+ 
+In case a supplier is contractually entitled to share a portion of the BU’s revenue / margin 
+(which is not encouraged in general), BU should negotiate the following protective terms 
+whenever appropriate and practicable: 
+▪ A regressive sharing scheme with declining share % upon increasing revenue / margin;  
+▪ An upper limit on the amount shared with the supplier 
+▪ A window to update the sharing scheme during the contract in case actual performance 
+significantly exceeds the initial projection to an unexpected extent  
+▪ Non-exclusivity (i.e., ASW is contractually allowed to switch to any other supplier at any 
+time) 
+ 
+4.13 Purchase Order Variation/Work Variation  
+ 
+For Rate Card Contracts (i.e., no financial commitment), the above-mentioned thresholds 
+should be determined based on the estimated spending over the contract period. To 
+accommodate unexpected increase in procurement volume, BUs are encouraged to take a 
+conservative approach in determining the estimated spending and go for tender (instead of 
+quotation) in case the estimated spending is close to the threshold that would trigger the 
+tender requirement. 
+ 
+For variation orders (i.e., additional scope / changes to the scope of service without unit rates 
+defined in the original contract) exceeding 10% of the original contract value, where formal 
+quotes or tenders from competing suppliers is not practical, there must be an assessment 
+(e.g., based on market information / benchmarking against similar spending in the past, etc.) 
+
+
+--- PAGE 24 ---
+ 
+ 
+24 
+Non-Trade Procurement 
+Watsons Taiwan 
+to justify that the price offered by the incumbent is reasonably competitive. This assessment 
+must be signed off by the approver(s) of the quotation/tender results of the original contract. 
+ 
+When it is foreseen that purchase volume would significantly exceed initial forecast after 
+awarding the contract, BUs are encouraged to re-negotiate better unit rates with suppliers 
+based on the additional volume. As best practice, BUs are encouraged to set up a “tier-system” 
+with decreasing unit price upon increasing volume whenever possible and practicable. 
+ 
+Furthermore, please also refer to the A.S. Watson Group Policy on Investment 4.7 CapEx 
+Overspend.  If the overspend amount is less than 10% and can be offset by net savings in 
+other projects within the same CapEx category, the Capex Project Requisition should obtain 
+FD and GM approval.  If the variation amount is greater than 10% or can’t be offset by net 
+savings in other projects within the same CapEx category or all other cases, ASW Investment 
+Committee’s approval is required.  Please see further details in 4.7 of A.S. Watson Group 
+Policy on Investment.   
+ 
+4.14 Goods Receipt  
+ 
+ User departments shall execute receiving (Goods Receipt) on Oracle Purchasing System 
+before payment request process.  The good receipt is to be executed when the delivered 
+quantity, specification and quality are in accordance with purchase order, contract and/or 
+confirmed sample.  For some specific purchases which belong to non-scope of Non Trade 
+Procurement, users still need to follow the paper payment process with payment request 
+form, invoice and goods receipt document.   
+ 
+Services or goods delivered to stores can be substantiated by supporting document, such as 
+good receipt slip with store chop or signature of store manager.  Head office representing 
+user can help conduct system receiving confirmation base on such supporting document.  
+  
+ 
+
+
+--- PAGE 25 ---
+ 
+ 
+25 
+Non-Trade Procurement 
+Watsons Taiwan 
+4.15 Payment Request (Please refer to Payment Policy SOP-F0008-1) 
+ 
+ User Department is responsible for the payment request procedure.  Please see the 
+necessary document for payment request below if there is an Oracle Purchasing:  
+ Completed Payment Request Form 
+ Invoice with PO number  
+ Receiving process executed on Oracle PO system for Oracle PO items and goods 
+receipt slips from suppliers and stores or warehouse document 
+The necessary payment request document for non-Oracle PO purchase is as follows:  
+ Properly signed payment request form 
+ Invoice 
+ Receiving confirmation  
+ 
+4.16 Supplier Performance Evaluation 
+ 
+For suppliers, who have purchase order or contractual purchase amount with value of HK$3M 
+above, the supplier performance should be evaluated based on the agreed KPI by user 
+department and related functions if needed.  The evaluation shall be conducted before 
+re-tendering and in April annually.  The evaluation result should be signed off by User 
+Department Head.   
+  
+An evaluation system should be established to assess the performance of suppliers and  
+these appraisal records should be taken into account in the periodic review of the ASL,  
+the contract/supplier review before contract expiration and further quotation or tendering 
+process.   
+ 
+For this purpose, a Supplier Performance Evaluation Form shall be distributed by Non-trade 
+Procurement in order to collect users’ feedback.  For suppliers appointed by Group/Regional 
+Office, BU is still required to execute period supplier performance evaluation based on the 
+agreed KPI by user department and related functions if needed and submit the result to the 
+relevant Group/Regional Teams for their review.  
+
+
+--- PAGE 26 ---
+ 
+ 
+26 
+Non-Trade Procurement 
+Watsons Taiwan 
+ 
+The evaluation rating is detailed below:  
+       1 and 2 – unsatisfied 
+        3 and 4 – less satisfied 
+  5 and 6 – satisfied 
+  7 and 8 – excellent  
+  9 and 10 – outstanding  
+     The evaluation result with rating of 5 and 6 (satisfied) is a minimum requirement for being a 
+qualified supplier.  All scores have to be round-off calculated in the supplier evaluation. 
+  
+4.16.1 Annual review of supplier performance  
+          All suppliers with purchase orders or contracts with the accumulated purchase 
+amount in the year equal to or more than HK$3M shall be annually reviewed usually in 
+April.  If the annual supplier performance evaluation result is not satisfactory (Rating 
+of 5 above), basically, the contract shall be terminated.  Please refer to 4.16.2 for 
+related actions.  Besides, the annual evaluation result will be taken into account of 
+tender criteria and contract extension.   
+ 
+4.16.2 Failure in supplier performance appraisal:  
+In the annual evaluation, if the supplier is under-performed in terms of price, product 
+and service quality with the rating from 1 to 4, Non Trade Procurement shall 
+coordinate with suppliers and/or user departments for understanding more in details 
+and find out solutions together with suppliers and user departments first.  If the 
+supplier performance still cannot be improved in a pre-defined period, the 
+cooperation/contract must be terminated without any extension and further RFQ/RFP 
+process.  In some cases, it is difficult to find some other suppliers to replace the 
+under-performed suppliers in a specific period and has to keep working with the 
+supplier, an exception report has to be submitted and get Management’s approval. 
+ 
+
+
+--- PAGE 27 ---
+ 
+ 
+27 
+Non-Trade Procurement 
+Watsons Taiwan 
+If needed, the under-performed supplier can be taken into consideration of a 
+re-evaluation after 6 months of the removal from ASL.  Any exceptional 
+measurement and re-collaboration other than termination must be approved by 
+Finance Director and General Manager.   
+ 
+4.17 Other Situations 
+According to current Group Policy on Non Trade Procurement, BUs are required to ensure our 
+suppliers comply with Group Policy on Non Trade Procurement, notably the 
+quotation/tendering requirements, when they outsource the service/product to 
+sub-contractors and the cost charged to the BU is based on actual bill charged by the 
+sub-contractors.  In such cases, ASW should be contractually entitled to audit rights of the 
+actual bill charged by the sub-contractors. 
+ 
+For service contracts, suppliers should be contractually restricted from subcontracting 
+without prior written consent from ASW whenever appropriate and practicable. As best 
+practice, prospective suppliers are requested to inform ASW of any subcontracting 
+arrangements (be it partially or fully subcontracted) during tender invitation stage. 
+ 
+Quotation/tendering may not be applicable to certain procurements (e.g. media buying 
+directly with media owners).  However, the justification must be documented and the 
+exception to Policy requirement has to be approved by both BU’s GM and FD according to 
+estimated budget amount and its approval level.   
+  
+4.18 Quality control 
+ 
+    User departments and Non Trade Procurement will jointly supervise the quality of supplier,  
+    goods and services.  Non Trade Procurement is obligated to coordinate issues and conflicts      
+    among user departments, suppliers and agencies if needs.  
+ 
+ 
+
+
+--- PAGE 28 ---
+ 
+ 
+28 
+Non-Trade Procurement 
+Watsons Taiwan 
+4.19 Process flowcharts (See Appendix 5)  
+ 
+4.20 Purchase-related Forms (See Appendix 6) 
+ 
+ Regional Proposal Template 
+ Exception Report Template 
+ Pre-Tendering Summary 
+ Sourcing Report 
+ Open-tendering Report 
+ Purchase Order Variation Form  
+ Supplier Profile Form 
+ Payment Request Form (updated) 
+ 
+5.0 Integrity 
+ 
+ All employees engaged in non-trade activities, including but not limited to specification design, 
+supplier qualification, supplier scoring and selection, receiving confirmation, supplier evaluation, 
+payment request and checking, ASL add or removal, etc., must strictly comply the anti-bribery 
+and code of conduct policies stipulated in company policies, and proactively report any receipt 
+of gifts or treatments / meals from supplier.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- PAGE 29 ---
+29 
+Non-Trade Procurement 
+Watsons Taiwan 
+6.0 Re-approval diagrams 
+6.1 Rate-Card Opex Overspends 
+Yes 
+No 
+CKHH Approval
+2
+ (via ASW)
+ASW Group Approval
+2
+Divisional MD & FD Approval
+3
+BU GM & FD Approval 
+Is it ≥ HK$ 5 m? 
+Overspend due to non-volume 
+reason (e.g. higher unit rates)? 
+No need for 
+re-approval 
+Authorization Level1 
+1. If more than one option apply (e.g. the request involves engagement of third party representatives), the highest 
+authorization level that is applicable should be sought
+2. Any request for ASW Group or CKHH approval must include appropriately substantiated memo signed by Divisional
+MD and FD prior to submission
+3. Any request for Divisional MD and FD approval must include appropriately substantiated memo signed by BU GM and 
+FD prior to submission
+
+
+--- PAGE 30 ---
+ 
+ 
+30 
+Non-Trade Procurement 
+Watsons Taiwan 
+6.2 Commitment Opex Overspends 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Yes No 
+Sum of overspend PLUS original 
+planned amount would be within 
+BU’s authority? 
+Overspend 
+< 10% 
+Was approved by 
+ASW IC? 
+Sum of overspend PLUS original 
+planned amount would within 
+Division’s authority? 
+1. If more than one option apply (e.g. the request involves engagement of third party representatives), the highest 
+authorization level that is applicable should be sought 
+2. Any request for ASW Group or CKHH approval must include appropriately substantiated memo signed by Divisional 
+MD and FD prior to submission 
+3. Any request for Divisional MD and FD approval must include appropriately substantiated memo signed by BU GM and 
+FD prior to submission 
+CKHH Approval2 (via ASW) ASW Group Approval2 Divisional MD & FD Approval3 BU GM & FD Approval 
+Authorization Level1 
+
+
+--- PAGE 31 ---
+ 
+ 
+31 
+Non-Trade Procurement 
+Watsons Taiwan 
+6.3 Capex Overspends 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Was approved by CKHH? 
+Sum of overspend PLUS original planned 
+amount would be within BU’s authority? 
+Overspend < 10% and net 
+off with savings within BU? 
+Overspend < 10% and net 
+off with savings within 
+Division? 
+Was approved by ASW IC? 
+CKHH Approval2 (via ASW) ASW Group Approval2 Divisional MD & FD Approval3 BU GM & FD Approval 
+Sum of overspend PLUS original 
+planned amount would within 
+Division’s authority? 
+Authorization Level1 
+1. If more than one option apply (e.g. the request involves engagement of third party representatives), the highest 
+authorization level that is applicable should be sought 
+2. Any request for ASW Group or CKHH approval must include appropriately substantiated memo signed by Divisional 
+MD and FD prior to submission 
+3. Any request for Divisional MD and FD approval must include appropriately substantiated memo signed by BU GM and 
+FD prior to submission 
+
+
+--- PAGE 32 ---
+ 
+ 
+32 
+Non-Trade Procurement 
+Watsons Taiwan 
+Appendix 1 
+Non Trade Procurement Process Briefing 22122014.xlsx 
+Appendix 2 
+2013 Capex Project Requisition.doc 
+Appendix 3 
+ITT ver.202311.doc 
+Appendix 4 
+Appendix 4)  IC Submission Question List v5.1 (Mar 2020).xlsx 
+Appendix 5 
+Non Trade Procurement Flow Charts 22122014.doc
+Appendix 5 - Workflow diagram summarising control checkpoints prior to contracting with a new supplier.pdf 
+ 
+Appendix 6 
+ 
+Regional Approval Request Template Mar 2015.docx
+Sourcing Report Template.xls
+Pre-tendering Summary.doc
+Open Tendering Report Template.xls
+供應商基本資料錄表.doc
+Conflict of Interest - Declaration Template.docx 

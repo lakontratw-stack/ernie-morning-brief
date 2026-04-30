@@ -83,7 +83,7 @@ def _ask_procurement_mock(text: str, history: list[Any]) -> str:
     if price_reply:
         return price_reply
 
-    renewal_reply = _contract_renewal_reply(text)
+    renewal_reply = _contract_renewal_reply(text, history)
     if renewal_reply:
         return renewal_reply
 
