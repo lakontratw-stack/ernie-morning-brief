@@ -32,6 +32,8 @@ class Settings:
         "WATSONS_OPENCHAT_URL",
         "https://www.watsons.com.tw/openchat",
     )
+    watsons_fetch_timeout: int = int(os.getenv("WATSONS_FETCH_TIMEOUT", "90"))
+    watsons_fetch_retries: int = int(os.getenv("WATSONS_FETCH_RETRIES", "2"))
     hermes_bin: str = os.getenv("HERMES_BIN", "hermes")
     hermes_workdir: str = os.getenv("HERMES_WORKDIR", ".")
 

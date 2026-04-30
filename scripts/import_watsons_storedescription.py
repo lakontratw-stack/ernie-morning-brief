@@ -29,10 +29,11 @@ def main() -> None:
         default="templates/store_hours.generated.csv",
         help="Output CSV path.",
     )
+    parser.add_argument("--timeout", type=int, default=90, help="HTTP read timeout in seconds.")
     args = parser.parse_args()
 
     try:
-        html = fetch(args.url)
+        html = fetch(args.url, args.timeout)
     except requests.RequestException as exc:
         raise SystemExit(
             f"Could not fetch {args.url}: {exc}\n"
@@ -52,8 +53,8 @@ def main() -> None:
     print("Hours are intentionally blank. Fill open/close, or replace source_url with each store's official detail page.")
 
 
-def fetch(url: str) -> str:
-    response = requests.get(url, headers=HEADERS, timeout=20)
+def fetch(url: str, timeout: int) -> str:
+    response = requests.get(url, headers=HEADERS, timeout=timeout)
     response.raise_for_status()
     response.encoding = response.apparent_encoding or response.encoding
     return response.text

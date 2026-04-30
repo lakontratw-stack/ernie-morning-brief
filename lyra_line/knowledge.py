@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import csv
 import re
+import time
 from functools import lru_cache
 from html import unescape
 from io import StringIO
@@ -64,8 +65,8 @@ def _load_official_knowledge() -> dict:
     stores: list[dict] = []
     statuses: list[dict[str, str | int]] = []
     sources = [
-        ("storedescription", settings.watsons_store_list_url, _load_watsons_store_list),
         ("openchat", settings.watsons_openchat_url, _load_watsons_openchat_list),
+        ("storedescription", settings.watsons_store_list_url, _load_watsons_store_list),
     ]
     for name, url, loader in sources:
         if not url:
@@ -113,19 +114,30 @@ def _fetch_csv(url: str) -> list[dict[str, str]]:
 
 
 def _fetch_text(url: str) -> str:
-    response = requests.get(
-        url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+    last_exc: Exception | None = None
+    for attempt in range(settings.watsons_fetch_retries + 1):
+        try:
+            response = requests.get(
+                url,
+                headers={
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                    "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
+                    "Cache-Control": "no-cache",
+                    "User-Agent": (
+                        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+                    ),
+                },
+                timeout=settings.watsons_fetch_timeout,
             )
-        },
-        timeout=20,
-    )
-    response.raise_for_status()
-    response.encoding = response.apparent_encoding or response.encoding
-    return response.text
+            response.raise_for_status()
+            response.encoding = response.apparent_encoding or response.encoding
+            return response.text
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < settings.watsons_fetch_retries:
+                time.sleep(1.5 * (attempt + 1))
+    raise last_exc or RuntimeError(f"failed to fetch {url}")
 
 
 def _load_watsons_store_list(url: str) -> list[dict]:
