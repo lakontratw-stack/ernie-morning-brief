@@ -15,6 +15,7 @@ from .knowledge import (
     format_promotions,
     format_store_candidates,
     format_store_hours,
+    format_store_summary,
 )
 from .prompts import build_messages
 
@@ -58,12 +59,10 @@ def _ask_mock(text: str) -> str:
         return fallback("store_hours") or "我可以幫您查門市營業時間。請問您想查哪一間門市呢？"
     if _is_promotion_question(normalized):
         return format_promotions(active_promotions())
+    store = find_store(text)
+    if store:
+        return format_store_summary(store)
     if any(word in text for word in ["地址", "在哪", "門市"]):
-        store = find_store(text)
-        if store:
-            address = store.get("address", "")
-            if address and not address.startswith("請在這裡"):
-                return f"{store.get('name')}地址是：\n{address}"
         candidates = find_store_candidates(text)
         if candidates:
             return format_store_candidates(candidates)

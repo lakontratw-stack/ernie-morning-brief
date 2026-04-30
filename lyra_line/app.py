@@ -12,7 +12,7 @@ from . import db
 from .config import settings
 from .line_client import get_profile, reply_text, verify_signature
 from .lyra import ask_lyra
-from .knowledge import refresh_knowledge
+from .knowledge import active_promotions, find_store, load_knowledge, refresh_knowledge
 from .markers import parse_escalation, parse_notify
 from .telegram_client import (
     drain_once,
@@ -23,6 +23,8 @@ from .telegram_client import (
 
 ESCALATION_REPLY = "這個我幫您轉給專員確認比較準，稍後會有同事接續協助您。"
 KEYWORD_ESCALATIONS = ["客訴", "退貨", "退款", "發票", "投訴", "主管", "人工", "真人", "訂單", "庫存"]
+FRUSTRATION_ESCALATIONS = ["鬼打牆", "聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
+APP_VERSION = "2026-04-30-lyra-knowledge-v2"
 
 
 @asynccontextmanager
@@ -40,13 +42,35 @@ app = FastAPI(title="Lyra LINE OA Integration", lifespan=lifespan)
 
 @app.get("/healthz")
 def healthz() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "version": APP_VERSION}
 
 
 @app.post("/admin/refresh-knowledge")
 def admin_refresh_knowledge() -> dict[str, str]:
     refresh_knowledge()
     return {"status": "refreshed"}
+
+
+@app.get("/admin/diagnostics")
+def admin_diagnostics() -> dict:
+    refresh_knowledge()
+    data = load_knowledge()
+    sample_questions = [
+        "我想知道現在的促銷活動是甚麼",
+        "促銷活動啦",
+        "民權店",
+        "民權店營業時間",
+    ]
+    return {
+        "status": "ok",
+        "version": APP_VERSION,
+        "provider": settings.lyra_provider,
+        "store_count": len(data.get("stores", [])),
+        "promotion_count": len(data.get("promotions", [])),
+        "active_promotion_count": len(active_promotions()),
+        "has_minquan_store": find_store("民權店") is not None,
+        "sample_replies": {question: ask_lyra("diagnostics", question) for question in sample_questions},
+    }
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -202,6 +226,15 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
         db.set_takeover(user_id)
         db.log_chat(user_id, text, ESCALATION_REPLY)
         enqueue_escalation(user_id, display_name, text, f"關鍵字「{keyword}」", ESCALATION_REPLY)
+        return
+
+    frustration = next((kw for kw in FRUSTRATION_ESCALATIONS if kw in text), None)
+    if frustration:
+        customer_reply = "抱歉，剛剛沒有理解到您的意思。我先幫您轉給專員接手，避免一直來回耽誤您。"
+        reply_text(reply_token, customer_reply)
+        db.set_takeover(user_id)
+        db.log_chat(user_id, text, customer_reply)
+        enqueue_escalation(user_id, display_name, text, f"客戶反映 AI 未理解：「{frustration}」", customer_reply)
         return
 
     try:

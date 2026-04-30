@@ -228,7 +228,8 @@ def find_store(text: str) -> dict | None:
     data = load_knowledge()
     for store in data.get("stores", []):
         names = [store.get("name", ""), *store.get("aliases", [])]
-        if any(name and name in text for name in names):
+        normalized_names = _store_name_variants(names)
+        if any(name and name in text for name in normalized_names):
             return store
     return None
 
@@ -296,6 +297,24 @@ def format_store_hours(store: dict) -> str:
     return "\n".join(parts)
 
 
+def format_store_summary(store: dict) -> str:
+    parts = [f"我查到的是 {store.get('name', '這間門市')}："]
+    if store.get("address"):
+        parts.append(f"地址：{store['address']}")
+    if store.get("phone"):
+        parts.append(f"電話：{store['phone']}")
+    if store.get("hours"):
+        hour_lines = [
+            f"{item.get('days', '營業日')}：{item.get('open')} 到 {item.get('close')}"
+            for item in store["hours"]
+        ]
+        parts.append("營業時間：")
+        parts.extend(hour_lines)
+    else:
+        parts.append("目前還沒有同步這間門市的營業時間；如果您要確認時間，我可以幫您轉專員。")
+    return "\n".join(parts)
+
+
 def format_promotions(promotions: list[dict]) -> str:
     if not promotions:
         return fallback("promotion") or "目前沒有設定中的活動資訊。"
@@ -327,3 +346,14 @@ def _query_tokens(text: str) -> list[str]:
     tokens.extend(re.findall(r"[\u4e00-\u9fff]{2,3}[市縣]", compact))
     tokens.extend(re.findall(r"[\u4e00-\u9fff]{2,4}[區鄉鎮市]", compact))
     return _unique([token for token in tokens if len(token) >= 2])
+
+
+def _store_name_variants(names: list[str]) -> list[str]:
+    variants: list[str] = []
+    for name in names:
+        variants.append(name)
+        if name.endswith("店"):
+            variants.append(name[:-1])
+        else:
+            variants.append(f"{name}店")
+    return _unique(variants)
