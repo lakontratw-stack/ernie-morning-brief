@@ -28,6 +28,7 @@ git checkout "$BRANCH"
 
 rsync -a --delete \
   --exclude '.git/' \
+  --exclude '.deploy_keys/' \
   --exclude '.env' \
   --exclude '.venv/' \
   --exclude 'lyra_line.db' \
