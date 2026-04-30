@@ -75,6 +75,9 @@ Decision Required:
 
 以下是知識庫，僅可依此作為政策依據。
 
+--- guardrails.md ---
+{bundle.guardrails}
+
 --- knowledge_base.md ---
 {bundle.knowledge_base}
 

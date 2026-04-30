@@ -6,17 +6,20 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class KnowledgeBundle:
+    guardrails: str
     knowledge_base: str
     tender_playbook: str
 
 
 BASE_DIR = Path(__file__).resolve().parent
+GUARDRAILS_PATH = BASE_DIR / "guardrails.md"
 KNOWLEDGE_BASE_PATH = BASE_DIR / "knowledge_base.md"
 TENDER_PLAYBOOK_PATH = BASE_DIR / "tender_playbook.md"
 
 
 def load_knowledge() -> KnowledgeBundle:
     return KnowledgeBundle(
+        guardrails=_read_markdown(GUARDRAILS_PATH),
         knowledge_base=_read_markdown(KNOWLEDGE_BASE_PATH),
         tender_playbook=_read_markdown(TENDER_PLAYBOOK_PATH),
     )

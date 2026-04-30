@@ -22,6 +22,7 @@ db.py                     SQLite schema and data access
 line_handler.py           LINE webhook, Reply API, markers, takeover logic
 lyra_prompt.py            System prompt, OpenAI call, OpenCC conversion
 knowledge_loader.py       Markdown knowledge loader
+guardrails.md             Lyra safety and escalation rules
 telegram_notifier.py      Telegram message sender
 notification_queue.py     SQLite outbox enqueue/drain functions
 knowledge_base.md         NTP policy/process knowledge
@@ -100,6 +101,12 @@ In production, the Flask app starts a simple background thread that drains pendi
 
 ## Knowledge Files
 
+Edit escalation and safety behavior here:
+
+```text
+guardrails.md
+```
+
 Edit policy/process guidance here:
 
 ```text
@@ -112,7 +119,7 @@ Edit tender analysis, negotiation wording, and IC summary guidance here:
 tender_playbook.md
 ```
 
-On app startup and every AI call, Lyra loads both Markdown files into the system prompt. This keeps the MVP simple and easy to maintain. Future versions can replace `knowledge_loader.py` with RAG without changing the LINE webhook flow.
+On app startup and every AI call, Lyra loads `guardrails.md`, `knowledge_base.md`, and `tender_playbook.md` into the system prompt. This keeps the MVP simple and easy to maintain. Future versions can replace `knowledge_loader.py` with RAG without changing the LINE webhook flow.
 
 ## AI Markers
 
