@@ -18,6 +18,22 @@ except Exception as exc:
 
 ESCALATION_REPLY = "這題可能會影響正式判斷，我先幫你轉給 NTP team 確認，比較安全。"
 TENDER_THRESHOLD_NTD = 12_000_000
+PROCUREMENT_CASE_KEYWORDS = [
+    "採購",
+    "採買",
+    "買",
+    "支出",
+    "費用",
+    "花費",
+    "付款",
+    "請款",
+    "平板",
+    "展示桌",
+    "設備",
+    "需要走",
+    "怎麼進行",
+    "程序",
+]
 
 
 def build_system_prompt() -> str:
@@ -120,6 +136,10 @@ def build_messages(user_message: str, history: list[Any]) -> list[dict[str, str]
 def ask_lyra(user_message: str, history: list[Any]) -> str:
     clean_history = _clean_history(history)
 
+    deterministic = _policy_qa_reply(user_message)
+    if deterministic:
+        return to_taiwan_traditional(deterministic)
+
     deterministic = _quick_price_analysis(user_message)
     if deterministic:
         return to_taiwan_traditional(deterministic)
@@ -162,6 +182,41 @@ def to_taiwan_traditional(text: str) -> str:
     except Exception as exc:
         print(f"OpenCC conversion failed: {exc}")
         return text
+
+
+def _policy_qa_reply(text: str) -> str | None:
+    lower = text.lower()
+    if _is_supplier_evaluation_question(text):
+        return (
+            "供應商評估有兩個常見時間點：\n"
+            "1. PO 或合約金額達 HK$3M 以上，re-tender 前要由 user department 依 agreed KPI 做 supplier performance appraisal。\n"
+            "2. 年度累積採購金額達 HK$3M 以上的供應商，通常每年 4 月做年度評估。\n"
+            "評估結果會影響 ASL review、合約到期前檢討，以及後續 quotation / tender。"
+        )
+    if "asl" in lower and (_is_asl_definition_question(text) or not _is_procurement_detail_followup(text)):
+        return (
+            "ASL 是 Approved Supplier List，也就是可合作供應商名單。\n"
+            "原則上不論金額大小，都應使用 ASL 供應商。\n"
+            "新供應商要先完成 supplier pre-evaluation；要進 tender 前，必須已正式在 ASL。"
+        )
+    return None
+
+
+def _is_supplier_evaluation_question(text: str) -> bool:
+    lower = text.lower()
+    supplier = "供應商" in text or "supplier" in lower or "vendor" in lower
+    evaluation = any(word in text for word in ["評估", "績效", "考核", "年度評估"]) or any(
+        word in lower for word in ["evaluation", "performance appraisal", "performance review", "annual review"]
+    )
+    timing = any(word in text for word in ["多久", "多常", "何時", "什麼時候", "要求", "規定"]) or any(
+        word in lower for word in ["when", "how often", "requirement", "required"]
+    )
+    return supplier and evaluation and timing
+
+
+def _is_asl_definition_question(text: str) -> bool:
+    lower = text.lower()
+    return "asl" in lower and any(word in text for word in ["什麼", "是啥", "意思", "定義"])
 
 
 def _quick_price_analysis(text: str) -> str | None:
@@ -220,7 +275,7 @@ def _amount_based_procurement_reply(text: str) -> str | None:
     amount = _extract_amount(text)
     if amount is None:
         return None
-    if not any(word in text for word in ["採購", "買", "平板", "設備", "需要走", "程序"]):
+    if not _is_procurement_case_text(text):
         return None
 
     if amount >= TENDER_THRESHOLD_NTD:
@@ -246,10 +301,10 @@ def _amount_based_procurement_reply(text: str) -> str | None:
         )
 
     return (
-        f"這筆約 NT${amount:,.0f}，已超過 NT$100,000，原則上要進 NTP sourcing。\n"
-        "但還沒到 tender 門檻，通常會先往 quotation process 看。\n"
-        "下一步確認供應商是否在 ASL，以及至少 3 家書面報價是否可取得。\n"
-        "CapEx/Opex、budgeted 會影響 approval 路徑，不是判斷 tender 的主因。"
+        f"這筆約 NT${amount:,.0f}，先確認不是 Negative List，例如稅金、政府規費、員工費或銀行費。\n"
+        "如果是 NTP 範圍，已超過 NT$100,000，要交 NTP 走 sourcing。\n"
+        "金額還沒到 tender 門檻，通常先走 quotation process，至少 3 家書面報價。\n"
+        "同時確認供應商 ASL、CapEx/Opex、是否 budgeted。"
     )
 
 
@@ -340,7 +395,7 @@ def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
 
     context = _history_text(history).lower()
     amount = _extract_amount(text) or _extract_amount(context)
-    has_procurement_context = any(word in context for word in ["採購", "平板", "展示桌", "設備", "買"])
+    has_procurement_context = _is_procurement_case_text(context)
 
     if has_procurement_context and _is_threshold_challenge(text):
         return (
@@ -369,7 +424,7 @@ def _contextual_followup_reply(text: str, history: list[Any]) -> str | None:
             "但如果有 IT/CapEx 或年度累計超門檻，還是要再確認。"
         )
 
-    if amount is not None and any(word in context for word in ["採購", "平板", "設備", "買"]):
+    if amount is not None and _is_procurement_case_text(context):
         if amount >= TENDER_THRESHOLD_NTD:
             return _tender_threshold_reply(amount)
         if amount <= 100000:
@@ -443,6 +498,10 @@ def _is_procurement_detail_followup(text: str) -> bool:
     lower = text.lower().strip()
     markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
     return any(marker in lower for marker in markers)
+
+
+def _is_procurement_case_text(text: str) -> bool:
+    return any(word in text for word in PROCUREMENT_CASE_KEYWORDS)
 
 
 def _clean_history(history: list[Any]) -> list[Any]:
