@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-llm-policy-first-v2"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260502-fast-policy-route"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -104,6 +104,8 @@ def admin_diagnostics() -> dict:
         "我有一筆鐵捲門的緊急採購，要怎麼做",
         "Tender要做什麼程序",
         "多少錢要做tender",
+        "超過多少錢要做tender？",
+        "如果是Rate Card但預估金額接近HK$3M怎麼辦？",
         "what's the difference between Rate card contract and committment contract in Investment policy",
         "如果我要直接指定供應商可以嗎",
         "我想採購99999的平板，需要走甚麼程序",
@@ -364,6 +366,12 @@ def _looks_like_new_policy_question(text: str) -> bool:
             "怎麼做",
             "怎麼進行",
             "供應商評估",
+            "rate card",
+            "ratecard",
+            "investment policy",
+            "hk$3m",
+            "金額",
+            "門檻",
             "asl",
         ]
     )

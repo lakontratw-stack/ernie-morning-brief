@@ -60,6 +60,10 @@ def ask_lyra(user_id: str, text: str) -> str:
     if hard_escalation:
         return to_traditional(hard_escalation.strip())
 
+    fast_reply = _fast_policy_anchor_reply(text, history)
+    if fast_reply:
+        return to_traditional(fast_reply.strip())
+
     messages = build_messages(user_id, text)
     provider = settings.lyra_provider.lower()
     try:
@@ -124,6 +128,10 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     if threshold_reply:
         return threshold_reply
 
+    rate_card_threshold_reply = _rate_card_threshold_reply(text)
+    if rate_card_threshold_reply:
+        return rate_card_threshold_reply
+
     rate_card_reply = _rate_card_commitment_reply(text)
     if rate_card_reply:
         return rate_card_reply
@@ -183,6 +191,43 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
             "採購金額超過 NT$100,000 且不超過 HK$3M 時，通常至少需邀請 3 家供應商參與 quotation process，且需保留書面報價。\n\n"
             "報價有效性也要能涵蓋採購決策當下。"
         )
+
+    return None
+
+
+def _fast_policy_anchor_reply(text: str, history: list[Any]) -> str | None:
+    """Fast path for policy questions that should not wait for an LLM round trip."""
+    threshold_reply = _tender_threshold_question_reply(text)
+    if threshold_reply:
+        return threshold_reply
+
+    rate_card_threshold_reply = _rate_card_threshold_reply(text)
+    if rate_card_threshold_reply:
+        return rate_card_threshold_reply
+
+    rate_card_reply = _rate_card_commitment_reply(text)
+    if rate_card_reply:
+        return rate_card_reply
+
+    urgent_reply = _urgent_purchase_reply(text)
+    if urgent_reply:
+        return urgent_reply
+
+    appointment_reply = _supplier_appointment_reply(text)
+    if appointment_reply:
+        return appointment_reply
+
+    policy_reply = _policy_qa_reply(text)
+    if policy_reply:
+        return policy_reply
+
+    followup_reply = _followup_reply(text, history)
+    if followup_reply:
+        return followup_reply
+
+    amount = _extract_amount(text)
+    if amount is not None and _is_procurement_case_text(text):
+        return _deterministic_procurement_reply(text, history)
 
     return None
 
@@ -252,6 +297,24 @@ def _rate_card_commitment_reply(text: str) -> str | None:
         "Rate Card 是先約好單價/價格表，但沒有最低採購量、最低付款義務，也沒有排他限制。\n"
         "Commitment contract 會綁住 BU，例如 minimum order、minimum financial obligation、exclusivity，或兩者都有。\n"
         "如果價格表其實有任何 commitment，就不能當純 Rate Card，通常要按 Investment Policy 的 Commitment 規則看 approval。"
+    )
+
+
+def _rate_card_threshold_reply(text: str) -> str | None:
+    lower = text.lower()
+    if not any(word in lower for word in ["rate card", "ratecard", "rate-card"]):
+        return None
+    if not any(
+        word in lower
+        for word in ["hk$3m", "3m", "3 m", "hk$ 3m", "門檻", "threshold", "estimated", "預估", "接近"]
+    ):
+        return None
+
+    return (
+        "Rate Card 不能只看單價表，要看合約期間 estimated spending。\n"
+        "如果預估金額接近 HK$3M，我會建議保守往 tender 路徑準備，不要只當 quotation。\n"
+        "另外要確認它沒有 minimum order、minimum financial obligation 或 exclusivity。\n"
+        "只要有這些 commitment，就不算單純 Rate Card，approval 也要另外看 Investment Policy。"
     )
 
 
@@ -701,7 +764,7 @@ def _ask_openai_compatible(messages: list[dict[str, str]]) -> str:
             "messages": messages,
             "temperature": 0.3,
         },
-        timeout=60,
+        timeout=25,
     )
     response.raise_for_status()
     data: dict[str, Any] = response.json()
