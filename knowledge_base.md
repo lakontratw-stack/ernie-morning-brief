@@ -345,6 +345,30 @@ Investment Policy Section 9 排除 audit / audit-related / taxation advisory ser
 
 ## 22. Overspend and Re-approval
 
+## 22.0 Significant Expenditures: Rate Card vs Commitment
+
+Investment Policy 對 Rate Card 與 Commitment 的核心差異是：是否有 commitment。
+
+Commitments 是會使 BU 受到以下任一限制或義務拘束的合約：
+- minimum order quantity
+- minimum financial obligation
+- exclusivity clauses in favour of the contracted vendor's services or products
+- 同時包含 minimum obligation 與 exclusivity
+
+Commitment 的例子包括 warehouse lease、office lease、限制集團只能向特定出租方租車的 car rental contract、限制集團不能向其他供應商採購 logistics service 的 logistics contract。
+
+Non-trade related Commitment 的 commitment amount 以整個合約期間的 cash outflows 合計計算，不受 break clause 影響。
+
+若是 non-trade-related list of rates or prices 但帶有某種 commitment，commitment amount 應用預估合約期間的 estimated volume 估算。
+
+Rate Cards 是 BU 與 vendor 預先約定產品或服務的 rates 或 prices，但沒有 attached Commitments。
+
+Rate Card 必須同時沒有 minimum order quantity、minimum financial obligation、exclusivity restriction。
+
+不符合 Rate Card 定義的 agreement，會被視為 Commitment，應依 Investment Policy Section 8.1 的 Commitment authorization limits 處理。
+
+典型 Rate Card 例子是不同等級或品牌地磚的 price list，且不綁定最低採購量，也不限制集團只能向該供應商購買。
+
 Rate Card Opex overspend 若完全因 volume 高於 approved volume，通常不需要 further approval。若 overspend 是非 volume 原因，例如 unit rate 變高，則需依 Significant Expenditures 重新取得 approval。
 
 Non-Rate Card Opex 若原本由 ASW Investment Committee 核准：

@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-policy-tune"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-llm-policy-first-v2"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -105,6 +105,7 @@ def admin_diagnostics() -> dict:
         "Tender要做什麼程序",
         "多少錢要做tender",
         "what's the difference between Rate card contract and committment contract in Investment policy",
+        "如果我要直接指定供應商可以嗎",
         "我想採購99999的平板，需要走甚麼程序",
         "如果我要續約廣告代理人的合約，我要注意甚麼",
         "A vendor 100, B vendor 170",

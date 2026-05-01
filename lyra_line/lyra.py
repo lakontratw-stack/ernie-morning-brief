@@ -56,17 +56,21 @@ def to_traditional(text: str) -> str:
 
 def ask_lyra(user_id: str, text: str) -> str:
     history = recent_history(user_id, limit=10)
-    deterministic_reply = _deterministic_procurement_reply(text, history)
-    if deterministic_reply:
-        return to_traditional(deterministic_reply.strip())
+    hard_escalation = _hard_escalation_reply(text)
+    if hard_escalation:
+        return to_traditional(hard_escalation.strip())
 
     messages = build_messages(user_id, text)
     provider = settings.lyra_provider.lower()
-    if provider == "hermes_cli":
-        reply = _ask_hermes_cli(messages)
-    elif provider == "openai_compatible":
-        reply = _ask_openai_compatible(messages)
-    else:
+    try:
+        if provider == "hermes_cli":
+            reply = _ask_hermes_cli(messages)
+        elif provider == "openai_compatible" and settings.openai_api_key:
+            reply = _ask_openai_compatible(messages)
+        else:
+            reply = _ask_mock(text, history)
+    except Exception as exc:
+        print(f"LLM provider failed, falling back to deterministic reply: {exc}")
         reply = _ask_mock(text, history)
     return to_traditional(reply.strip())
 
@@ -87,7 +91,7 @@ def _ask_procurement_mock(text: str, history: list[Any]) -> str:
     )
 
 
-def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | None:
+def _hard_escalation_reply(text: str) -> str | None:
     hard_escalation_keywords = [
         "例外核准",
         "稽核",
@@ -107,6 +111,14 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     lower = text.lower()
     if any(keyword in lower for keyword in hard_escalation_keywords):
         return "[ESCALATE:需要正式判斷]\n這題會牽涉正式判斷，我先通知 NTP team 一起看，比較安全。\n你也可以先補金額、供應商、合約/報價狀況，我會先幫你整理問題點。"
+    return None
+
+
+def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | None:
+    lower = text.lower()
+    hard_escalation = _hard_escalation_reply(text)
+    if hard_escalation:
+        return hard_escalation
 
     threshold_reply = _tender_threshold_question_reply(text)
     if threshold_reply:
@@ -120,10 +132,6 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     if policy_reply:
         return policy_reply
 
-    followup_reply = _followup_reply(text, history)
-    if followup_reply:
-        return followup_reply
-
     appointment_reply = _supplier_appointment_reply(text)
     if appointment_reply:
         return appointment_reply
@@ -131,6 +139,10 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     urgent_reply = _urgent_purchase_reply(text)
     if urgent_reply:
         return urgent_reply
+
+    followup_reply = _followup_reply(text, history)
+    if followup_reply:
+        return followup_reply
 
     price_reply = _quick_price_analysis(text)
     if price_reply:
