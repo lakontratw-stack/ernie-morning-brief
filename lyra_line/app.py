@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse
 from . import db
 from .config import settings
 from .line_client import get_profile, reply_text, verify_signature
-from .lyra import ask_lyra
+from .lyra import ask_lyra, _deterministic_procurement_reply
 from .knowledge import (
     active_promotions,
     find_store,
@@ -123,8 +123,13 @@ def admin_diagnostics() -> dict:
             "close": settings.watsons_default_close,
         },
         "official_sources": official_source_status(),
-        "sample_replies": {question: ask_lyra("diagnostics", question) for question in sample_questions},
+        "sample_replies": {question: _diagnostic_reply(question) for question in sample_questions},
     }
+
+
+def _diagnostic_reply(question: str) -> str:
+    reply = _deterministic_procurement_reply(question, [])
+    return reply or "(diagnostics skipped LLM fallback)"
 
 
 @app.get("/", response_class=HTMLResponse)
