@@ -91,6 +91,11 @@ def get_line_status(user_id: str) -> str:
     return row["status"] if row else "active"
 
 
+def get_line_user(user_id: str) -> sqlite3.Row | None:
+    with connect() as conn:
+        return conn.execute("SELECT * FROM line_users WHERE line_user_id=?", (user_id,)).fetchone()
+
+
 def set_takeover(user_id: str, staff_name: str | None = None) -> None:
     now = datetime.utcnow().isoformat()
     with connect() as conn:

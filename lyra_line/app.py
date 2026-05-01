@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-debug"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-humanize"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -100,6 +100,9 @@ def admin_diagnostics() -> dict:
         "我有一筆150,000的支出請問一下我要怎麼進行",
         "我多久要做一次供應商評估？",
         "我想採購19999999的車子，需要走甚麼程序",
+        "is that ok? if i would like to appoint a supplier",
+        "我有一筆鐵捲門的緊急採購，要怎麼做",
+        "Tender要做什麼程序",
         "我想採購99999的平板，需要走甚麼程序",
         "如果我要續約廣告代理人的合約，我要注意甚麼",
         "A vendor 100, B vendor 170",
@@ -289,6 +292,16 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
         return
 
     if db.get_line_status(user_id) == "human_taken_over":
+        user = db.get_line_user(user_id)
+        takeover_by = user["takeover_by"] if user and "takeover_by" in user.keys() else None
+        if not takeover_by and _looks_like_new_policy_question(text):
+            db.clear_takeover(user_id)
+        else:
+            db.log_chat(user_id, text, "(人工接手中，AI 不回)")
+            enqueue_escalation(user_id, display_name, text, "人工接手期間客戶補充訊息", None)
+            return
+
+    if db.get_line_status(user_id) == "human_taken_over":
         db.log_chat(user_id, text, "(人工接手中，AI 不回)")
         enqueue_escalation(user_id, display_name, text, "人工接手期間客戶補充訊息", None)
         return
@@ -320,7 +333,6 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
     if escalated:
         customer_reply = cleaned or ESCALATION_REPLY
         reply_text(reply_token, customer_reply)
-        db.set_takeover(user_id)
         db.log_chat(user_id, text, customer_reply)
         enqueue_escalation(user_id, display_name, text, reason or "AI 判斷", customer_reply)
         return
@@ -332,6 +344,26 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
 
     if notify_summary:
         enqueue_notify(user_id, display_name, text, notify_summary, customer_reply)
+
+
+def _looks_like_new_policy_question(text: str) -> bool:
+    lower = text.lower()
+    return any(
+        keyword in lower
+        for keyword in [
+            "採購",
+            "tender",
+            "quotation",
+            "rfq",
+            "rfp",
+            "緊急",
+            "程序",
+            "怎麼做",
+            "怎麼進行",
+            "供應商評估",
+            "asl",
+        ]
+    )
 
 
 def _drain_loop(stop_event: threading.Event) -> None:

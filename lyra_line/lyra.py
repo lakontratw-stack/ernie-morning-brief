@@ -106,7 +106,7 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     ]
     lower = text.lower()
     if any(keyword in lower for keyword in hard_escalation_keywords):
-        return "[ESCALATE:需要正式判斷]\n這題可能會影響正式判斷，我先幫你轉給 NTP team 確認，比較安全。"
+        return "[ESCALATE:需要正式判斷]\n這題會牽涉正式判斷，我先通知 NTP team 一起看，比較安全。\n你也可以先補金額、供應商、合約/報價狀況，我會先幫你整理問題點。"
 
     policy_reply = _policy_qa_reply(text)
     if policy_reply:
@@ -115,6 +115,14 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     followup_reply = _followup_reply(text, history)
     if followup_reply:
         return followup_reply
+
+    appointment_reply = _supplier_appointment_reply(text)
+    if appointment_reply:
+        return appointment_reply
+
+    urgent_reply = _urgent_purchase_reply(text)
+    if urgent_reply:
+        return urgent_reply
 
     price_reply = _quick_price_analysis(text)
     if price_reply:
@@ -131,10 +139,10 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
         if amount <= 100000:
             return _small_purchase_reply(amount, text)
         return (
-            f"這筆約 NT${amount:,.0f}，先確認不是 Negative List，例如稅金、政府規費、員工費或銀行費。\n"
-            "如果是 NTP 範圍，已超過 NT$100,000，要交 NTP 走 sourcing。\n"
-            "金額還沒到 tender 門檻，通常先走 quotation process，至少 3 家書面報價。\n"
-            "同時確認供應商 ASL、CapEx/Opex、是否 budgeted。"
+            f"這筆 NT${amount:,.0f} 已超過 NT$100,000，若不是 Negative List，先開 PR 給 NTP。\n"
+            "金額還沒到 tender 門檻，通常會走 quotation。\n"
+            "NTP 原則上要邀至少 3 家 ASL 供應商提供書面報價。\n"
+            "你再補品項、CapEx/Opex、是否 budgeted，我可以幫你確認下一步文件。"
         )
 
     if any(word in lower for word in ["ntp", "non-trade", "non trade"]):
@@ -149,10 +157,7 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
             "如果你是在補前一筆採購資料，可以直接回金額、CapEx/Opex、是否 budgeted。"
         )
     if "tender" in lower or "招標" in text:
-        return (
-            "Tender 通常適用在 estimated budget 或 previous purchase amount 超過 HK$3M 的案件。\n\n"
-            "原則上至少需要 5 家互相獨立的 competing suppliers 參與，且 tender criteria、weightage、tenderer list 應在發 RFQ/RFP 前先由 tender committee 確認。"
-        )
+        return _tender_process_reply()
     if "quotation" in lower or "報價" in text or "rfq" in lower:
         return (
             "採購金額超過 NT$100,000 且不超過 HK$3M 時，通常至少需邀請 3 家供應商參與 quotation process，且需保留書面報價。\n\n"
@@ -185,10 +190,10 @@ def _policy_qa_reply(text: str) -> str | None:
     lower = text.lower()
     if _is_supplier_evaluation_question(text):
         return (
-            "供應商評估有兩個常見時間點：\n"
-            "1. PO 或合約金額達 HK$3M 以上，re-tender 前要由 user department 依 agreed KPI 做 supplier performance appraisal。\n"
-            "2. 年度累積採購金額達 HK$3M 以上的供應商，通常每年 4 月做年度評估。\n"
-            "評估結果會影響 ASL review、合約到期前檢討，以及後續 quotation / tender。"
+            "Policy 明確寫到的是：PO 或合約金額達 HK$3M 以上，re-tender 前要做 supplier performance appraisal。\n"
+            "評估要由 user department 依 agreed KPI 做，NTP 會一起看供應商品質和服務表現。\n"
+            "另外 ASL 至少每兩年要 review/update 一次。\n"
+            "如果你問的是固定年度評估頻率，我目前不會硬說每年一次，建議看你們內部 KPI 或由 NTP 確認。"
         )
     if "asl" in lower and (_is_asl_definition_question(text) or not _is_procurement_detail_followup(text)):
         return (
@@ -197,6 +202,41 @@ def _policy_qa_reply(text: str) -> str | None:
             "新供應商要先完成 supplier pre-evaluation；要進 tender 前，必須已正式在 ASL。"
         )
     return None
+
+
+def _supplier_appointment_reply(text: str) -> str | None:
+    lower = text.lower()
+    if not any(word in lower for word in ["appoint", "direct award", "single source", "指定供應商", "直接指定", "直接給", "單一供應商"]):
+        return None
+
+    return (
+        "如果你說的 appoint 是直接指定供應商，先不要當成 OK。\n"
+        "要先看金額門檻、是否 ASL、是否有足夠 quotation/tender，以及為什麼不能公平競爭。\n"
+        "如果真的只能單一供應商，要有 written justification，通常也要補 benchmark 或其他合理性證明。\n"
+        "我可以幫你整理 rationale 草稿，但不能替公司確認可以指定。"
+    )
+
+
+def _urgent_purchase_reply(text: str) -> str | None:
+    lower = text.lower()
+    if not any(word in lower for word in ["urgent", "緊急採購", "急件", "緊急"]):
+        return None
+
+    return (
+        "緊急採購可以先看，但不是用來跳過流程。\n"
+        "Policy 上通常要是影響門市/辦公室營運、安全，或設備需 3 天內更換這類情況。\n"
+        "限制也要記得：供應商仍要在 ASL、金額不能超過 HK$50,000，事後 PR 和 supporting document 要補齊。\n"
+        "你先回我金額、門市/辦公室影響、預計幾天內要處理，我再幫你整理怎麼寫。"
+    )
+
+
+def _tender_process_reply() -> str:
+    return (
+        "Tender 先抓這幾步：定 scope/spec、設 evaluation criteria 和 weighting、整理 tenderer list。\n"
+        "這些在發 RFQ/RFP 前，要先給 tender committee review。\n"
+        "原則上至少 5 家互相獨立供應商參與，也要留 COI declaration 和 communication trail。\n"
+        "收到 proposal 後才做 scoring、commercial comparison、sourcing/open tender report，最後才是 award recommendation。"
+    )
 
 
 def _is_supplier_evaluation_question(text: str) -> bool:
@@ -265,7 +305,7 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
             )
         return (
             f"如果前面那筆改成 NT${amount:,.0f}，就已經超過 NT$100,000。\n"
-            "原則上要進 NTP sourcing，通常會往 quotation process 看。\n"
+            "若不是 Negative List，先開 PR 給 NTP，通常會往 quotation process 看。\n"
             "先確認 CapEx/Opex、是否已 budgeted、供應商是否在 ASL。"
         )
 
@@ -295,7 +335,7 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
         if latest_amount is not None and latest_amount > 100000:
             return (
                 "收到，供應商在 ASL，金額也抓到了。\n"
-                "因為金額超過 NT$100,000，下一步建議交 NTP 走 quotation process。\n"
+                "因為金額超過 NT$100,000，下一步建議開 PR 給 NTP 走 quotation process。\n"
                 "通常至少要準備 3 家書面報價；CapEx/Opex、是否 budgeted 還是要補清楚。"
             )
         return (
@@ -311,6 +351,7 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
         if latest_amount and latest_amount > 100000:
             return (
                 "如果你是指前面那筆，因為已超過 NT$100,000，建議先進 NTP sourcing。\n"
+                "也就是先開 PR 給 NTP，再看 quotation 文件。\n"
                 "我還需要 CapEx/Opex、是否已 budgeted、供應商是否 ASL。\n"
                 "補上後我再幫你看 quotation 或 tender 路徑。"
             )
@@ -346,9 +387,10 @@ def _is_procurement_case_text(text: str) -> bool:
 
 def _tender_threshold_reply(amount: float) -> str:
     return (
-        f"這筆約 NT${amount:,.0f}，已超過約 NT$12M，應先抓 tender 路徑。\n"
-        "也就是至少 5 家互相獨立供應商、tender committee、評分標準和 sourcing report。\n"
-        "CapEx/Opex、budgeted、ASL 仍要確認，但它們影響 approval 和供應商資格，不是決定要不要 tender 的主因。"
+        f"這筆 NT${amount:,.0f} 已經很明顯落在 tender 等級。\n"
+        "NTP policy 的門檻是 estimated / previous purchase amount 超過 HK$3M 要 tender；NTD 只是換算概念，正式仍看幣別和公司匯率。\n"
+        "下一步先準備 scope、5 家獨立供應商、評分標準，並送 tender committee 先確認。\n"
+        "CapEx/Opex、budgeted、ASL 也要看，但它們不會把 tender 變成 quotation。"
     )
 
 
@@ -381,17 +423,16 @@ def _small_purchase_reply(amount: float, text: str) -> str:
     if any(word in lower for word in ["平板", "ipad", "電腦", "筆電", "系統", "software", "it"]):
         notes = "供應商是否在 ASL、是否已 budgeted、IT 是否同意"
         return (
-            f"這筆約 NT${amount:,.0f}，如果不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
-            "但平板多半會牽涉 IT / hardware，也可能要看 CapEx。\n"
-            f"你先確認這 3 件事：{notes}。\n"
-            "回我這幾點，我再幫你判斷下一步。"
+            f"這筆 NT${amount:,.0f} 低於 NT$100,000，通常不用走 NTP sourcing。\n"
+            "但平板多半算 IT / hardware，也可能牽涉 CapEx。\n"
+            f"先確認：{notes}。\n"
+            "這三點 OK 再往下走，會比較安全。"
         )
 
     return (
-        f"這筆約 NT${amount:,.0f}，如果不是拆單或年度累計超過 NT$100,000，通常不用走 NTP sourcing。\n"
-        f"先確認這 3 件事：{notes}。\n"
-        "如果任何一項不確定，就先不要直接下單。\n"
-        "你回我狀況，我再幫你接下一步。"
+        f"這筆 NT${amount:,.0f} 低於 NT$100,000，通常不用走 NTP sourcing。\n"
+        f"先確認：{notes}。\n"
+        "如果任何一項不確定，就先不要直接下單。"
     )
 
 
