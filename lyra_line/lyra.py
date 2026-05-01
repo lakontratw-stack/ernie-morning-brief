@@ -171,6 +171,10 @@ def _extract_amount(text: str) -> float | None:
     if million_match:
         return float(million_match.group(1)) * 1_000_000
 
+    ten_thousand_match = re.search(r"(?:nt\$?|twd|台幣|新台幣)?\s*(\d+(?:\.\d+)?)\s*萬", normalized)
+    if ten_thousand_match:
+        return float(ten_thousand_match.group(1)) * 10_000
+
     matches = re.findall(r"(?:nt\$?|twd|台幣|新台幣)?\s*(\d{4,}(?:\.\d+)?)", normalized)
     if not matches:
         return None
@@ -186,7 +190,7 @@ def _policy_qa_reply(text: str) -> str | None:
             "2. 年度累積採購金額達 HK$3M 以上的供應商，通常每年 4 月做年度評估。\n"
             "評估結果會影響 ASL review、合約到期前檢討，以及後續 quotation / tender。"
         )
-    if "asl" in lower:
+    if "asl" in lower and (_is_asl_definition_question(text) or not _is_procurement_detail_followup(text)):
         return (
             "ASL 是 Approved Supplier List，也就是可合作供應商名單。\n"
             "原則上不論金額大小，都應使用 ASL 供應商。\n"
@@ -207,6 +211,25 @@ def _is_supplier_evaluation_question(text: str) -> bool:
     return supplier and evaluation and timing
 
 
+def _is_asl_definition_question(text: str) -> bool:
+    lower = text.lower()
+    if "asl" not in lower:
+        return False
+    definition_patterns = [
+        "asl 是什麼",
+        "asl是什麼",
+        "什麼是 asl",
+        "什麼是asl",
+        "asl 是啥",
+        "asl是啥",
+        "asl 意思",
+        "asl意思",
+        "asl 定義",
+        "asl定義",
+    ]
+    return any(pattern in lower for pattern in definition_patterns)
+
+
 def _followup_reply(text: str, history: list[Any]) -> str | None:
     context = _history_text(history)
     if not context:
@@ -215,7 +238,12 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
     context_lower = context.lower()
     lower = text.lower().strip()
     amount = _extract_amount(text)
-    if _is_contract_renewal_request(context_lower) and _looks_renewal_followup(text):
+    if (
+        _is_contract_renewal_context(context_lower)
+        and _looks_renewal_followup(text)
+        and not _is_procurement_case_text(text)
+        and not _is_procurement_detail_followup(text)
+    ):
         return _contract_renewal_reply(text, history)
 
     has_procurement_context = _is_procurement_case_text(context)
@@ -241,6 +269,20 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
             "先確認 CapEx/Opex、是否已 budgeted、供應商是否在 ASL。"
         )
 
+    if amount is not None and has_procurement_context and _looks_contextual(text):
+        if amount >= TENDER_THRESHOLD_NTD:
+            return _tender_threshold_reply(amount)
+        if amount <= 100000:
+            return (
+                f"如果你是指前面那筆，金額 NT${amount:,.0f} 未超過 NT$100,000。\n"
+                "通常不用走 NTP sourcing，但仍要確認不是拆單、供應商在 ASL、是否有 IT/CapEx 需求。"
+            )
+        return (
+            f"你前面提到的預估金額我抓 NT${amount:,.0f}。\n"
+            "如果是 NTP 範圍，已超過 NT$100,000，通常先走 quotation process。\n"
+            "下一步補 CapEx/Opex、是否 budgeted、供應商是否在 ASL。"
+        )
+
     detail_markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
     if has_procurement_context and any(marker in lower for marker in detail_markers):
         latest_amount = _extract_amount(context)
@@ -252,9 +294,9 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
             )
         if latest_amount is not None and latest_amount > 100000:
             return (
-                "收到，Opex、budgeted、供應商也在 ASL，方向就比較清楚。\n"
+                "收到，供應商在 ASL，金額也抓到了。\n"
                 "因為金額超過 NT$100,000，下一步建議交 NTP 走 quotation process。\n"
-                "通常至少要準備 3 家書面報價；如果只有一家或家數不足，就要先把原因寫清楚給 NTP 確認。"
+                "通常至少要準備 3 家書面報價；CapEx/Opex、是否 budgeted 還是要補清楚。"
             )
         return (
             "收到，這樣流程會比較單純。\n"
@@ -289,7 +331,13 @@ def _is_short_followup(text: str) -> bool:
 
 def _looks_contextual(text: str) -> bool:
     stripped = text.strip().lower()
-    return any(marker in stripped for marker in ["那", "這樣", "這個", "那如果", "那這個", "可以嗎"])
+    return any(marker in stripped for marker in ["那", "這樣", "這個", "那如果", "那這個", "可以嗎", "剛剛", "不是說"])
+
+
+def _is_procurement_detail_followup(text: str) -> bool:
+    lower = text.lower().strip()
+    markers = ["opex", "capex", "budgeted", "unbudgeted", "asl", "asl上", "asl 內", "asl內"]
+    return any(marker in lower for marker in markers)
 
 
 def _is_procurement_case_text(text: str) -> bool:
@@ -354,7 +402,10 @@ def _contract_renewal_reply(text: str, history: list[Any] | None = None) -> str 
     context = _history_text(history or [])
     context_lower = context.lower()
     is_renewal = _is_contract_renewal_request(lower) or (
-        _is_contract_renewal_request(context_lower) and _looks_renewal_followup(text)
+        _is_contract_renewal_context(context_lower)
+        and _looks_renewal_followup(text)
+        and not _is_procurement_case_text(text)
+        and not _is_procurement_detail_followup(text)
     )
     if not is_renewal:
         return None
@@ -411,10 +462,14 @@ def _extract_years(text: str) -> float | None:
 
 def _is_contract_renewal_request(text: str) -> bool:
     lower = text.lower()
-    return any(
-        word in lower
-        for word in ["續約", "展延", "延長合約", "合約到期", "renew", "renewal", "extend contract", "contract renewal"]
-    )
+    if any(word in lower for word in ["續約", "展延", "延長合約", "renew", "renewal", "extend contract", "contract renewal"]):
+        return True
+    return "合約到期" in lower and any(word in lower for word in ["怎麼", "處理", "要注意", "可以", "renew", "extend"])
+
+
+def _is_contract_renewal_context(text: str) -> bool:
+    lower = text.lower()
+    return any(word in lower for word in ["續約", "展延", "延長合約", "renew", "renewal", "extend contract", "contract renewal"])
 
 
 def _looks_renewal_followup(text: str) -> bool:
