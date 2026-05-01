@@ -4,7 +4,6 @@ import base64
 import hashlib
 import hmac
 import json
-import time
 
 import requests
 
@@ -28,8 +27,6 @@ def verify_signature(body: bytes, signature: str) -> bool:
 
 def reply_text(reply_token: str, text: str) -> None:
     text = (text or "").strip()[:4900]
-    delay = min(15.0, 2.0 + len(text) * 0.04)
-    time.sleep(delay)
     response = requests.post(
         LINE_REPLY_URL,
         headers={

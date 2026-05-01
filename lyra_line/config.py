@@ -17,7 +17,7 @@ class Settings:
     telegram_bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
     telegram_work_group_chat_id: str = os.getenv("TELEGRAM_WORK_GROUP_CHAT_ID", "")
 
-    app_db_path: str = os.getenv("APP_DB_PATH", "./lyra_line.db")
+    app_db_path: str = os.getenv("APP_DB_PATH", os.getenv("DB_PATH", "./lyra_line.db"))
     public_base_url: str = os.getenv("PUBLIC_BASE_URL", "")
     takeover_hours: int = int(os.getenv("TAKEOVER_HOURS", "12"))
 

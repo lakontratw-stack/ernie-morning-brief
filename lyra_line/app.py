@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260501-debug"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -86,15 +86,20 @@ def healthz() -> dict[str, str]:
 
 @app.post("/admin/refresh-knowledge")
 def admin_refresh_knowledge() -> dict[str, str]:
+    db.init_db()
     refresh_knowledge()
     return {"status": "refreshed"}
 
 
 @app.get("/admin/diagnostics", response_class=UTF8JSONResponse)
 def admin_diagnostics() -> dict:
+    db.init_db()
     refresh_knowledge()
     data = load_knowledge()
     sample_questions = [
+        "我有一筆150,000的支出請問一下我要怎麼進行",
+        "我多久要做一次供應商評估？",
+        "我想採購19999999的車子，需要走甚麼程序",
         "我想採購99999的平板，需要走甚麼程序",
         "如果我要續約廣告代理人的合約，我要注意甚麼",
         "A vendor 100, B vendor 170",
@@ -255,10 +260,17 @@ def _dispatch_event(event: dict) -> None:
         _process_text(user_id, display_name, reply_token, message.get("text") or "")
     elif msg_type == "sticker":
         reply_text(reply_token, "收到。採購或 tender 問題請直接打字給我。")
-    elif msg_type == "image":
+    elif msg_type in {"image", "file", "audio", "video"}:
         reply_text(reply_token, ESCALATION_REPLY)
         db.set_takeover(user_id)
-        enqueue_escalation(user_id, display_name, "(客戶傳圖片)", "客戶傳送圖片", ESCALATION_REPLY)
+        db.log_chat(user_id, f"({msg_type} message)", ESCALATION_REPLY)
+        enqueue_escalation(
+            user_id,
+            display_name,
+            f"(使用者傳送 {msg_type})",
+            f"使用者傳送 {msg_type}，需要人工判讀",
+            ESCALATION_REPLY,
+        )
     else:
         reply_text(reply_token, "抱歉這類訊息我目前看不到～請打字告訴我您的需求。")
 

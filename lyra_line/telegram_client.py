@@ -87,6 +87,15 @@ def drain_once(limit: int = 10) -> int:
 
 
 def _send_row(row) -> bool:
+    if not settings.telegram_bot_token or not row["target_chat_id"]:
+        print(f"[telegram disabled] {row['event_type']}: {row['payload_json'][:500]}")
+        with connect() as conn:
+            conn.execute(
+                "UPDATE notification_outbox SET status='sent', sent_at=?, last_error=NULL WHERE id=?",
+                (datetime.utcnow().isoformat(), row["id"]),
+            )
+        return True
+
     with connect() as conn:
         claimed = conn.execute(
             """
