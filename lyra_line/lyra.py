@@ -108,6 +108,14 @@ def _deterministic_procurement_reply(text: str, history: list[Any]) -> str | Non
     if any(keyword in lower for keyword in hard_escalation_keywords):
         return "[ESCALATE:需要正式判斷]\n這題會牽涉正式判斷，我先通知 NTP team 一起看，比較安全。\n你也可以先補金額、供應商、合約/報價狀況，我會先幫你整理問題點。"
 
+    threshold_reply = _tender_threshold_question_reply(text)
+    if threshold_reply:
+        return threshold_reply
+
+    rate_card_reply = _rate_card_commitment_reply(text)
+    if rate_card_reply:
+        return rate_card_reply
+
     policy_reply = _policy_qa_reply(text)
     if policy_reply:
         return policy_reply
@@ -204,6 +212,37 @@ def _policy_qa_reply(text: str) -> str | None:
     return None
 
 
+def _tender_threshold_question_reply(text: str) -> str | None:
+    if not _is_tender_threshold_question(text):
+        return None
+    return _tender_threshold_policy_reply()
+
+
+def _tender_threshold_policy_reply() -> str:
+    return (
+        "Tender 門檻看 estimated budget / purchase amount 或 previous spending。\n"
+        "超過 HK$3M 就要走 tender，原則上至少 5 家 competing suppliers / sealed bids。\n"
+        "NT$100,000 以上到 HK$3M，通常是 quotation，至少 3 家書面報價。\n"
+        "如果是 Rate Card，要用合約期間 estimated spending 保守估；接近門檻時建議往 tender 看。"
+    )
+
+
+def _rate_card_commitment_reply(text: str) -> str | None:
+    lower = text.lower()
+    if not (
+        ("rate card" in lower or "ratecard" in lower or "rate-card" in lower)
+        and ("commitment" in lower or "committment" in lower or "承諾" in text)
+    ):
+        return None
+
+    return (
+        "差別重點是：有沒有 commitment。\n"
+        "Rate Card 是先約好單價/價格表，但沒有最低採購量、最低付款義務，也沒有排他限制。\n"
+        "Commitment contract 會綁住 BU，例如 minimum order、minimum financial obligation、exclusivity，或兩者都有。\n"
+        "如果價格表其實有任何 commitment，就不能當純 Rate Card，通常要按 Investment Policy 的 Commitment 規則看 approval。"
+    )
+
+
 def _supplier_appointment_reply(text: str) -> str | None:
     lower = text.lower()
     if not any(word in lower for word in ["appoint", "direct award", "single source", "指定供應商", "直接指定", "直接給", "單一供應商"]):
@@ -278,6 +317,11 @@ def _followup_reply(text: str, history: list[Any]) -> str | None:
     context_lower = context.lower()
     lower = text.lower().strip()
     amount = _extract_amount(text)
+    if _is_tender_threshold_question(text) or (
+        _is_amount_threshold_followup(text) and any(word in context_lower for word in ["tender", "招標"])
+    ):
+        return _tender_threshold_policy_reply()
+
     if (
         _is_contract_renewal_context(context_lower)
         and _looks_renewal_followup(text)
@@ -399,6 +443,21 @@ def _is_threshold_challenge(text: str) -> bool:
     challenge = any(word in lower for word in ["為什麼", "難道", "不是", "應該", "直接跟我說"])
     threshold = any(word in lower for word in ["tender", "12m", "12 m", "12000000", "超過12", "超過 12"])
     return challenge and threshold
+
+
+def _is_tender_threshold_question(text: str) -> bool:
+    lower = text.lower()
+    has_tender = "tender" in lower or "招標" in text
+    asks_amount = any(
+        marker in lower
+        for marker in ["多少錢", "多少金额", "多少金額", "超過多少", "門檻", "threshold", "amount"]
+    )
+    return has_tender and asks_amount
+
+
+def _is_amount_threshold_followup(text: str) -> bool:
+    lower = text.lower()
+    return any(marker in lower for marker in ["多少錢", "多少金額", "超過多少", "門檻", "threshold", "amount"])
 
 
 def _history_text(history: list[Any]) -> str:
