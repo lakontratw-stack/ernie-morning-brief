@@ -280,7 +280,7 @@ def _tender_threshold_policy_reply() -> str:
         "Tender 門檻看 estimated budget / purchase amount 或 previous spending。\n"
         "超過 HK$3M 就要走 tender，原則上至少 5 家 competing suppliers / sealed bids。\n"
         "NT$100,000 以上到 HK$3M，通常是 quotation，至少 3 家書面報價。\n"
-        "如果是 Rate Card，要用合約期間 estimated spending 保守估；接近門檻時建議往 tender 看。"
+        "如果同時是 Rate Card / Commitment，還要另外看 Investment Policy 的 approval threshold。"
     )
 
 
@@ -311,10 +311,10 @@ def _rate_card_threshold_reply(text: str) -> str | None:
         return None
 
     return (
-        "Rate Card 不能只看單價表，要看合約期間 estimated spending。\n"
-        "如果預估金額接近 HK$3M，我會建議保守往 tender 路徑準備，不要只當 quotation。\n"
-        "另外要確認它沒有 minimum order、minimum financial obligation 或 exclusivity。\n"
-        "只要有這些 commitment，就不算單純 Rate Card，approval 也要另外看 Investment Policy。"
+        "如果是 Investment Policy 下的 Rate Card，要看 estimated contract amount 決定 approval level。\n"
+        "最低價供應商：<HK$5M 是 BU MD+FD；HK$5M-<HK$10M 是 ASW Group CFO；≥HK$10M 是 ASW IC。\n"
+        "若不是選最低價供應商，≥HK$5M 就會到 ASW IC。\n"
+        "先確認它沒有 minimum order、minimum financial obligation 或 exclusivity；有的話就不是純 Rate Card，要改看 Commitment。"
     )
 
 

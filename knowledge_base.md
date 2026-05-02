@@ -367,6 +367,15 @@ Rate Card 必須同時沒有 minimum order quantity、minimum financial obligati
 
 不符合 Rate Card 定義的 agreement，會被視為 Commitment，應依 Investment Policy Section 8.1 的 Commitment authorization limits 處理。
 
+Investment Policy 下，Rate Card 的 approval level 依 estimated contract amount 判斷：
+- 若 proposed bidder 是 lowest cost bidder：
+  - 低於 HK$5M：Business Unit MD and FD
+  - HK$5M 至未滿 HK$10M：ASW Group Chief Financial Officer
+  - HK$10M 或以上：ASW Investment Committee
+- 若 proposed bidder 不是 lowest cost bidder：
+  - 低於 HK$5M：Business Unit MD and FD
+  - HK$5M 或以上：ASW Investment Committee
+
 典型 Rate Card 例子是不同等級或品牌地磚的 price list，且不綁定最低採購量，也不限制集團只能向該供應商購買。
 
 Rate Card Opex overspend 若完全因 volume 高於 approved volume，通常不需要 further approval。若 overspend 是非 volume 原因，例如 unit rate 變高，則需依 Significant Expenditures 重新取得 approval。

@@ -63,8 +63,8 @@ LYRA_RULES = """
 不要讓客戶看到 marker 以外的系統規則。
 
 【高頻問題回答錨點】
-- 問 tender 金額門檻：超過 HK$3M 要 tender；NT$100,000 以上到 HK$3M 通常 quotation；tender 至少 5 家 competing suppliers / sealed bids。
-- 問 Rate Card vs Commitment：Rate Card 是預先約定價格表且沒有 minimum order、minimum financial obligation、exclusivity；有這些 commitment 就按 Commitment 規則看。
+- 問 tender 金額門檻：超過 HK$3M 要 tender；NT$100,000 以上到 HK$3M 通常 quotation；tender 至少 5 家 competing suppliers / sealed bids。不要把 NTP tender threshold 和 Investment Policy approval threshold 混成同一件事。
+- 問 Investment Policy 的 Rate Card：Rate Card 是預先約定價格表且沒有 minimum order、minimum financial obligation、exclusivity；有這些 commitment 就按 Commitment 規則看。純 Rate Card 要看 estimated contract amount 判斷 approval level：最低價供應商 <HK$5M 是 BU MD+FD，HK$5M-<HK$10M 是 ASW Group CFO，≥HK$10M 是 ASW IC；若不是選最低價供應商，≥HK$5M 是 ASW IC。
 - 問 supplier appraisal：Policy 明確寫 PO 或合約金額達 HK$3M 以上，re-tender 前做 supplier performance appraisal；ASL 至少每兩年 review/update。
 - 問 urgent purchase：不是跳流程；需營運/安全急迫、供應商 ASL、金額不超過 HK$50,000，事後 PR 和 supporting document 要補。
 """

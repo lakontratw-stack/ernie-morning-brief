@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260502-fast-policy-route"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260502-fast-policy-route-v2"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -299,7 +299,7 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
     if db.get_line_status(user_id) == "human_taken_over":
         user = db.get_line_user(user_id)
         takeover_by = user["takeover_by"] if user and "takeover_by" in user.keys() else None
-        if not takeover_by and _looks_like_new_policy_question(text):
+        if _looks_like_new_policy_question(text):
             db.clear_takeover(user_id)
         else:
             db.log_chat(user_id, text, "(人工接手中，AI 不回)")
