@@ -13,6 +13,9 @@ class Settings:
     line_channel_secret: str = os.getenv("LINE_CHANNEL_SECRET", "")
     line_channel_access_token: str = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", "")
     line_sender_name: str = os.getenv("LINE_SENDER_NAME", "Lyra")
+    line_profile_lookup_enabled: bool = os.getenv("LINE_PROFILE_LOOKUP_ENABLED", "false").lower() == "true"
+    line_profile_timeout_seconds: float = float(os.getenv("LINE_PROFILE_TIMEOUT_SECONDS", "1.5"))
+    line_reply_timeout_seconds: float = float(os.getenv("LINE_REPLY_TIMEOUT_SECONDS", "8"))
 
     telegram_bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
     telegram_work_group_chat_id: str = os.getenv("TELEGRAM_WORK_GROUP_CHAT_ID", "")
@@ -55,6 +58,8 @@ class Settings:
         "OPENAI_MODEL",
         os.getenv("OPENAI_COMPATIBLE_MODEL", "gpt-4.1-mini"),
     )
+    openai_timeout_seconds: float = float(os.getenv("OPENAI_TIMEOUT_SECONDS", "12"))
+    openai_max_tokens: int = int(os.getenv("OPENAI_MAX_TOKENS", "450"))
 
 
 settings = Settings()

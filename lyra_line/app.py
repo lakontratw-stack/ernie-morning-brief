@@ -46,7 +46,7 @@ KEYWORD_ESCALATIONS = [
     "幫我送簽",
 ]
 FRUSTRATION_ESCALATIONS = ["聽不懂", "不懂", "不聰明", "你不明白", "沒用", "爛", "笨"]
-APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260502-fast-policy-route-v2"
+APP_VERSION = "procurement-mvp-legacy-fastapi-compat-20260516-speed-guards"
 RESET_AI_KEYWORDS = ["恢復AI", "恢復ai", "解除人工", "重啟AI", "重啟ai", "讓AI回覆", "讓ai回覆"]
 
 
@@ -129,6 +129,13 @@ def admin_diagnostics() -> dict:
             "days": settings.watsons_default_days,
             "open": settings.watsons_default_open,
             "close": settings.watsons_default_close,
+        },
+        "speed_settings": {
+            "line_profile_lookup_enabled": settings.line_profile_lookup_enabled,
+            "line_profile_timeout_seconds": settings.line_profile_timeout_seconds,
+            "line_reply_timeout_seconds": settings.line_reply_timeout_seconds,
+            "openai_timeout_seconds": settings.openai_timeout_seconds,
+            "openai_max_tokens": settings.openai_max_tokens,
         },
         "official_sources": official_source_status(),
         "sample_replies": {question: _diagnostic_reply(question) for question in sample_questions},
@@ -289,26 +296,28 @@ def _dispatch_event(event: dict) -> None:
 
 
 def _process_text(user_id: str, display_name: str, reply_token: str, text: str) -> None:
+    started = time.perf_counter()
     if any(keyword in text for keyword in RESET_AI_KEYWORDS):
         db.clear_takeover(user_id)
         customer_reply = "已恢復 Lyra 自動回覆。你可以再問我採購流程、tender、續約或議價問題。"
         reply_text(reply_token, customer_reply)
         db.log_chat(user_id, text, customer_reply)
+        _log_reply_time(started, "reset")
         return
 
     if db.get_line_status(user_id) == "human_taken_over":
-        user = db.get_line_user(user_id)
-        takeover_by = user["takeover_by"] if user and "takeover_by" in user.keys() else None
         if _looks_like_new_policy_question(text):
             db.clear_takeover(user_id)
         else:
             db.log_chat(user_id, text, "(人工接手中，AI 不回)")
             enqueue_escalation(user_id, display_name, text, "人工接手期間客戶補充訊息", None)
+            _log_reply_time(started, "takeover_silent")
             return
 
     if db.get_line_status(user_id) == "human_taken_over":
         db.log_chat(user_id, text, "(人工接手中，AI 不回)")
         enqueue_escalation(user_id, display_name, text, "人工接手期間客戶補充訊息", None)
+        _log_reply_time(started, "takeover_silent")
         return
 
     keyword = next((kw for kw in KEYWORD_ESCALATIONS if kw in text), None)
@@ -317,6 +326,7 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
         db.set_takeover(user_id)
         db.log_chat(user_id, text, ESCALATION_REPLY)
         enqueue_escalation(user_id, display_name, text, f"關鍵字「{keyword}」", ESCALATION_REPLY)
+        _log_reply_time(started, "keyword_escalation")
         return
 
     frustration = next((kw for kw in FRUSTRATION_ESCALATIONS if kw in text), None)
@@ -326,6 +336,7 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
         db.set_takeover(user_id)
         db.log_chat(user_id, text, customer_reply)
         enqueue_escalation(user_id, display_name, text, f"客戶反映 AI 未理解：「{frustration}」", customer_reply)
+        _log_reply_time(started, "frustration_escalation")
         return
 
     try:
@@ -340,6 +351,7 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
         reply_text(reply_token, customer_reply)
         db.log_chat(user_id, text, customer_reply)
         enqueue_escalation(user_id, display_name, text, reason or "AI 判斷", customer_reply)
+        _log_reply_time(started, "ai_escalation")
         return
 
     notify_summary, cleaned = parse_notify(ai_reply)
@@ -349,6 +361,12 @@ def _process_text(user_id: str, display_name: str, reply_token: str, text: str) 
 
     if notify_summary:
         enqueue_notify(user_id, display_name, text, notify_summary, customer_reply)
+    _log_reply_time(started, "reply")
+
+
+def _log_reply_time(started: float, route: str) -> None:
+    elapsed = time.perf_counter() - started
+    print(f"Lyra route={route} elapsed={elapsed:.2f}s")
 
 
 def _looks_like_new_policy_question(text: str) -> bool:

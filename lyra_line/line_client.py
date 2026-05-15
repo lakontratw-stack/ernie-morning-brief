@@ -46,19 +46,24 @@ def reply_text(reply_token: str, text: str) -> None:
             },
             ensure_ascii=False,
         ).encode("utf-8"),
-        timeout=15,
+        timeout=settings.line_reply_timeout_seconds,
     )
     response.raise_for_status()
 
 
 def get_profile(user_id: str) -> dict:
-    if not settings.line_channel_access_token:
+    if not settings.line_channel_access_token or not settings.line_profile_lookup_enabled:
         return {}
-    response = requests.get(
-        LINE_PROFILE_URL.format(user_id=user_id),
-        headers={"Authorization": f"Bearer {settings.line_channel_access_token}"},
-        timeout=10,
-    )
+    try:
+        response = requests.get(
+            LINE_PROFILE_URL.format(user_id=user_id),
+            headers={"Authorization": f"Bearer {settings.line_channel_access_token}"},
+            timeout=settings.line_profile_timeout_seconds,
+        )
+    except requests.RequestException as exc:
+        print(f"LINE profile lookup skipped: {exc}")
+        return {}
     if response.status_code >= 400:
+        print(f"LINE profile lookup failed: {response.status_code}")
         return {}
     return response.json()

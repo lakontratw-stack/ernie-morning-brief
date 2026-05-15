@@ -763,8 +763,9 @@ def _ask_openai_compatible(messages: list[dict[str, str]]) -> str:
             "model": settings.openai_model,
             "messages": messages,
             "temperature": 0.3,
+            "max_tokens": settings.openai_max_tokens,
         },
-        timeout=25,
+        timeout=settings.openai_timeout_seconds,
     )
     response.raise_for_status()
     data: dict[str, Any] = response.json()
